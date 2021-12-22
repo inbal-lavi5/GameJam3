@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         currDirection = 1;
+        // var a = GameMSingle.Instance;
     }
 
     void Update()
@@ -39,7 +40,8 @@ public class Player : MonoBehaviour
         {
             distMovedFromStart += amountMoved * currDirection;
             currTargetPos = Math.Abs(distMovedFromStart) >= maxDistFromStart ?
-                maxDistFromStart : Random.Range(10, 30);
+                // maxDistFromStart : Random.Range(10, 30);
+                maxDistFromStart : Random.Range(1, 3);
             
             currDirection = -currDirection;
             amountMoved = 0;
