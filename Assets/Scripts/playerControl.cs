@@ -12,33 +12,97 @@ public class playerControl : MonoBehaviour
     private Vector3 moveDir;
     private Rigidbody rb;
 
+    [SerializeField] private float fall = 0.05f;
+    [SerializeField] private float maxAngle = 40;
+    [SerializeField] private float rotationSpeed = 100;
+    [SerializeField] private bool breaking = true;
+    
+    
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         moveDir = new Vector3(0, 0f, 1f).normalized;
-
     }
 
     void Update()
     {
         if (Input.GetKey(left))
         {
-            moveDir = new Vector3(-1f, 0f, 1f).normalized;
+            moveDir = new Vector3(-1, 0, 1).normalized;
         }
-        
+
         else if (Input.GetKey(right))
         {
-            moveDir = new Vector3(1, 0f, 1f).normalized;
+            moveDir = new Vector3(1, 0, 1).normalized;
         }
-        
-        else if (Input.GetKey(up))
+
+        else //if (Input.GetKey(up))
         {
-            moveDir = new Vector3(0, 0f, 1f).normalized;
+            moveDir = new Vector3(0, 0, 1).normalized;
         }
     }
 
     private void FixedUpdate()
     {
+        float input = Input.GetAxis("Horizontal");
+        Vector3 m_EulerAngleVelocity = new Vector3(0, input * rotationSpeed, 0);
+
+        float angle = rb.transform.eulerAngles.y;
+        angle = (angle > 180) ? angle - 360 : angle;
+        if (angle > maxAngle && input > 0 || angle < -maxAngle && input < 0)
+        {
+            moveDir = new Vector3(0, 0, 1).normalized;
+        }
+        else
+        {
+            Quaternion deltaRotation = Quaternion.Euler(m_EulerAngleVelocity * Time.fixedDeltaTime);
+            rb.MoveRotation(rb.rotation * deltaRotation);
+        }
+
+
+        // print(angle + " " + input + " " + rb.transform.eulerAngles + moveDir);
         rb.MovePosition(rb.position + transform.TransformDirection(moveDir) * moveSpeed * Time.deltaTime);
+        // rb.MovePosition(rb.position + new Vector3(0, 0f, 1f).normalized * moveSpeed * Time.deltaTime);
+        // rb.MovePosition(rb.position + new Vector3(0, 0f, 1f) * moveSpeed * Time.deltaTime);
+
+        // rb.AddForce(moveSpeed);
+    }
+
+    private void OnCollisionEnter(UnityEngine.Collision other)
+    {
+        if (breaking)
+        {
+            // print("COLLLLL tag: " + other.transform.tag + " name: " + other.transform.name);
+            if (other.transform.tag != "Plane")
+            {
+                GameObject otherGameObject = other.gameObject;
+                if (otherGameObject.GetComponent<Rigidbody>() == null)
+                {
+                    otherGameObject.AddComponent<Rigidbody>();
+                    // StartCoroutine(ExecuteAfterTime(fall, otherGameObject));
+                }
+            }
+        }
+    }
+
+    void AddRigidChildren(Transform parent)
+    {
+        // print(parent.name);
+        for (int i = 0; i < parent.childCount; i++)
+        {
+            Transform child = parent.GetChild(i);
+            child.gameObject.AddComponent<Rigidbody>();
+            if (child.childCount > 0)
+                AddRigidChildren(child);
+        }
+    }
+
+    IEnumerator ExecuteAfterTime(float time, GameObject other)
+    {
+        yield return new WaitForSeconds(time);
+        other.gameObject.GetComponent<MeshCollider>().isTrigger = true;
+        yield return new WaitForSeconds(3);
+        Destroy(other.gameObject);
     }
 }

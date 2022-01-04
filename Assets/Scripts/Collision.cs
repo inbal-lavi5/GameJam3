@@ -23,11 +23,12 @@ public class Collision : MonoBehaviour
         print("COLLLLL"+other.transform.tag);
         if (other.transform.tag == "Player")
         {
+            gameObject.AddComponent<Rigidbody>();
             foreach (Transform child in transform)
             {
                 child.gameObject.AddComponent<Rigidbody>();
             }
-            print("PLAYAAAAAAA");
+            // print("PLAYAAAAAAA");
         }
     }
 }
