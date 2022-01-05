@@ -6,7 +6,7 @@ using UnityEngine;
 public class AddColliderToAllChildren : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         AddChildren(transform);
     }
@@ -19,7 +19,10 @@ public class AddColliderToAllChildren : MonoBehaviour
             Transform child = parent.GetChild(i);
             child.gameObject.AddComponent<MeshCollider>();
             child.GetComponent<MeshCollider>().convex = true;
-            child.tag = "End";
+            if (parent.tag == "Collapse")
+            {
+                child.tag = "Collapse";
+            }
             if (child.childCount > 0)
             {
                 AddChildren(child);

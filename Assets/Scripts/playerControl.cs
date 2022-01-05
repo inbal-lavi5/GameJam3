@@ -1,10 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+using DG.Tweening;
 
 public class playerControl : MonoBehaviour
 {
+    private GameManager gm;
+
     public float moveSpeed = 15;
     public KeyCode up;
     public KeyCode left;
@@ -16,23 +20,24 @@ public class playerControl : MonoBehaviour
     [SerializeField] private float maxAngle = 40;
     [SerializeField] private float rotationSpeed = 100;
     [SerializeField] private bool breaking = true;
-    
-    
+
+    private int pickUpCollected = 0;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         moveDir = new Vector3(0, 0f, 1f).normalized;
+        gm = GameManager.Instance;
     }
 
     void Update()
     {
-        if (Input.GetKey(left))
+        if (Input.GetKeyDown(left))
         {
             moveDir = new Vector3(-1, 0, 1).normalized;
         }
 
-        else if (Input.GetKey(right))
+        else if (Input.GetKeyDown(right))
         {
             moveDir = new Vector3(1, 0, 1).normalized;
         }
@@ -40,6 +45,11 @@ public class playerControl : MonoBehaviour
         else //if (Input.GetKey(up))
         {
             moveDir = new Vector3(0, 0, 1).normalized;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            NextLevel();
         }
     }
 
@@ -59,14 +69,8 @@ public class playerControl : MonoBehaviour
             Quaternion deltaRotation = Quaternion.Euler(m_EulerAngleVelocity * Time.fixedDeltaTime);
             rb.MoveRotation(rb.rotation * deltaRotation);
         }
-
-
-        // print(angle + " " + input + " " + rb.transform.eulerAngles + moveDir);
+        
         rb.MovePosition(rb.position + transform.TransformDirection(moveDir) * moveSpeed * Time.deltaTime);
-        // rb.MovePosition(rb.position + new Vector3(0, 0f, 1f).normalized * moveSpeed * Time.deltaTime);
-        // rb.MovePosition(rb.position + new Vector3(0, 0f, 1f) * moveSpeed * Time.deltaTime);
-
-        // rb.AddForce(moveSpeed);
     }
 
     private void OnCollisionEnter(UnityEngine.Collision other)
@@ -81,6 +85,20 @@ public class playerControl : MonoBehaviour
                 {
                     otherGameObject.AddComponent<Rigidbody>();
                     // StartCoroutine(ExecuteAfterTime(fall, otherGameObject));
+                }
+            }
+        }
+
+        // else
+        {
+            if (other.transform.tag == "PickUp")
+            {
+                pickUpCollected++;
+                Destroy(other.gameObject);
+                print("pickUpCollected: " + pickUpCollected);
+                if (pickUpCollected >= gm.pickUpsToCollectTillExplosion)
+                {
+                    NextLevel();
                 }
             }
         }
@@ -104,5 +122,21 @@ public class playerControl : MonoBehaviour
         other.gameObject.GetComponent<MeshCollider>().isTrigger = true;
         yield return new WaitForSeconds(3);
         Destroy(other.gameObject);
+    }
+
+    void NextLevel()
+    {
+        // explode
+        transform.DORotate(Vector3.zero, 0.5f);
+        transform.DOScaleX(50, 1.5f);
+        transform.DOScaleZ(15, 1.5f);
+
+        StartCoroutine(MoveScene());
+    }
+
+    IEnumerator MoveScene()
+    {
+        yield return new WaitForSeconds(10);
+        gm.NextLevel();
     }
 }
