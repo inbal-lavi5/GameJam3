@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class playerControl : MonoBehaviour
 {
@@ -92,7 +93,17 @@ public class playerControl : MonoBehaviour
                 GameObject otherGameObject = other.gameObject;
                 if (otherGameObject.GetComponent<Rigidbody>() == null)
                 {
-                    otherGameObject.AddComponent<Rigidbody>();
+                    otherGameObject.AddComponent<Rigidbody>().AddForce(Random.Range(0f, 0.5f), Random.Range(0f, 0.5f), Random.Range(0f, 0.5f));
+
+                    if (otherGameObject.transform.parent != null)
+                    {
+                        Transform rootObject = otherGameObject.transform.parent.transform.parent;  // todo is it correct ??
+
+                        if (rootObject != null && rootObject.tag != "road" && rootObject.tag != "sidewalk")
+                        {
+                            AddRigidChildren(rootObject);
+                        }
+                    }
                     // StartCoroutine(ExecuteAfterTime(fall, otherGameObject));
                 }
             }
@@ -105,9 +116,15 @@ public class playerControl : MonoBehaviour
         for (int i = 0; i < parent.childCount; i++)
         {
             Transform child = parent.GetChild(i);
-            child.gameObject.AddComponent<Rigidbody>();
+            if (child.gameObject.GetComponent<Rigidbody>() == null)
+            {
+                child.gameObject.AddComponent<Rigidbody>().AddForce(Random.Range(0f, 0.5f), Random.Range(0f, 0.5f), Random.Range(0f, 0.5f));
+            }
+            
             if (child.childCount > 0)
+            {
                 AddRigidChildren(child);
+            }
         }
     }
 
