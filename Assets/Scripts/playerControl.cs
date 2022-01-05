@@ -11,6 +11,7 @@ public class playerControl : MonoBehaviour
     public KeyCode right;
     private Vector3 moveDir;
     private Rigidbody rb;
+    private GameManager gameManager;
 
     [SerializeField] private float fall = 0.05f;
     [SerializeField] private float maxAngle = 40;
@@ -23,6 +24,7 @@ public class playerControl : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         moveDir = new Vector3(0, 0f, 1f).normalized;
+        gameManager = GameManager.Instance;
     }
 
     void Update()
