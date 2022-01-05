@@ -12,7 +12,8 @@ public class playerControl : MonoBehaviour
     private Vector3 moveDir;
     private Rigidbody rb;
     private GameManager gameManager;
-
+    
+    [SerializeField] private manaBar playerManaBar;
     [SerializeField] private float fall = 0.05f;
     [SerializeField] private float maxAngle = 40;
     [SerializeField] private float rotationSpeed = 100;
@@ -42,6 +43,24 @@ public class playerControl : MonoBehaviour
         else //if (Input.GetKey(up))
         {
             moveDir = new Vector3(0, 0, 1).normalized;
+        }
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            if (playerManaBar.getMana() > gameManager.MANA_MIN)
+            {
+                breaking = false;
+            }
+            
+            else
+            {
+                breaking = true;
+            }
+        }
+
+        else
+        {
+            breaking = true;
         }
     }
 

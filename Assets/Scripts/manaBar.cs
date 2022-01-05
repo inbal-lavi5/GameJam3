@@ -30,7 +30,6 @@ public class manaBar : MonoBehaviour
       }
       
       bar.fillAmount = normalizedMana();
-      Debug.Log(manaAmount);
    }
 
 
@@ -58,5 +57,10 @@ public class manaBar : MonoBehaviour
    private float normalizedMana()
    {
       return manaAmount / gameManager.MANA_MAX;
+   }
+
+   public float getMana()
+   {
+      return manaAmount;
    }
 }
