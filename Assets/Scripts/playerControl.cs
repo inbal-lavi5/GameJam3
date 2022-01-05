@@ -47,15 +47,7 @@ public class playerControl : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Space))
         {
-            if (playerManaBar.getMana() > gameManager.MANA_MIN)
-            {
-                breaking = false;
-            }
-            
-            else
-            {
-                breaking = true;
-            }
+            breaking = !(playerManaBar.getMana() > gameManager.MANA_MIN);
         }
 
         else
