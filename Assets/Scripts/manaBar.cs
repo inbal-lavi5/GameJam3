@@ -4,63 +4,64 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class manaBar : MonoBehaviour
+public class ManaBar : MonoBehaviour
 {
-   private Image bar;
-   private GameManager gameManager;
-   
-   private float manaAmount = 0;
-   
-   private void Start()
-   {
-      bar = GetComponent<Image>();
-      gameManager = GameManager.Instance;
-   }
+    private Image bar;
+    private GameManager gameManager;
 
-   private void Update()
-   {
-      if (Input.GetKey(KeyCode.Space))
-      {
-         decMana();
-      }
+    private float manaAmount;
+    public bool dec;
 
-      else
-      {
-         addMana();
-      }
-      
-      bar.fillAmount = normalizedMana();
-   }
+    private void Start()
+    {
+        bar = GetComponent<Image>();
+        gameManager = GameManager.Instance;
+        manaAmount = gameManager.MANA_MAX;
+    }
+
+    private void Update()
+    {
+        if (dec)
+        {
+            decMana();
+        }
+
+        else
+        {
+            addMana();
+        }
+
+        bar.fillAmount = normalizedMana();
+    }
 
 
-   private void addMana()
-   {
-      manaAmount += gameManager.MANA_ADD * Time.deltaTime;
+    private void addMana()
+    {
+        manaAmount += gameManager.MANA_ADD * Time.deltaTime;
 
-      if (manaAmount > gameManager.MANA_MAX)
-      {
-         manaAmount = gameManager.MANA_MAX;
-      }
-   }
+        if (manaAmount > gameManager.MANA_MAX)
+        {
+            manaAmount = gameManager.MANA_MAX;
+        }
+    }
 
-   private void decMana()
-   {
-      
-      manaAmount -= gameManager.MANA_DEC * Time.deltaTime;
+    private void decMana()
+    {
+        manaAmount -= gameManager.MANA_DEC * Time.deltaTime;
 
-      if (manaAmount < gameManager.MANA_MIN)
-      {
-         manaAmount = gameManager.MANA_MIN;
-      }
-   }
+        if (manaAmount < gameManager.MANA_MIN)
+        {
+            manaAmount = gameManager.MANA_MIN;
+        }
+    }
 
-   private float normalizedMana()
-   {
-      return manaAmount / gameManager.MANA_MAX;
-   }
+    private float normalizedMana()
+    {
+        return manaAmount / gameManager.MANA_MAX;
+    }
 
-   public float getMana()
-   {
-      return manaAmount;
-   }
+    public float getMana()
+    {
+        return manaAmount;
+    }
 }

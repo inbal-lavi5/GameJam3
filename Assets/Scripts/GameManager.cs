@@ -12,8 +12,7 @@ public class GameManager : Singleton<GameManager>
     public float MANA_DEC = 30f;
     public float MANA_ADD = 30f;
 
-    
-    
+
     [SerializeField] public int pickUpsToSpreadAtStart = 50;
     [SerializeField] public int pickUpsToCollectTillExplosion = 5;
 
@@ -30,11 +29,14 @@ public class GameManager : Singleton<GameManager>
         InstantiatePickups();
     }
 
-    private void InstantiatePickups()
+    public void InstantiatePickups()
     {
+        print("INSTTTTTTTTTTTTTTT");
+        GameObject load = (GameObject) Resources.Load("PickUp", typeof(GameObject));
+        print(load == null);
         for (int i = 0; i < pickUpsToSpreadAtStart; i++)
         {
-            GameObject pickup = Instantiate(Resources.Load("PickUp")) as GameObject;
+            GameObject pickup = Instantiate(load);
 
             float posx = Random.Range(-60f, 60f);
             float posz = Random.Range(-200f, 1200f);
@@ -54,13 +56,25 @@ public class GameManager : Singleton<GameManager>
     {
         level = 0;
         SceneManager.LoadScene(levelsList[0]);
-        InstantiatePickups();
+        StartCoroutine(ExecuteAfterSceneLoaded());
+        // InstantiatePickups();
     }
+
 
     public void NextLevel()
     {
         level++;
         SceneManager.LoadScene(levelsList[level]);
+        StartCoroutine(ExecuteAfterSceneLoaded());
+        // SceneManager.SetActiveScene(SceneManager.GetSceneByName(levelsList[level]));
+        // InstantiatePickups();
+    }
+
+    IEnumerator ExecuteAfterSceneLoaded()
+    {
+        bool isLoaded = SceneManager.GetActiveScene().isLoaded;
+        // SceneManager.sceneUnloaded
+        yield return new WaitUntil(() => isLoaded);
         InstantiatePickups();
     }
 }
