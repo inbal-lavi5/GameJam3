@@ -11,17 +11,15 @@ public class PlayerControl : MonoBehaviour
     private GameManager gameManager;
 
     public float moveSpeed = 15;
-    public KeyCode up;
-    public KeyCode left;
-    public KeyCode right;
     private Vector3 moveDir;
     private Rigidbody rb;
-
-    [SerializeField] private ManaBar playerManaBar;
-    [SerializeField] private float fall = 0.05f;
-    [SerializeField] private float maxAngle = 40;
     [SerializeField] private float rotationSpeed = 100;
+    [SerializeField] private float maxAngle = 40;
+    [SerializeField] private float fall = 0.05f;
+
     [SerializeField] private bool breaking = true;
+    [SerializeField] private ManaBar playerManaBar;
+    [SerializeField] private PickupBar playerPickupBar;
 
     private int pickUpCollected = 0;
 
@@ -101,6 +99,7 @@ public class PlayerControl : MonoBehaviour
             if (otherTransform.CompareTag("PickUp"))
             {
                 pickUpCollected++;
+                playerPickupBar.addPickup();
                 Destroy(other.gameObject);
                 print("pickUpCollected: " + pickUpCollected);
                 if (pickUpCollected >= gameManager.pickUpsToCollectTillExplosion)
