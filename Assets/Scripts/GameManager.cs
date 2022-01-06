@@ -7,6 +7,13 @@ using Random = UnityEngine.Random;
 
 public class GameManager : Singleton<GameManager>
 {
+    public int MANA_MAX = 100;
+    public int MANA_MIN = 0;
+    public float MANA_DEC = 30f;
+    public float MANA_ADD = 30f;
+
+    
+    
     [SerializeField] public int pickUpsToSpreadAtStart = 50;
     [SerializeField] public int pickUpsToCollectTillExplosion = 5;
 

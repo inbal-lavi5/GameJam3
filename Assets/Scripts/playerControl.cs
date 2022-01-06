@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using DG.Tweening;
+using Random = UnityEngine.Random;
 
 public class playerControl : MonoBehaviour
 {
@@ -15,7 +16,9 @@ public class playerControl : MonoBehaviour
     public KeyCode right;
     private Vector3 moveDir;
     private Rigidbody rb;
-
+    private GameManager gameManager;
+    
+    [SerializeField] private manaBar playerManaBar;
     [SerializeField] private float fall = 0.05f;
     [SerializeField] private float maxAngle = 40;
     [SerializeField] private float rotationSpeed = 100;
@@ -27,6 +30,7 @@ public class playerControl : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         moveDir = new Vector3(0, 0f, 1f).normalized;
+        gameManager = GameManager.Instance;
         gm = GameManager.Instance;
     }
 
@@ -47,9 +51,19 @@ public class playerControl : MonoBehaviour
             moveDir = new Vector3(0, 0, 1).normalized;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             NextLevel();
+        }
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            breaking = !(playerManaBar.getMana() > gameManager.MANA_MIN);
+        }
+
+        else
+        {
+            breaking = true;
         }
     }
 
@@ -83,7 +97,17 @@ public class playerControl : MonoBehaviour
                 GameObject otherGameObject = other.gameObject;
                 if (otherGameObject.GetComponent<Rigidbody>() == null)
                 {
-                    otherGameObject.AddComponent<Rigidbody>();
+                    otherGameObject.AddComponent<Rigidbody>().AddForce(Random.Range(0f, 0.5f), Random.Range(0f, 0.5f), Random.Range(0f, 0.5f));
+
+                    if (otherGameObject.transform.parent != null)
+                    {
+                        Transform rootObject = otherGameObject.transform.parent.transform.parent;  // todo is it correct ??
+
+                        if (rootObject != null && rootObject.tag != "road" && rootObject.tag != "sidewalk")
+                        {
+                            AddRigidChildren(rootObject);
+                        }
+                    }
                     // StartCoroutine(ExecuteAfterTime(fall, otherGameObject));
                 }
             }
@@ -110,9 +134,15 @@ public class playerControl : MonoBehaviour
         for (int i = 0; i < parent.childCount; i++)
         {
             Transform child = parent.GetChild(i);
-            child.gameObject.AddComponent<Rigidbody>();
+            if (child.gameObject.GetComponent<Rigidbody>() == null)
+            {
+                child.gameObject.AddComponent<Rigidbody>().AddForce(Random.Range(0f, 0.5f), Random.Range(0f, 0.5f), Random.Range(0f, 0.5f));
+            }
+            
             if (child.childCount > 0)
+            {
                 AddRigidChildren(child);
+            }
         }
     }
 

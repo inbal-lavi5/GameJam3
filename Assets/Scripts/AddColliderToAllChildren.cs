@@ -19,6 +19,7 @@ public class AddColliderToAllChildren : MonoBehaviour
             Transform child = parent.GetChild(i);
             child.gameObject.AddComponent<MeshCollider>();
             child.GetComponent<MeshCollider>().convex = true;
+            // child.tag = "End";
             if (parent.tag == "Collapse")
             {
                 child.tag = "Collapse";
