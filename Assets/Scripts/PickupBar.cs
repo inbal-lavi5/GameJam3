@@ -18,12 +18,6 @@ public class PickupBar : MonoBehaviour
         bar.fillAmount = normalizedPickup();
     }
 
-    // private void Update()
-    // {
-    //     bar.fillAmount = normalizedPickup();
-    // }
-
-
     public void addPickup()
     {
         pickUpAmount++;

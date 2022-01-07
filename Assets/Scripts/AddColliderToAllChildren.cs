@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class AddColliderToAllChildren : MonoBehaviour
 {
-    // Start is called before the first frame update
     void Awake()
     {
         AddChildren(transform);
@@ -13,33 +12,32 @@ public class AddColliderToAllChildren : MonoBehaviour
 
     void AddChildren(Transform parent)
     {
-        // print(parent.name);
+        bool isCollapse = parent.CompareTag("Collapse");
         for (int i = 0; i < parent.childCount; i++)
         {
             Transform child = parent.GetChild(i);
-            child.gameObject.AddComponent<MeshCollider>();
-            child.GetComponent<MeshCollider>().convex = true;
-            // child.tag = "End";
-            if (parent.tag == "Collapse")
+            
+            // add collider
+            MeshCollider meshCollider = child.gameObject.AddComponent<MeshCollider>();
+            meshCollider.convex = true;
+            if (isCollapse)
             {
                 child.tag = "Collapse";
             }
+
+            // add custom tag
+            CustomTag customTag = parent.gameObject.GetComponent<CustomTag>();
+            if (customTag != null)
+            {
+                CustomTag addComponent = child.gameObject.AddComponent<CustomTag>();
+                addComponent.CopyTags(customTag.GetTags());
+            }
+
+            // do the same for kids
             if (child.childCount > 0)
             {
                 AddChildren(child);
             }
-            else
-            {
-                // parent.tag = "Object";
-            }
-        }
-    }
-
-    void AssignTag(Transform o)
-    {
-        if (o.tag == "Collapse")
-        {
-            
         }
     }
 }

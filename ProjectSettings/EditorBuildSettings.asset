@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/city.unity
     guid: bd3b1b9a361eace4a95923a5e51e5dc2
   - enabled: 1
-    path: Assets/Scenes/country.unity
+    path: Assets/Scenes/country0.unity
     guid: 0a9ddb8d4578ef543b6239c43e1856d6
+  - enabled: 1
+    path: Assets/Scenes/country.unity
+    guid: 093805cd271b65540a838789fc3b4a76
   m_configObjects: {}

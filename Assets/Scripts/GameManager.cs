@@ -31,9 +31,7 @@ public class GameManager : Singleton<GameManager>
 
     public void InstantiatePickups()
     {
-        print("INSTTTTTTTTTTTTTTT");
         GameObject load = (GameObject) Resources.Load("PickUp", typeof(GameObject));
-        print(load == null);
         for (int i = 0; i < pickUpsToSpreadAtStart; i++)
         {
             GameObject pickup = Instantiate(load);

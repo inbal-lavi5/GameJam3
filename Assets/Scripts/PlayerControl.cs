@@ -9,6 +9,7 @@ using Random = UnityEngine.Random;
 public class PlayerControl : MonoBehaviour
 {
     private GameManager gameManager;
+    private bool playing = true;
 
     public float moveSpeed = 15;
     private Vector3 moveDir;
@@ -22,6 +23,15 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private PickupBar playerPickupBar;
 
     private int pickUpCollected = 0;
+    Dictionary<string, int> countingList = new Dictionary<string, int>();
+
+    void Add(string s)
+    {
+        if (countingList.ContainsKey(s))
+            countingList[s]++;
+        else
+            countingList.Add(s, 1);
+    }
 
     private void Start()
     {
@@ -32,6 +42,7 @@ public class PlayerControl : MonoBehaviour
 
     void Update()
     {
+        if (!playing) return;
         if (Input.GetKey(KeyCode.Space))
         {
             playerManaBar.dec = true;
@@ -43,7 +54,6 @@ public class PlayerControl : MonoBehaviour
             breaking = true;
         }
 
-
         if (Input.GetKeyDown(KeyCode.E))
         {
             NextLevel();
@@ -52,22 +62,11 @@ public class PlayerControl : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!playing) return;
         float input = Input.GetAxis("Horizontal");
         Vector3 m_EulerAngleVelocity = new Vector3(0, input * rotationSpeed, 0);
         moveDir = new Vector3(input, 0, 1).normalized;
-        
-        // float angle = rb.transform.eulerAngles.y;
-        // angle = (angle > 180) ? angle - 360 : angle;
-        // if (angle > maxAngle && input > 0 || angle < -maxAngle && input < 0)
-        // {
-        //     moveDir = new Vector3(0, 0, 1).normalized;
-        // }
-        // else
-        // {
-        //     Quaternion deltaRotation = Quaternion.Euler(m_EulerAngleVelocity * Time.fixedDeltaTime);
-        //     rb.MoveRotation(rb.rotation * deltaRotation);
-        // }
-        
+
         Quaternion deltaRotation = Quaternion.Euler(m_EulerAngleVelocity * Time.fixedDeltaTime);
         rb.MoveRotation(rb.rotation * deltaRotation);
         rb.MovePosition(rb.position + transform.TransformDirection(moveDir) * moveSpeed * Time.deltaTime);
@@ -79,22 +78,31 @@ public class PlayerControl : MonoBehaviour
 
         if (breaking)
         {
-            // print("COLLLLL tag: " + other.transform.tag + " name: " + other.transform.name);
             if (!otherTransform.CompareTag("Plane"))
             {
                 GameObject otherGameObject = other.gameObject;
-                if (otherGameObject.GetComponent<Rigidbody>() == null)
+                // if (otherTransform.CompareTag("Collapsed"))
+                // {
+                //     // gameManager.Reset();
+                //     print("LOSEEEEE");
+                // }
+                if (otherTransform.CompareTag("Collapse"))
                 {
-                    otherGameObject.AddComponent<Rigidbody>().AddForce(Random.Range(0f, 0.5f), Random.Range(0f, 0.5f),
-                        Random.Range(0f, 0.5f));
-                    if (otherTransform.CompareTag("Collapse"))
+                    // add rigid body to all children
+                    AddRigidChildren(otherTransform.parent.parent);
+                    CheckCollision(other);
+                }
+                else
+                {
+                    if (otherGameObject.GetComponent<Rigidbody>() == null)
                     {
-                        AddRigidChildren(otherTransform.parent.parent);
+                        otherGameObject.AddComponent<Rigidbody>().AddForce(Random.Range(0f, 0.5f),
+                            Random.Range(0f, 0.5f), Random.Range(0f, 0.5f));
                     }
                 }
             }
         }
-        else
+        else if (playing)
         {
             if (otherTransform.CompareTag("PickUp"))
             {
@@ -110,9 +118,18 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
+    private void CheckCollision(UnityEngine.Collision other)
+    {
+        var multiTag = other.gameObject.GetComponent<CustomTag>();
+        if (multiTag != null && multiTag.HasTag("StreetLight"))
+        {
+            Add("yo");
+            Debug.Log("Character collided with " + countingList);
+        }
+    }
+
     void AddRigidChildren(Transform parent)
     {
-        // print(parent.name);
         for (int i = 0; i < parent.childCount; i++)
         {
             Transform child = parent.GetChild(i);
@@ -120,6 +137,7 @@ public class PlayerControl : MonoBehaviour
             {
                 child.gameObject.AddComponent<Rigidbody>().AddForce(Random.Range(0f, 0.5f), Random.Range(0f, 0.5f),
                     Random.Range(0f, 0.5f));
+                child.tag = "Collapsed";
             }
 
             if (child.childCount > 0)
@@ -139,10 +157,15 @@ public class PlayerControl : MonoBehaviour
 
     void NextLevel()
     {
+        breaking = true;
+        playing = false;
+        Destroy(playerManaBar.transform.parent.gameObject);
+        Destroy(playerPickupBar.transform.parent.gameObject);
+
         // explode
-        transform.DORotate(Vector3.zero, 0.5f);
-        transform.DOScaleX(50, 1.5f);
-        transform.DOScaleZ(15, 1.5f);
+        transform.DOScale(new Vector3(50, 0, 15), 1.5f);
+        transform.DOLocalRotate(new Vector3(15, 270, 90), 15).SetLoops(-1, LoopType.Incremental).SetEase(Ease.Linear)
+            .SetRelative();
 
         StartCoroutine(MoveScene());
     }
