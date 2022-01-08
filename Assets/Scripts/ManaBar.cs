@@ -49,6 +49,15 @@ public class ManaBar : MonoBehaviour
         }
     }
 
+    public void decManaBeMaca()
+    {
+        manaAmount -= 40;
+
+        if (manaAmount < MANA_MIN)
+        {
+            manaAmount = MANA_MIN;
+        }
+    }
     private void decMana()
     {
         manaAmount -= MANA_DEC * Time.deltaTime;

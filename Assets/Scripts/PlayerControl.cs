@@ -52,12 +52,12 @@ public class PlayerControl : MonoBehaviour
             {
                 breaking = true;
                 transform.position = new Vector3(position.x, 3.5f, position.z);
-                rb.constraints |= RigidbodyConstraints.FreezePositionY;
+                //rb.constraints |= RigidbodyConstraints.FreezePositionY;
             }
             else
             {
                 breaking = false;
-                rb.constraints &= ~RigidbodyConstraints.FreezePositionY;
+                //rb.constraints &= ~RigidbodyConstraints.FreezePositionY;
             }
 
             // breaking = playerManaBar.isManaFinished();
@@ -67,7 +67,7 @@ public class PlayerControl : MonoBehaviour
             playerManaBar.dec = false;
             breaking = true;
             transform.position = new Vector3(position.x, 3.5f, position.z);
-            rb.constraints |= RigidbodyConstraints.FreezePositionY;
+            //rb.constraints |= RigidbodyConstraints.FreezePositionY;
         }
 
         if (Input.GetKeyDown(KeyCode.E))
@@ -106,7 +106,7 @@ public class PlayerControl : MonoBehaviour
                 else if (otherTransform.CompareTag("Collapsed"))
                 {
                     // gameManager.Reset();
-                    print("LOSEEEEE");
+                    //print("LOSEEEEE");
                 }
                 else if (otherTransform.CompareTag("Collapse"))
                 {
