@@ -7,16 +7,19 @@ using UnityEngine.UI;
 public class ManaBar : MonoBehaviour
 {
     private Image bar;
-    private GameManager gameManager;
 
+    public int MANA_MAX = 200;
+    public int MANA_MIN = 0;
+    public float MANA_DEC = 30f;
+    public float MANA_ADD = 30f;
+    
     private float manaAmount;
     public bool dec;
 
     private void Start()
     {
         bar = GetComponent<Image>();
-        gameManager = GameManager.Instance;
-        manaAmount = gameManager.MANA_MAX;
+        manaAmount = MANA_MAX;
     }
 
     private void Update()
@@ -37,32 +40,37 @@ public class ManaBar : MonoBehaviour
 
     public void addMana()
     {
-        // manaAmount += gameManager.MANA_ADD * Time.deltaTime;
+        // manaAmount += MANA_ADD * Time.deltaTime;
         manaAmount += 40;
 
-        if (manaAmount > gameManager.MANA_MAX)
+        if (manaAmount > MANA_MAX)
         {
-            manaAmount = gameManager.MANA_MAX;
+            manaAmount = MANA_MAX;
         }
     }
 
     private void decMana()
     {
-        manaAmount -= gameManager.MANA_DEC * Time.deltaTime;
+        manaAmount -= MANA_DEC * Time.deltaTime;
 
-        if (manaAmount < gameManager.MANA_MIN)
+        if (manaAmount < MANA_MIN)
         {
-            manaAmount = gameManager.MANA_MIN;
+            manaAmount = MANA_MIN;
         }
     }
 
     private float normalizedMana()
     {
-        return manaAmount / gameManager.MANA_MAX;
+        return manaAmount / MANA_MAX;
     }
 
     public float getMana()
     {
         return manaAmount;
+    }
+
+    public bool isManaFinished()
+    {
+        return manaAmount <= MANA_MIN;
     }
 }
