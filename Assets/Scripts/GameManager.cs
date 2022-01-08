@@ -6,13 +6,8 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
-public class GameManager : Singleton<GameManager>
+public class GameManager : MonoBehaviour // Singleton<GameManager>
 {
-    public int MANA_MAX = 200;
-    public int MANA_MIN = 0;
-    public float MANA_DEC = 30f;
-    public float MANA_ADD = 30f;
-
     [SerializeField] public int manaPickUpsToSpreadAtStart = 20;
     [SerializeField] public int pickUpsToSpreadAtEnd = 20;
     [SerializeField] public int pickUpsToCollectTillExplosion = 5;
@@ -22,28 +17,33 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] public List<string> levelsList = new List<string>
         {"city", "country"};
 
-    [SerializeField] private int currentGoal = 0;
-    [SerializeField] private int maxGoal = 3;
-    [SerializeField] public List<string> goals;
+    [SerializeField] private int currentToDestroy = 0;
+    [SerializeField] private int numOfObjectsToDestroy = 3;
+    [SerializeField] public List<string> toDestroy;
 
-    [SerializeField] public List<string> tagsList = new List<string>
+    [SerializeField] public Text objectToDestroyText;
+    [SerializeField] public Image objectToDestroy;
+    [SerializeField] public List<Sprite> images;
+
+    [SerializeField] public List<string> optionsToDestroyList = new List<string>
         {"Car", "Building", "Store", "StreetLight", "Tree"};
 
     // Start is called before the first frame update
     void Awake()
     {
         InstantiatePickups("PickUpMana");
-        ResetGoals();
+        ResetItemsToDestroy();
     }
 
-    private void ResetGoals()
+    private void ResetItemsToDestroy()
     {
-        goals = new List<string>();
-        for (int i = 0; i < maxGoal; i++)
+        toDestroy = new List<string>();
+        for (int i = 0; i < numOfObjectsToDestroy; i++)
         {
-            int randomGoal = Random.Range(0, tagsList.Count);
-            goals.Add(tagsList[randomGoal]);
+            int randomGoal = Random.Range(0, optionsToDestroyList.Count);
+            toDestroy.Add(optionsToDestroyList[randomGoal]);
         }
+        objectToDestroyText.text = getItemsToDestroyAsString();
     }
 
     public void InstantiatePickups(string pickupname)
@@ -72,8 +72,8 @@ public class GameManager : Singleton<GameManager>
         level = 0;
         SceneManager.LoadScene(levelsList[0]);
         StartCoroutine(ExecuteAfterSceneLoaded());
-        ResetGoals();
-        currentGoal = 0;
+        ResetItemsToDestroy();
+        currentToDestroy = 0;
     }
 
     public void NextLevel()
@@ -91,18 +91,22 @@ public class GameManager : Singleton<GameManager>
         InstantiatePickups("PickUpMana");
     }
 
-    public string getGoalsAsString()
+    public string getItemsToDestroyAsString()
     {
-        string textBox3 = "";
-        for (var i = 0; i < goals.Count; i++)
+        if (WinCondition())
         {
-            if (i == currentGoal)
+            return "";
+        }
+        string textBox3 = "";
+        for (var i = 0; i < toDestroy.Count; i++)
+        {
+            if (i == currentToDestroy)
             {
-                textBox3 += "**" + goals[i] + "** | ";
+                textBox3 += "**" + toDestroy[i] + "** | ";
             }
             else
             {
-                textBox3 += goals[i] + " | ";
+                textBox3 += toDestroy[i] + " | ";
             }
         }
 
@@ -111,12 +115,12 @@ public class GameManager : Singleton<GameManager>
         return textBox3;
     }
 
-    public void NextGoal()
+    public void NextItemToDestroy()
     {
-        currentGoal++;
+        currentToDestroy++;
     }
 
-    public void AddGoal(CustomTag tags)
+    public void AddDestroyedItem(CustomTag tags)
     {
         if (WinCondition())
         {
@@ -124,18 +128,19 @@ public class GameManager : Singleton<GameManager>
             return;
         }
 
-        if (tags.HasTag(goals[currentGoal]))
+        if (tags.HasTag(toDestroy[currentToDestroy]))
         {
-            NextGoal();
+            NextItemToDestroy();
+            objectToDestroyText.text = getItemsToDestroyAsString();
         }
-        // else
-        // {
-        //     Reset();
-        // }
+        else
+        {
+            Reset();
+        }
     }
 
     public bool WinCondition()
     {
-        return currentGoal >= maxGoal;
+        return currentToDestroy >= numOfObjectsToDestroy;
     }
 }

@@ -11,9 +11,8 @@ public class UpdateGoals : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gameManager = GameManager.Instance;
         text = GetComponent<Text>();
-        text.text = gameManager.getGoalsAsString();
+        text.text = gameManager.getItemsToDestroyAsString();
     }
 
     // Update is called once per frame
@@ -25,7 +24,7 @@ public class UpdateGoals : MonoBehaviour
         }
         else
         {
-            text.text = gameManager.getGoalsAsString();
+            text.text = gameManager.getItemsToDestroyAsString();
         }
     }
 }

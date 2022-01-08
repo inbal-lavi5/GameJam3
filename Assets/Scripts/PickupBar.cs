@@ -7,30 +7,24 @@ using UnityEngine.UI;
 public class PickupBar : MonoBehaviour
 {
     private Image bar;
-    private GameManager gameManager;
-
     private float pickUpAmount = 0;
+    [SerializeField] public int pickUpsToCollectTillExplosion = 5;
 
     private void Start()
     {
         bar = GetComponent<Image>();
-        gameManager = GameManager.Instance;
         bar.fillAmount = normalizedPickup();
     }
 
     public void addPickup()
     {
         pickUpAmount++;
-        if (pickUpAmount > gameManager.MANA_MAX)
-        {
-            pickUpAmount = gameManager.MANA_MAX;
-        }
         bar.fillAmount = normalizedPickup();
     }
-    
+
 
     private float normalizedPickup()
     {
-        return pickUpAmount / gameManager.pickUpsToCollectTillExplosion;
+        return pickUpAmount / pickUpsToCollectTillExplosion;
     }
 }

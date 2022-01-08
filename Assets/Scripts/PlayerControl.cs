@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 
 public class PlayerControl : MonoBehaviour
 {
-    private GameManager gameManager;
+    [SerializeField] private GameManager gameManager;
     private bool playing = true;
 
     [SerializeField] private float playerHeight = 3.5f;
@@ -37,7 +37,7 @@ public class PlayerControl : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         moveDir = new Vector3(0, 0f, 1f).normalized;
-        gameManager = GameManager.Instance;
+        // gameManager = GameManager.Instance;
         playerPickupBar.transform.parent.gameObject.SetActive(false);
     }
 
@@ -48,7 +48,7 @@ public class PlayerControl : MonoBehaviour
         if (Input.GetKey(KeyCode.Space))
         {
             playerManaBar.dec = true;
-            if (playerManaBar.getMana() <= gameManager.MANA_MIN)
+            if (playerManaBar.isManaFinished())
             {
                 breaking = true;
                 transform.position = new Vector3(position.x, 3.5f, position.z);
@@ -60,7 +60,7 @@ public class PlayerControl : MonoBehaviour
                 rb.constraints &= ~RigidbodyConstraints.FreezePositionY;
             }
 
-            breaking = playerManaBar.getMana() <= gameManager.MANA_MIN;
+            // breaking = playerManaBar.isManaFinished();
         }
         else
         {
@@ -148,7 +148,7 @@ public class PlayerControl : MonoBehaviour
         var multiTag = other.gameObject.GetComponent<CustomTag>();
         if (multiTag != null)
         {
-            gameManager.AddGoal(multiTag);
+            gameManager.AddDestroyedItem(multiTag);
             if (playing && gameManager.WinCondition())
             {
                 playerPickupBar.transform.parent.gameObject.SetActive(true);
