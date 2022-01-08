@@ -51,7 +51,7 @@ public class ManaBar : MonoBehaviour
 
     public void decManaBeMaca()
     {
-        manaAmount -= 40;
+        manaAmount -= 20;
 
         if (manaAmount < MANA_MIN)
         {

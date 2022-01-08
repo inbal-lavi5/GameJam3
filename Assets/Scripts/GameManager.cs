@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour // Singleton<GameManager>
@@ -17,18 +18,13 @@ public class GameManager : MonoBehaviour // Singleton<GameManager>
     [SerializeField] public List<string> levelsList = new List<string>
         {"city", "country"};
 
-    [SerializeField] private int currentToDestroy = 0;
+    private int destroyedItemsCounter = 0;
     [SerializeField] private int numOfObjectsToDestroy = 3;
-    [SerializeField] public List<string> toDestroy;
 
-    [SerializeField] public Text objectToDestroyText;
     [SerializeField] public Image objectToDestroy;
     [SerializeField] public List<Sprite> images;
-
-    [SerializeField] public List<string> optionsToDestroyList = new List<string>
-        {"Car", "Building", "Store", "StreetLight", "Tree"};
-
-    // Start is called before the first frame update
+    
+    
     void Awake()
     {
         InstantiatePickups("PickUpMana");
@@ -37,13 +33,8 @@ public class GameManager : MonoBehaviour // Singleton<GameManager>
 
     private void ResetItemsToDestroy()
     {
-        toDestroy = new List<string>();
-        for (int i = 0; i < numOfObjectsToDestroy; i++)
-        {
-            int randomGoal = Random.Range(0, optionsToDestroyList.Count);
-            toDestroy.Add(optionsToDestroyList[randomGoal]);
-        }
-        objectToDestroyText.text = getItemsToDestroyAsString();
+        int randomGoal = Random.Range(0, images.Count);
+        objectToDestroy.sprite = images[randomGoal];
     }
 
     public void InstantiatePickups(string pickupname)
@@ -73,7 +64,7 @@ public class GameManager : MonoBehaviour // Singleton<GameManager>
         SceneManager.LoadScene(levelsList[0]);
         StartCoroutine(ExecuteAfterSceneLoaded());
         ResetItemsToDestroy();
-        currentToDestroy = 0;
+        destroyedItemsCounter = 0;
     }
 
     public void NextLevel()
@@ -91,33 +82,17 @@ public class GameManager : MonoBehaviour // Singleton<GameManager>
         InstantiatePickups("PickUpMana");
     }
 
-    public string getItemsToDestroyAsString()
-    {
-        if (WinCondition())
-        {
-            return "";
-        }
-        string textBox3 = "";
-        for (var i = 0; i < toDestroy.Count; i++)
-        {
-            if (i == currentToDestroy)
-            {
-                textBox3 += "**" + toDestroy[i] + "** | ";
-            }
-            else
-            {
-                textBox3 += toDestroy[i] + " | ";
-            }
-        }
-
-        // textBox3 += "curr: " + currentGoal;
-
-        return textBox3;
-    }
 
     public void NextItemToDestroy()
     {
-        currentToDestroy++;
+        destroyedItemsCounter++;
+        ResetItemsToDestroy();
+
+        if (WinCondition())
+        {
+            InstantiatePickups("PickUp");
+            objectToDestroy.gameObject.SetActive(false);
+        }
     }
 
     /**
@@ -127,25 +102,19 @@ public class GameManager : MonoBehaviour // Singleton<GameManager>
     {
         if (WinCondition())
         {
-            InstantiatePickups("PickUp");
             return false;
         }
 
-        if (tags.HasTag(toDestroy[currentToDestroy]))
+        if (tags.HasTag(objectToDestroy.sprite.name))
         {
             NextItemToDestroy();
-            objectToDestroyText.text = getItemsToDestroyAsString();
             return true;
         }
-        else
-        {
-            // Reset();
-            return false;
-        }
+        return false;
     }
 
     public bool WinCondition()
     {
-        return currentToDestroy >= numOfObjectsToDestroy;
+        return destroyedItemsCounter >= numOfObjectsToDestroy;
     }
 }
