@@ -148,7 +148,11 @@ public class PlayerControl : MonoBehaviour
         var multiTag = other.gameObject.GetComponent<CustomTag>();
         if (multiTag != null)
         {
-            gameManager.AddDestroyedItem(multiTag);
+            bool destroyedItem = gameManager.AddDestroyedItem(multiTag);
+            if (!destroyedItem)
+            {
+                playerManaBar.decManaBeMaca();
+            }
             if (playing && gameManager.WinCondition())
             {
                 playerPickupBar.transform.parent.gameObject.SetActive(true);

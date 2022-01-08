@@ -120,22 +120,27 @@ public class GameManager : MonoBehaviour // Singleton<GameManager>
         currentToDestroy++;
     }
 
-    public void AddDestroyedItem(CustomTag tags)
+    /**
+     * gets a destroyed item and checks if its the right item to destroy
+     */
+    public bool AddDestroyedItem(CustomTag tags)
     {
         if (WinCondition())
         {
             InstantiatePickups("PickUp");
-            return;
+            return false;
         }
 
         if (tags.HasTag(toDestroy[currentToDestroy]))
         {
             NextItemToDestroy();
             objectToDestroyText.text = getItemsToDestroyAsString();
+            return true;
         }
         else
         {
-            Reset();
+            // Reset();
+            return false;
         }
     }
 
