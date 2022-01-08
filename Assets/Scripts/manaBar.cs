@@ -26,18 +26,19 @@ public class ManaBar : MonoBehaviour
             decMana();
         }
 
-        else
-        {
-            addMana();
-        }
+        // else
+        // {
+        //     addMana();
+        // }
 
         bar.fillAmount = normalizedMana();
     }
 
 
-    private void addMana()
+    public void addMana()
     {
-        manaAmount += gameManager.MANA_ADD * Time.deltaTime;
+        // manaAmount += gameManager.MANA_ADD * Time.deltaTime;
+        manaAmount += 40;
 
         if (manaAmount > gameManager.MANA_MAX)
         {
