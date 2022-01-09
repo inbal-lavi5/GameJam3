@@ -22,7 +22,6 @@ public class PickupBar : MonoBehaviour
         bar.fillAmount = normalizedPickup();
     }
 
-
     private float normalizedPickup()
     {
         return pickUpAmount / pickUpsToCollectTillExplosion;

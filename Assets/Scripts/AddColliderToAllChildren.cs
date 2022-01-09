@@ -12,7 +12,7 @@ public class AddColliderToAllChildren : MonoBehaviour
 
     void AddChildren(Transform parent)
     {
-        bool isCollapse = parent.CompareTag("Collapse");
+        bool isTag = !parent.CompareTag("Untagged");
         for (int i = 0; i < parent.childCount; i++)
         {
             Transform child = parent.GetChild(i);
@@ -22,9 +22,9 @@ public class AddColliderToAllChildren : MonoBehaviour
             MeshCollider meshCollider = child.gameObject.AddComponent<MeshCollider>();
             meshCollider.convex = true;
             // meshCollider.cookingOptions = ~MeshColliderCookingOptions.None;
-            if (isCollapse)
+            if (isTag)
             {
-                child.tag = "Collapse";
+                child.tag = parent.tag;
             }
 
             // add custom tag

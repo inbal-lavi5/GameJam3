@@ -20,7 +20,7 @@ public class PlayerControl : MonoBehaviour
 
     [SerializeField] private bool breaking = true;
     [SerializeField] private ManaBar playerManaBar;
-    [SerializeField] private PickupBar playerPickupBar;
+    [SerializeField] private PickupCounter playerPickupCounter;
 
     private int pickUpCollected = 0;
 
@@ -28,8 +28,7 @@ public class PlayerControl : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         moveDir = new Vector3(0, 0f, 1f).normalized;
-        // gameManager = GameManager.Instance;
-        //playerPickupBar.transform.parent.gameObject.SetActive(false);
+        playerPickupCounter.SetUpMax(gameManager.pickUpsToCollectTillExplosion);
     }
 
     void Update()
@@ -42,7 +41,7 @@ public class PlayerControl : MonoBehaviour
             if (playerManaBar.isManaFinished())
             {
                 breaking = true;
-                transform.position = new Vector3(position.x, 3.5f, position.z);
+                transform.position = new Vector3(position.x, playerHeight, position.z);
                 rb.constraints |= RigidbodyConstraints.FreezePositionY;
             }
             else
@@ -57,7 +56,7 @@ public class PlayerControl : MonoBehaviour
         {
             playerManaBar.dec = false;
             breaking = true;
-            transform.position = new Vector3(position.x, 3.5f, position.z);
+            transform.position = new Vector3(position.x, playerHeight, position.z);
             rb.constraints |= RigidbodyConstraints.FreezePositionY;
         }
 
@@ -87,15 +86,28 @@ public class PlayerControl : MonoBehaviour
 
         if (breaking)
         {
-            if (!otherTransform.CompareTag("Plane"))
+            switch (otherTransform.tag)
             {
-                if (otherTransform.CompareTag("PickUpMana"))
-                {
-                    playerManaBar.addMana();
+                case "Plane":
+                    break;
+                case "PickUpMana":
+                    playerManaBar.addManaBeMaca();
                     Destroy(other.gameObject);
-                }
-                else if (otherTransform.CompareTag("Collapse"))
-                {
+                    if (playing)
+                    {
+                        gameManager.PlaySound(SoundManager.Sounds.MANA_PICKUP);
+                    }
+
+                    break;
+                case "PickUp":
+                    other.gameObject.GetComponent<Explosion>().Detonate();
+                    if (playing)
+                    {
+                        gameManager.PlaySound(SoundManager.Sounds.BOMB_EXP);
+                    }
+
+                    break;
+                case "Collapse":
                     // add rigid body to all children
                     Transform parentParent = otherTransform.parent.parent;
                     parentParent.tag = "Collapsed";
@@ -103,20 +115,22 @@ public class PlayerControl : MonoBehaviour
                     CheckCollision(otherTransform);
                     if (playing)
                     {
-                        transform.DOShakePosition(0.1f);
-                        transform.DOShakeRotation(0.2f, 10f, 10, 10, false);
-                        // transform.DOShakeScale(0.3f);
+                        ShakePlayer();
                     }
-                }
-                else
-                {
+
+                    gameManager.PlaySound(SoundManager.Sounds.OBJECT_COLLAPSE);
+                    break;
+                case "Collapsed":
+                    break;
+                default:
                     GameObject otherGameObject = other.gameObject;
                     if (otherGameObject.GetComponent<Rigidbody>() == null)
                     {
                         otherGameObject.AddComponent<Rigidbody>().AddForce(Random.Range(0f, 0.5f),
                             Random.Range(0f, 0.5f), Random.Range(0f, 0.5f));
                     }
-                }
+
+                    break;
             }
         }
         else if (playing)
@@ -124,10 +138,12 @@ public class PlayerControl : MonoBehaviour
             if (otherTransform.CompareTag("PickUp"))
             {
                 pickUpCollected++;
-                playerPickupBar.addPickup();
-                Destroy(other.gameObject);
-                print("pickUpCollected: " + pickUpCollected);
-                if (pickUpCollected >= playerPickupBar.pickUpsToCollectTillExplosion)
+                playerPickupCounter.AddPickup();
+
+                other.gameObject.GetComponent<Explosion>().Dest();
+                gameManager.PlaySound(SoundManager.Sounds.BOMB_PICKUP);
+
+                if (playerPickupCounter.CollectedAll())
                 {
                     NextLevel();
                 }
@@ -135,6 +151,17 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
+    private void ShakePlayer()
+    {
+        Vector3 localEulerAngles = transform.localEulerAngles;
+        Sequence mySequence = DOTween.Sequence();
+        mySequence
+            .Append(transform.DOShakePosition(0.1f))
+            .Append(transform.DOShakeRotation(0.2f, 10f, 10, 10))
+            .Append(transform.DORotate(new Vector3(0, localEulerAngles.y, 0),0f));
+
+    }
+    
     private void CheckCollision(Transform other)
     {
         var multiTag = other.gameObject.GetComponent<CustomTag>();
@@ -173,21 +200,20 @@ public class PlayerControl : MonoBehaviour
         breaking = true;
         playing = false;
         Destroy(playerManaBar.transform.parent.gameObject);
-        Destroy(playerPickupBar.transform.parent.gameObject);
+        Destroy(playerPickupCounter.gameObject);
 
         // explode
         transform.DOScale(new Vector3(50, 0, 15), 1.5f);
-        // transform.DOLocalRotate(new Vector3(15, 270, 90), 15).SetLoops(-1, LoopType.Incremental).SetEase(Ease.Linear)
-        //     .SetRelative();
         transform.DOLocalRotate(new Vector3(15, 270, 0), 15).SetLoops(-1, LoopType.Incremental).SetEase(Ease.Linear)
             .SetRelative();
 
+        gameManager.PlaySound(SoundManager.Sounds.BIG_EXP);
         StartCoroutine(MoveScene());
     }
 
     IEnumerator MoveScene()
     {
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(8);
         gameManager.NextLevel();
     }
 }

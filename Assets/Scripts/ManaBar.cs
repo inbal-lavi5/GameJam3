@@ -11,8 +11,10 @@ public class ManaBar : MonoBehaviour
     public int MANA_MAX = 200;
     public int MANA_MIN = 0;
     public float MANA_DEC = 30f;
-    public float MANA_ADD = 30f;
-    
+    public float MANA_ADD = 1f;
+    public float addBeMaca = 40f;
+    public float decBeMaca = 20f;
+
     private float manaAmount;
     public bool dec;
 
@@ -30,19 +32,19 @@ public class ManaBar : MonoBehaviour
             decMana();
         }
 
-        // else
-        // {
-        //     addMana();
-        // }
+        else
+        {
+            addMana();
+        }
 
         bar.fillAmount = normalizedMana();
     }
 
 
-    public void addMana()
+    public void addManaBeMaca()
     {
         // manaAmount += MANA_ADD * Time.deltaTime;
-        manaAmount += 40;
+        manaAmount += addBeMaca;
 
         if (manaAmount > MANA_MAX)
         {
@@ -52,13 +54,24 @@ public class ManaBar : MonoBehaviour
 
     public void decManaBeMaca()
     {
-        manaAmount -= 20;
+        manaAmount -= decBeMaca;
 
         if (manaAmount < MANA_MIN)
         {
             manaAmount = MANA_MIN;
         }
     }
+
+    private void addMana()
+    {
+        manaAmount += MANA_ADD * Time.deltaTime;
+
+        if (manaAmount > MANA_MAX)
+        {
+            manaAmount = MANA_MAX;
+        }
+    }
+
     private void decMana()
     {
         manaAmount -= MANA_DEC * Time.deltaTime;

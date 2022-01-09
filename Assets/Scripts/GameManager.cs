@@ -10,9 +10,12 @@ using Random = UnityEngine.Random;
 public class GameManager : MonoBehaviour // Singleton<GameManager>
 {
     [SerializeField] public int manaPickUpsToSpreadAtStart = 30;
-    [SerializeField] public int pickUpsToSpread = 1;
+    [SerializeField] public int pickUpsToSpread = 3;
     [SerializeField] public int pickUpsToCollectTillExplosion = 5;
+    [SerializeField] public float randomLocationToInstantiate = 10;
 
+    [SerializeField] public SoundManager SoundManager;
+    
     private int level = 0;
 
     [SerializeField] public List<string> levelsList = new List<string>
@@ -23,12 +26,12 @@ public class GameManager : MonoBehaviour // Singleton<GameManager>
 
     [SerializeField] public Image objectToDestroy;
     [SerializeField] public List<Sprite> images;
-    
-    
+
+
     void Awake()
     {
         ResetItemsToDestroy();
-        
+
         GameObject PickUpMana = (GameObject) Resources.Load("PickUpMana", typeof(GameObject));
 
         for (int i = 0; i < manaPickUpsToSpreadAtStart; i++)
@@ -49,7 +52,6 @@ public class GameManager : MonoBehaviour // Singleton<GameManager>
 
     public void InstantiatePickups(Transform location)
     {
-        float randomLocation = 10;
         GameObject PickUp = (GameObject) Resources.Load("PickUp", typeof(GameObject));
         // int howMuchToCreate = Random.Range(1, 3);
 
@@ -57,9 +59,11 @@ public class GameManager : MonoBehaviour // Singleton<GameManager>
         {
             GameObject pickup = Instantiate(PickUp);
 
-            float posx = Random.Range(location.position.x-randomLocation, location.position.x+randomLocation);
-            float posz = Random.Range(location.position.z-randomLocation, location.position.z+randomLocation);
-            pickup.transform.position = new Vector3(posx, 2.6f, posz);
+            float posx = Random.Range(location.position.x - randomLocationToInstantiate,
+                location.position.x + randomLocationToInstantiate);
+            float posz = Random.Range(location.position.z - randomLocationToInstantiate,
+                location.position.z + randomLocationToInstantiate);
+            pickup.transform.position = new Vector3(posx, 4f, posz);
         }
     }
 
@@ -83,11 +87,11 @@ public class GameManager : MonoBehaviour // Singleton<GameManager>
     {
         objectToDestroy.gameObject.SetActive(false);
     }
-    
+
     public void NextLevel()
     {
         level++;
-        SceneManager.LoadScene(levelsList[level]); 
+        SceneManager.LoadScene(levelsList[level]);
         //StartCoroutine(ExecuteAfterSceneLoaded());
     }
 
@@ -111,15 +115,18 @@ public class GameManager : MonoBehaviour // Singleton<GameManager>
      */
     public bool AddDestroyedItem(CustomTag tags, Transform location)
     {
-        
         if (tags.HasTag(objectToDestroy.sprite.name))
         {
             InstantiatePickups(location);
             NextItemToDestroy();
             return true;
         }
-        
+
         return false;
     }
 
+    public void PlaySound(SoundManager.Sounds sfx)
+    {
+        SoundManager.PlaySound(sfx);
+    }
 }
