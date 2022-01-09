@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
-public class GameManager : MonoBehaviour // Singleton<GameManager>
+public class GameManager : MonoBehaviour
 {
     [SerializeField] public int manaPickUpsToSpreadAtStart = 30;
     [SerializeField] public int pickUpsToSpread = 3;
@@ -20,9 +20,6 @@ public class GameManager : MonoBehaviour // Singleton<GameManager>
 
     [SerializeField] public List<string> levelsList = new List<string>
         {"city", "country"};
-
-    private int destroyedItemsCounter = 0;
-    // [SerializeField] private int numOfObjectsToDestroy = 3;
 
     [SerializeField] public Image objectToDestroy;
     [SerializeField] public List<Sprite> images;
@@ -69,7 +66,7 @@ public class GameManager : MonoBehaviour // Singleton<GameManager>
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R)) //todo remove at end
         {
             Reset();
         }
@@ -80,7 +77,6 @@ public class GameManager : MonoBehaviour // Singleton<GameManager>
         level = 0;
         SceneManager.LoadScene(levelsList[0]);
         ResetItemsToDestroy();
-        destroyedItemsCounter = 0;
     }
 
     public void disableImage()
@@ -106,7 +102,6 @@ public class GameManager : MonoBehaviour // Singleton<GameManager>
 
     public void NextItemToDestroy()
     {
-        destroyedItemsCounter++;
         ResetItemsToDestroy();
     }
 

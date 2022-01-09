@@ -12,8 +12,6 @@ public class Explosion : MonoBehaviour
 
     public void Detonate()
     {
-        print("DETTTTT");
-        
         GameObject particles = Instantiate(explosion, transform.position, transform.rotation);
         Destroy(particles.gameObject, 2);
         

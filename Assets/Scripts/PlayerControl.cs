@@ -23,6 +23,7 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private PickupCounter playerPickupCounter;
 
     private int pickUpCollected = 0;
+    [SerializeField] private GameObject explosion;
 
     private void Start()
     {
@@ -40,30 +41,32 @@ public class PlayerControl : MonoBehaviour
             playerManaBar.dec = true;
             if (playerManaBar.isManaFinished())
             {
-                breaking = true;
-                transform.position = new Vector3(position.x, playerHeight, position.z);
-                rb.constraints |= RigidbodyConstraints.FreezePositionY;
+                SetPlayerAsBreaking(position);
             }
             else
             {
                 breaking = false;
                 rb.constraints &= ~RigidbodyConstraints.FreezePositionY;
             }
-
-            // breaking = playerManaBar.isManaFinished();
         }
         else
         {
             playerManaBar.dec = false;
-            breaking = true;
-            transform.position = new Vector3(position.x, playerHeight, position.z);
-            rb.constraints |= RigidbodyConstraints.FreezePositionY;
+            SetPlayerAsBreaking(position);
         }
 
+        //todo remove at end - hack for fast explosion and move to next level
         if (Input.GetKeyDown(KeyCode.E))
         {
             NextLevel();
         }
+    }
+
+    private void SetPlayerAsBreaking(Vector3 position)
+    {
+        breaking = true;
+        transform.position = new Vector3(position.x, playerHeight, position.z);
+        rb.constraints |= RigidbodyConstraints.FreezePositionY;
     }
 
     private void FixedUpdate()
@@ -152,6 +155,9 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
+    /**
+     * shakes the player a bit on object hit
+     */
     private void ShakePlayer()
     {
         Vector3 localEulerAngles = transform.localEulerAngles;
@@ -163,6 +169,9 @@ public class PlayerControl : MonoBehaviour
 
     }
     
+    /**
+     * check what we collided with and sends to the game manager for processing
+     */
     private void CheckCollision(Transform other)
     {
         var multiTag = other.gameObject.GetComponent<CustomTag>();
@@ -176,6 +185,9 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
+    /**
+     * adds rigidbody to all children
+     */
     void AddRigidChildren(Transform parent)
     {
         for (int i = 0; i < parent.childCount; i++)
@@ -195,6 +207,10 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
+    /**
+     * shit to do before moving to next level:
+     * rotate, scale, explosion particle...
+     */
     void NextLevel()
     {
         gameManager.disableImage();
@@ -202,6 +218,7 @@ public class PlayerControl : MonoBehaviour
         playing = false;
         Destroy(playerManaBar.transform.parent.gameObject);
         Destroy(playerPickupCounter.gameObject);
+        Instantiate(explosion, transform.position, transform.rotation);
 
         // explode
         transform.DOScale(new Vector3(50, 0, 15), 1.5f);
@@ -212,6 +229,9 @@ public class PlayerControl : MonoBehaviour
         StartCoroutine(MoveScene());
     }
 
+    /**
+     * moves to next scene after 10 secs - so we'll see the explosion
+     */
     IEnumerator MoveScene()
     {
         yield return new WaitForSeconds(10);
