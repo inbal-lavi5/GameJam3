@@ -38,7 +38,7 @@ public class PlayerControl : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         moveDir = new Vector3(0, 0f, 1f).normalized;
         // gameManager = GameManager.Instance;
-        playerPickupBar.transform.parent.gameObject.SetActive(false);
+        //playerPickupBar.transform.parent.gameObject.SetActive(false);
     }
 
     void Update()
@@ -148,15 +148,15 @@ public class PlayerControl : MonoBehaviour
         var multiTag = other.gameObject.GetComponent<CustomTag>();
         if (multiTag != null)
         {
-            bool destroyedItem = gameManager.AddDestroyedItem(multiTag);
+            bool destroyedItem = gameManager.AddDestroyedItem(multiTag, other.transform);
             if (!destroyedItem)
             {
                 playerManaBar.decManaBeMaca();
             }
-            if (playing && gameManager.WinCondition())
+            /*if (playing && gameManager.WinCondition())
             {
                 playerPickupBar.transform.parent.gameObject.SetActive(true);
-            }
+            }*/
 
             foreach (string tag in multiTag.GetTags())
             {
@@ -195,6 +195,7 @@ public class PlayerControl : MonoBehaviour
 
     void NextLevel()
     {
+        gameManager.disableImage();
         breaking = true;
         playing = false;
         Destroy(playerManaBar.transform.parent.gameObject);

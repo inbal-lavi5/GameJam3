@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour // Singleton<GameManager>
         {"city", "country"};
 
     private int destroyedItemsCounter = 0;
-    [SerializeField] private int numOfObjectsToDestroy = 3;
+    // [SerializeField] private int numOfObjectsToDestroy = 3;
 
     [SerializeField] public Image objectToDestroy;
     [SerializeField] public List<Sprite> images;
@@ -27,8 +27,18 @@ public class GameManager : MonoBehaviour // Singleton<GameManager>
     
     void Awake()
     {
-        InstantiatePickups("PickUpMana");
         ResetItemsToDestroy();
+        
+        GameObject PickUpMana = (GameObject) Resources.Load("PickUpMana", typeof(GameObject));
+
+        for (int i = 0; i < 20; i++)
+        {
+            GameObject pickupMana = Instantiate(PickUpMana);
+
+            float posx = Random.Range(-160f, 160f);
+            float posz = Random.Range(-260f, 400f);
+            pickupMana.transform.position = new Vector3(posx, 2.6f, posz);
+        }
     }
 
     private void ResetItemsToDestroy()
@@ -37,15 +47,18 @@ public class GameManager : MonoBehaviour // Singleton<GameManager>
         objectToDestroy.sprite = images[randomGoal];
     }
 
-    public void InstantiatePickups(string pickupname)
+    public void InstantiatePickups(Transform location)
     {
-        GameObject load = (GameObject) Resources.Load(pickupname, typeof(GameObject));
-        for (int i = 0; i < pickUpsToSpreadAtEnd; i++)
-        {
-            GameObject pickup = Instantiate(load);
+        float x = 10;
+        GameObject PickUp = (GameObject) Resources.Load("PickUp", typeof(GameObject));
+        // int howMuchToCreate = Random.Range(1, 3);
 
-            float posx = Random.Range(-160f, 160f);
-            float posz = Random.Range(-200f, 400f);
+        for (int i = 0; i < 1; i++)
+        {
+            GameObject pickup = Instantiate(PickUp);
+
+            float posx = Random.Range(location.position.x-x, location.position.x+x);
+            float posz = Random.Range(location.position.z-x, location.position.z+x);
             pickup.transform.position = new Vector3(posx, 2.6f, posz);
         }
     }
@@ -62,59 +75,41 @@ public class GameManager : MonoBehaviour // Singleton<GameManager>
     {
         level = 0;
         SceneManager.LoadScene(levelsList[0]);
-        StartCoroutine(ExecuteAfterSceneLoaded());
         ResetItemsToDestroy();
         destroyedItemsCounter = 0;
     }
 
+    public void disableImage()
+    {
+        objectToDestroy.gameObject.SetActive(false);
+    }
+    
     public void NextLevel()
     {
         level++;
         SceneManager.LoadScene(levelsList[level]);
-        StartCoroutine(ExecuteAfterSceneLoaded());
     }
-
-    IEnumerator ExecuteAfterSceneLoaded()
-    {
-        bool isLoaded = SceneManager.GetActiveScene().isLoaded;
-        // SceneManager.sceneUnloaded
-        yield return new WaitUntil(() => isLoaded);
-        InstantiatePickups("PickUpMana");
-    }
-
 
     public void NextItemToDestroy()
     {
         destroyedItemsCounter++;
         ResetItemsToDestroy();
-
-        if (WinCondition())
-        {
-            InstantiatePickups("PickUp");
-            objectToDestroy.gameObject.SetActive(false);
-        }
     }
 
     /**
      * gets a destroyed item and checks if its the right item to destroy
      */
-    public bool AddDestroyedItem(CustomTag tags)
+    public bool AddDestroyedItem(CustomTag tags, Transform location)
     {
-        if (WinCondition())
-        {
-            return false;
-        }
-
+        
         if (tags.HasTag(objectToDestroy.sprite.name))
         {
+            InstantiatePickups(location);
             NextItemToDestroy();
             return true;
         }
+        
         return false;
     }
 
-    public bool WinCondition()
-    {
-        return destroyedItemsCounter >= numOfObjectsToDestroy;
-    }
 }
