@@ -16,21 +16,27 @@ public class AddColliderToAllChildren : MonoBehaviour
         for (int i = 0; i < parent.childCount; i++)
         {
             Transform child = parent.GetChild(i);
+
             
             // add collider
             MeshCollider meshCollider = child.gameObject.AddComponent<MeshCollider>();
             meshCollider.convex = true;
+            // meshCollider.cookingOptions = ~MeshColliderCookingOptions.None;
             if (isCollapse)
             {
                 child.tag = "Collapse";
             }
 
             // add custom tag
-            CustomTag customTag = parent.gameObject.GetComponent<CustomTag>();
-            if (customTag != null)
+            CustomTag parentCustomTag = parent.gameObject.GetComponent<CustomTag>();
+            if (parentCustomTag != null)
             {
-                CustomTag addComponent = child.gameObject.AddComponent<CustomTag>();
-                addComponent.CopyTags(customTag.GetTags());
+                CustomTag childCustomTag = child.gameObject.GetComponent<CustomTag>();
+                if (childCustomTag == null)
+                {
+                    childCustomTag = child.gameObject.AddComponent<CustomTag>();
+                }
+                childCustomTag.CopyTags(parentCustomTag.GetTags());
             }
 
             // do the same for kids

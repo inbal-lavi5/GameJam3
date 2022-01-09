@@ -9,8 +9,8 @@ using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour // Singleton<GameManager>
 {
-    [SerializeField] public int manaPickUpsToSpreadAtStart = 20;
-    [SerializeField] public int pickUpsToSpreadAtEnd = 20;
+    [SerializeField] public int manaPickUpsToSpreadAtStart = 30;
+    [SerializeField] public int pickUpsToSpread = 1;
     [SerializeField] public int pickUpsToCollectTillExplosion = 5;
 
     private int level = 0;
@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour // Singleton<GameManager>
         
         GameObject PickUpMana = (GameObject) Resources.Load("PickUpMana", typeof(GameObject));
 
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < manaPickUpsToSpreadAtStart; i++)
         {
             GameObject pickupMana = Instantiate(PickUpMana);
 
@@ -49,16 +49,16 @@ public class GameManager : MonoBehaviour // Singleton<GameManager>
 
     public void InstantiatePickups(Transform location)
     {
-        float x = 10;
+        float randomLocation = 10;
         GameObject PickUp = (GameObject) Resources.Load("PickUp", typeof(GameObject));
         // int howMuchToCreate = Random.Range(1, 3);
 
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i < pickUpsToSpread; i++)
         {
             GameObject pickup = Instantiate(PickUp);
 
-            float posx = Random.Range(location.position.x-x, location.position.x+x);
-            float posz = Random.Range(location.position.z-x, location.position.z+x);
+            float posx = Random.Range(location.position.x-randomLocation, location.position.x+randomLocation);
+            float posz = Random.Range(location.position.z-randomLocation, location.position.z+randomLocation);
             pickup.transform.position = new Vector3(posx, 2.6f, posz);
         }
     }
@@ -87,8 +87,18 @@ public class GameManager : MonoBehaviour // Singleton<GameManager>
     public void NextLevel()
     {
         level++;
-        SceneManager.LoadScene(levelsList[level]);
+        SceneManager.LoadScene(levelsList[level]); 
+        //StartCoroutine(ExecuteAfterSceneLoaded());
     }
+
+    IEnumerator ExecuteAfterSceneLoaded()
+    {
+        bool isLoaded = SceneManager.GetActiveScene().isLoaded;
+        // SceneManager.sceneUnloaded
+        yield return new WaitUntil(() => isLoaded);
+        //InstantiatePickups("PickUpMana", manaPickUpsToSpreadAtStart);
+    }
+
 
     public void NextItemToDestroy()
     {

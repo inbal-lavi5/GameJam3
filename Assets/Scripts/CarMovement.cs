@@ -28,7 +28,7 @@ public class CarMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.CompareTag("Collapse"))
+        if (!transform.CompareTag("Collapsed"))
         {
             transform.Translate(forward * speed * Time.deltaTime);
             if (a)

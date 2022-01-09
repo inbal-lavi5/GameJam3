@@ -23,15 +23,6 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private PickupBar playerPickupBar;
 
     private int pickUpCollected = 0;
-    Dictionary<string, int> collisionCountingList = new Dictionary<string, int>();
-
-    void AddCollisionToCounter(string s)
-    {
-        if (collisionCountingList.ContainsKey(s))
-            collisionCountingList[s]++;
-        else
-            collisionCountingList.Add(s, 1);
-    }
 
     private void Start()
     {
@@ -86,7 +77,7 @@ public class PlayerControl : MonoBehaviour
         Quaternion deltaRotation = Quaternion.Euler(m_EulerAngleVelocity * Time.fixedDeltaTime);
         rb.MoveRotation(rb.rotation * deltaRotation);
 
-        rb.velocity = transform.TransformDirection(moveDir) * moveSpeed * Time.deltaTime;
+        rb.velocity = transform.TransformDirection(moveDir) * moveSpeed;
         // rb.MovePosition(rb.position + transform.TransformDirection(moveDir) * moveSpeed * Time.deltaTime);
     }
 
@@ -103,11 +94,6 @@ public class PlayerControl : MonoBehaviour
                     playerManaBar.addMana();
                     Destroy(other.gameObject);
                 }
-                else if (otherTransform.CompareTag("Collapsed"))
-                {
-                    // gameManager.Reset();
-                    //print("LOSEEEEE");
-                }
                 else if (otherTransform.CompareTag("Collapse"))
                 {
                     // add rigid body to all children
@@ -115,6 +101,12 @@ public class PlayerControl : MonoBehaviour
                     parentParent.tag = "Collapsed";
                     AddRigidChildren(parentParent);
                     CheckCollision(otherTransform);
+                    if (playing)
+                    {
+                        transform.DOShakePosition(0.1f);
+                        transform.DOShakeRotation(0.2f, 10f, 10, 10, false);
+                        // transform.DOShakeScale(0.3f);
+                    }
                 }
                 else
                 {
@@ -135,7 +127,7 @@ public class PlayerControl : MonoBehaviour
                 playerPickupBar.addPickup();
                 Destroy(other.gameObject);
                 print("pickUpCollected: " + pickUpCollected);
-                if (pickUpCollected >= gameManager.pickUpsToCollectTillExplosion)
+                if (pickUpCollected >= playerPickupBar.pickUpsToCollectTillExplosion)
                 {
                     NextLevel();
                 }
@@ -153,24 +145,6 @@ public class PlayerControl : MonoBehaviour
             {
                 playerManaBar.decManaBeMaca();
             }
-            /*if (playing && gameManager.WinCondition())
-            {
-                playerPickupBar.transform.parent.gameObject.SetActive(true);
-            }*/
-
-            foreach (string tag in multiTag.GetTags())
-            {
-                AddCollisionToCounter(tag);
-            }
-
-            //for debugging
-            string textBox3 = "";
-            foreach (KeyValuePair<string, int> kvp in collisionCountingList)
-            {
-                textBox3 += string.Format("{0} : {1} | ", kvp.Key, kvp.Value);
-            }
-
-            Debug.Log("Character collided with | " + textBox3);
         }
     }
 
@@ -203,7 +177,9 @@ public class PlayerControl : MonoBehaviour
 
         // explode
         transform.DOScale(new Vector3(50, 0, 15), 1.5f);
-        transform.DOLocalRotate(new Vector3(15, 270, 90), 15).SetLoops(-1, LoopType.Incremental).SetEase(Ease.Linear)
+        // transform.DOLocalRotate(new Vector3(15, 270, 90), 15).SetLoops(-1, LoopType.Incremental).SetEase(Ease.Linear)
+        //     .SetRelative();
+        transform.DOLocalRotate(new Vector3(15, 270, 0), 15).SetLoops(-1, LoopType.Incremental).SetEase(Ease.Linear)
             .SetRelative();
 
         StartCoroutine(MoveScene());
