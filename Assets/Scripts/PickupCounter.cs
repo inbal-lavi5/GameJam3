@@ -10,7 +10,7 @@ public class PickupCounter : MonoBehaviour
     private float pickUpAmount = 0;
     private int pickUpsToCollectTillExplosion = 10;
 
-    private void Start()
+    private void Awake()
     {
         count = GetComponent<Text>();
         UpdateText();

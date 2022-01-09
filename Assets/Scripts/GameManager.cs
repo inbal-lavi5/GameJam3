@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour // Singleton<GameManager>
 
             float posx = Random.Range(-160f, 160f);
             float posz = Random.Range(-260f, 400f);
-            pickupMana.transform.position = new Vector3(posx, 2.6f, posz);
+            pickupMana.transform.position = new Vector3(posx, 4f, posz);
         }
     }
 
@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour // Singleton<GameManager>
 
     public void disableImage()
     {
-        objectToDestroy.gameObject.SetActive(false);
+        objectToDestroy.transform.parent.gameObject.SetActive(false); //todo might not be parent
     }
 
     public void NextLevel()

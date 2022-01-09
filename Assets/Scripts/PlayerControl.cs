@@ -213,7 +213,7 @@ public class PlayerControl : MonoBehaviour
 
     IEnumerator MoveScene()
     {
-        yield return new WaitForSeconds(8);
+        yield return new WaitForSeconds(10);
         gameManager.NextLevel();
     }
 }

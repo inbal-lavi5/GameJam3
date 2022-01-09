@@ -14,7 +14,11 @@ public class SoundManager : MonoBehaviour
         MANA_PICKUP
     }
 
-    [SerializeField] private List<AudioClip> sounds;
+    [SerializeField] private AudioClip BOMB_EXP;
+    [SerializeField] private AudioClip BIG_EXP;
+    [SerializeField] private AudioClip OBJECT_COLLAPSE;
+    [SerializeField] private AudioClip BOMB_PICKUP;
+    [SerializeField] private AudioClip MANA_PICKUP;
 
     static AudioSource audioSrc;
 
@@ -29,19 +33,19 @@ public class SoundManager : MonoBehaviour
         switch (sfx)
         {
             case Sounds.BOMB_EXP:
-                audioSrc.PlayOneShot(sounds[(int) sfx]);
+                audioSrc.PlayOneShot(BOMB_EXP);
                 break;
             case Sounds.BIG_EXP:
-                audioSrc.PlayOneShot(sounds[(int) sfx]);
+                audioSrc.PlayOneShot(BIG_EXP);
                 break;
             case Sounds.OBJECT_COLLAPSE:
-                audioSrc.PlayOneShot(sounds[(int) sfx]);
+                audioSrc.PlayOneShot(OBJECT_COLLAPSE);
                 break;
             case Sounds.BOMB_PICKUP:
-                audioSrc.PlayOneShot(sounds[(int) sfx]);
+                audioSrc.PlayOneShot(BOMB_PICKUP);
                 break;
             case Sounds.MANA_PICKUP:
-                audioSrc.PlayOneShot(sounds[(int) sfx]);
+                audioSrc.PlayOneShot(MANA_PICKUP);
                 break;
         }
     }
