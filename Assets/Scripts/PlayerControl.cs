@@ -92,7 +92,8 @@ public class PlayerControl : MonoBehaviour
                     break;
                 case "PickUpMana":
                     playerManaBar.addManaBeMaca();
-                    Destroy(other.gameObject);
+                    other.gameObject.GetComponent<BlueParticle>().Detonate();
+                    // Destroy(other.gameObject);
                     if (playing)
                     {
                         gameManager.PlaySound(SoundManager.Sounds.MANA_PICKUP);

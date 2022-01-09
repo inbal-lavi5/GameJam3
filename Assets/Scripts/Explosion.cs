@@ -10,19 +10,6 @@ public class Explosion : MonoBehaviour
 
     [SerializeField] private GameObject explosion;
 
-    public bool det = false;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        // Invoke("Detonate",10);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
     public void Detonate()
     {
         print("DETTTTT");
