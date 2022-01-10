@@ -8,21 +8,21 @@ using Random = UnityEngine.Random;
 
 public class PlayerControl : MonoBehaviour
 {
-    [SerializeField] private GameManager gameManager;
-    private bool playing = true;
+    [SerializeField] protected GameManager gameManager;
+    protected bool playing = true;
+    protected Rigidbody rb;
 
-    [SerializeField] private float playerHeight = 3.5f;
+    [SerializeField] protected float playerHeight = 3.5f;
 
-    public float moveSpeed = 15;
-    private Vector3 moveDir;
-    private Rigidbody rb;
-    [SerializeField] private float rotationSpeed = 100;
+    [SerializeField] protected float moveSpeed = 40;
+    protected Vector3 moveDir;
+    [SerializeField] protected float rotationSpeed = 100;
 
-    [SerializeField] private bool breaking = true;
-    [SerializeField] private ManaBar playerManaBar;
-    [SerializeField] private PickupCounter playerPickupCounter;
+    [SerializeField] protected bool breaking = true;
+    [SerializeField] protected ManaBar playerManaBar;
+    [SerializeField] protected PickupCounter playerPickupCounter;
 
-    private int pickUpCollected = 0;
+    protected int pickUpCollected = 0;
     [SerializeField] private GameObject explosion;
 
     private void Start()
@@ -38,16 +38,7 @@ public class PlayerControl : MonoBehaviour
         Vector3 position = transform.position;
         if (Input.GetKey(KeyCode.Space))
         {
-            playerManaBar.dec = true;
-            if (playerManaBar.isManaFinished())
-            {
-                SetPlayerAsBreaking(position);
-            }
-            else
-            {
-                breaking = false;
-                rb.constraints &= ~RigidbodyConstraints.FreezePositionY;
-            }
+            ManaBarHandle(position);
         }
         else
         {
@@ -62,7 +53,26 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
-    private void SetPlayerAsBreaking(Vector3 position)
+    protected void ManaBarHandle(Vector3 position)
+    {
+        playerManaBar.dec = true;
+        if (playerManaBar.isManaFinished())
+        {
+            SetPlayerAsBreaking(position);
+        }
+        else
+        {
+            SetPlayerAsNOTBreaking();
+        }
+    }
+
+    protected void SetPlayerAsNOTBreaking()
+    {
+        breaking = false;
+        rb.constraints &= ~RigidbodyConstraints.FreezePositionY;
+    }
+
+    protected void SetPlayerAsBreaking(Vector3 position)
     {
         breaking = true;
         transform.position = new Vector3(position.x, playerHeight, position.z);
@@ -87,21 +97,21 @@ public class PlayerControl : MonoBehaviour
     {
         Transform otherTransform = other.transform;
 
+        if (otherTransform.CompareTag("PickUpMana"))
+        {
+            playerManaBar.addManaBeMaca();
+            other.gameObject.GetComponent<BlueParticle>().Detonate();
+            if (playing)
+            {
+                gameManager.PlaySound(SoundManager.Sounds.MANA_PICKUP);
+            }
+        }
+
         if (breaking)
         {
             switch (otherTransform.tag)
             {
                 case "Plane":
-                    break;
-                case "PickUpMana":
-                    playerManaBar.addManaBeMaca();
-                    other.gameObject.GetComponent<BlueParticle>().Detonate();
-                    // Destroy(other.gameObject);
-                    if (playing)
-                    {
-                        gameManager.PlaySound(SoundManager.Sounds.MANA_PICKUP);
-                    }
-
                     break;
                 case "PickUp":
                     other.gameObject.GetComponent<Explosion>().Detonate();
@@ -158,21 +168,20 @@ public class PlayerControl : MonoBehaviour
     /**
      * shakes the player a bit on object hit
      */
-    private void ShakePlayer()
+    protected void ShakePlayer()
     {
         Vector3 localEulerAngles = transform.localEulerAngles;
         Sequence mySequence = DOTween.Sequence();
         mySequence
             .Append(transform.DOShakePosition(0.1f))
             .Append(transform.DOShakeRotation(0.2f, 10f, 10, 10))
-            .Append(transform.DORotate(new Vector3(0, localEulerAngles.y, 0),0f));
-
+            .Append(transform.DORotate(new Vector3(0, localEulerAngles.y, 0), 0f));
     }
-    
+
     /**
      * check what we collided with and sends to the game manager for processing
      */
-    private void CheckCollision(Transform other)
+    protected void CheckCollision(Transform other)
     {
         var multiTag = other.gameObject.GetComponent<CustomTag>();
         if (multiTag != null)
@@ -188,7 +197,7 @@ public class PlayerControl : MonoBehaviour
     /**
      * adds rigidbody to all children
      */
-    void AddRigidChildren(Transform parent)
+    protected void AddRigidChildren(Transform parent)
     {
         for (int i = 0; i < parent.childCount; i++)
         {
@@ -211,7 +220,7 @@ public class PlayerControl : MonoBehaviour
      * shit to do before moving to next level:
      * rotate, scale, explosion particle...
      */
-    void NextLevel()
+    protected void NextLevel()
     {
         gameManager.disableImage();
         breaking = true;

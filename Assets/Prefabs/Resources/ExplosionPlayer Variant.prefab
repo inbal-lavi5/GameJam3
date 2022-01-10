@@ -79,5 +79,29 @@ PrefabInstance:
       propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.scalar
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 7015831667089772222, guid: 4507a909a632d6e4ea1599f39f2796f1, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7015831667089772222, guid: 4507a909a632d6e4ea1599f39f2796f1, type: 3}
+      propertyPath: lengthInSec
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7015831667089772222, guid: 4507a909a632d6e4ea1599f39f2796f1, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8265949490842038030, guid: 4507a909a632d6e4ea1599f39f2796f1, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 8265949490842038030, guid: 4507a909a632d6e4ea1599f39f2796f1, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 8265949490842038030, guid: 4507a909a632d6e4ea1599f39f2796f1, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 40
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4507a909a632d6e4ea1599f39f2796f1, type: 3}

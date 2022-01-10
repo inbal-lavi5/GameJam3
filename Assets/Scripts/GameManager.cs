@@ -22,13 +22,18 @@ public class GameManager : MonoBehaviour
         {"city", "country"};
 
     [SerializeField] public Image objectToDestroy;
+    [SerializeField] public Animator objectToDestroyAnimator;
     [SerializeField] public List<Sprite> images;
 
 
     void Awake()
     {
-        ResetItemsToDestroy();
+        NextItemsToDestroy();
+        InstantiateMana();
+    }
 
+    protected void InstantiateMana()
+    {
         GameObject PickUpMana = (GameObject) Resources.Load("PickUpMana", typeof(GameObject));
 
         for (int i = 0; i < manaPickUpsToSpreadAtStart; i++)
@@ -41,10 +46,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void ResetItemsToDestroy()
+    protected void NextItemsToDestroy()
     {
         int randomGoal = Random.Range(0, images.Count);
         objectToDestroy.sprite = images[randomGoal];
+        print(objectToDestroy.sprite.name);
+        
+        // objectToDestroyAnimator.Play("Tree");
+        // objectToDestroyAnimator.Play(objectToDestroy.sprite.name, -1, 0);
     }
 
     public void InstantiatePickups(Transform location)
@@ -76,7 +85,7 @@ public class GameManager : MonoBehaviour
     {
         level = 0;
         SceneManager.LoadScene(levelsList[0]);
-        ResetItemsToDestroy();
+        NextItemsToDestroy();
     }
 
     public void disableImage()
@@ -84,7 +93,7 @@ public class GameManager : MonoBehaviour
         objectToDestroy.transform.parent.gameObject.SetActive(false); //todo might not be parent
     }
 
-    public void NextLevel()
+    public virtual void NextLevel()
     {
         level++;
         SceneManager.LoadScene(levelsList[level]);
@@ -98,12 +107,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitUntil(() => isLoaded);
         //InstantiatePickups("PickUpMana", manaPickUpsToSpreadAtStart);
     }
-
-
-    public void NextItemToDestroy()
-    {
-        ResetItemsToDestroy();
-    }
+    
 
     /**
      * gets a destroyed item and checks if its the right item to destroy
@@ -113,7 +117,7 @@ public class GameManager : MonoBehaviour
         if (tags.HasTag(objectToDestroy.sprite.name))
         {
             InstantiatePickups(location);
-            NextItemToDestroy();
+            NextItemsToDestroy();
             return true;
         }
 

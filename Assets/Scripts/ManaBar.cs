@@ -21,7 +21,6 @@ public class ManaBar : MonoBehaviour
     private void Start()
     {
         bar = GetComponent<Image>();
-        // manaAmount = MANA_MAX;
         manaAmount = MANA_MIN;
     }
 
