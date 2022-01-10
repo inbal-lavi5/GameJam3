@@ -19,6 +19,12 @@ public class TutorialManager : GameManager
         ActivateTut();
     }
 
+    protected override void NextItemsToDestroy()
+    {
+        randomGoal = randomGoal >= images.Count - 1 ? 0 : randomGoal + 1;
+        objectToDestroy.sprite = images[randomGoal];
+    }
+
     void Update()
     {
         // if (Input.GetKeyDown(KeyCode.Alpha1)) //todo remove at end
@@ -31,7 +37,7 @@ public class TutorialManager : GameManager
             DeactivateTut();
         }
     }
-    
+
 
     void ActivateTut()
     {
@@ -56,9 +62,10 @@ public class TutorialManager : GameManager
         {
             tutorialList[i].SetActive(false);
         }
+
         Time.timeScale = 1f;
     }
-    
+
     // protected new void NextItemsToDestroy()
     // {
     //     randomGoal++;
@@ -69,7 +76,7 @@ public class TutorialManager : GameManager
     {
         stage++;
         ActivateTut();
-        print("HERE "+ stage);
+        print("HERE " + stage);
     }
 
     // if bomb is detonated pass to next stage - put bombs

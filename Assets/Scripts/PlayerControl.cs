@@ -187,10 +187,10 @@ public class PlayerControl : MonoBehaviour
         if (multiTag != null)
         {
             bool destroyedItem = gameManager.AddDestroyedItem(multiTag, other.transform);
-            if (!destroyedItem)
-            {
-                playerManaBar.decManaBeMaca();
-            }
+            // if (!destroyedItem)
+            // {
+            //     playerManaBar.decManaBeMaca();
+            // } //todo maybe too hard
         }
     }
 

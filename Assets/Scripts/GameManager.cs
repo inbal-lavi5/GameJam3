@@ -15,11 +15,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] public float randomLocationToInstantiate = 10;
 
     [SerializeField] public SoundManager SoundManager;
-    
-    private int level = 0;
+
+    [SerializeField] private int level = 1;
 
     [SerializeField] public List<string> levelsList = new List<string>
-        {"city", "country"};
+        {"city tutorial", "city", "country"};
 
     [SerializeField] public Image objectToDestroy;
     [SerializeField] public Animator objectToDestroyAnimator;
@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
         InstantiateMana();
     }
 
-    protected void InstantiateMana()
+    public void InstantiateMana()
     {
         GameObject PickUpMana = (GameObject) Resources.Load("PickUpMana", typeof(GameObject));
 
@@ -46,12 +46,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    protected void NextItemsToDestroy()
+    protected virtual void NextItemsToDestroy()
     {
         int randomGoal = Random.Range(0, images.Count);
         objectToDestroy.sprite = images[randomGoal];
         print(objectToDestroy.sprite.name);
-        
+
         // objectToDestroyAnimator.Play("Tree");
         // objectToDestroyAnimator.Play(objectToDestroy.sprite.name, -1, 0);
     }
@@ -83,8 +83,8 @@ public class GameManager : MonoBehaviour
 
     public void Reset()
     {
-        level = 0;
-        SceneManager.LoadScene(levelsList[0]);
+        level = 1;
+        SceneManager.LoadScene(levelsList[level]);
         NextItemsToDestroy();
     }
 
@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour
         objectToDestroy.transform.parent.gameObject.SetActive(false); //todo might not be parent
     }
 
-    public virtual void NextLevel()
+    public void NextLevel()
     {
         level++;
         SceneManager.LoadScene(levelsList[level]);
@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitUntil(() => isLoaded);
         //InstantiatePickups("PickUpMana", manaPickUpsToSpreadAtStart);
     }
-    
+
 
     /**
      * gets a destroyed item and checks if its the right item to destroy

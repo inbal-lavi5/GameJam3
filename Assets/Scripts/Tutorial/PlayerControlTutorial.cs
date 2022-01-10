@@ -28,7 +28,7 @@ public class PlayerControlTutorial : PlayerControl
         Vector3 position = transform.position;
         if (Input.GetKey(KeyCode.Space))
         {
-            if (stage != 3)
+            if (stage < 3)
             {
                 SetPlayerAsNOTBreaking();
             }
@@ -51,11 +51,15 @@ public class PlayerControlTutorial : PlayerControl
 
         if (Tut2Ended() && stage == 2)
         {
+            tutorialManager.NextStage();
+            playerManaBar.transform.parent.gameObject.SetActive(true);
+            tutorialManager.InstantiateMana();
             stage++;
         }
 
         if (Tut3Ended() && stage == 3)
         {
+            tutorialManager.NextStage();
             stage++;
         }
 
@@ -74,7 +78,7 @@ public class PlayerControlTutorial : PlayerControl
 
     bool Tut2Ended()
     {
-        return pickUpCollected >= 1;
+        return pickUpCollected >= 2;
     }
 
     bool Tut3Ended()
@@ -165,7 +169,7 @@ public class PlayerControlTutorial : PlayerControl
         GameObject instantiate = Instantiate(parentParent.gameObject, parentParent.position, parentParent.rotation,
             parentParent.parent);
         instantiate.SetActive(false);
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(10f);
         instantiate.SetActive(true);
     }
 }
