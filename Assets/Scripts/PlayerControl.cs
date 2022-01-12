@@ -11,6 +11,7 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] protected GameManager gameManager;
     protected bool playing = true;
     protected Rigidbody rb;
+    public cameraManager camera;
 
     [SerializeField] protected float playerHeight = 3.5f;
 
@@ -26,12 +27,14 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private GameObject explosion;
 
     [SerializeField] public timer timer;
+    private Transform ball;
     
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        ball = transform.GetChild(0);
         moveDir = new Vector3(0, 0f, 1f).normalized;
-        playerPickupCounter.SetUpMax(gameManager.pickUpsToCollectTillExplosion);
+        // playerPickupCounter.SetUpMax(gameManager.pickUpsToCollectTillExplosion);
     }
 
     void Update()
@@ -108,55 +111,61 @@ public class PlayerControl : MonoBehaviour
     {
         Transform otherTransform = other.transform;
 
-        /*if (otherTransform.CompareTag("PickUpMana"))
+        if (breaking && playing)
         {
-            playerManaBar.addManaBeMaca();
-            other.gameObject.GetComponent<BlueParticle>().Detonate();
-            if (playing)
+            switch (otherTransform.tag)
             {
-                gameManager.PlaySound(SoundManager.Sounds.MANA_PICKUP);
-            }
-        }*/
-        
-        switch (otherTransform.tag)
-        {
-            case "Plane":
-                break;
-            
-            /*case "PickUp":
+                case "Plane":
+                    break;
                 
-                pickUpCollected++;
-                playerPickupCounter.AddPickup();
+                case "PickUp1":
+                    other.gameObject.SetActive(false);
+                    gameManager.PlaySound(SoundManager.Sounds.BOMB_PICKUP);
+                    StartCoroutine(stopBreaking());
+                    break;
 
-                other.gameObject.GetComponent<Explosion>().Dest();
-                gameManager.PlaySound(SoundManager.Sounds.BOMB_PICKUP);
-                break;*/
+                case "PickUpMana":
+                    moveSpeed += 15;
+                    // playerManaBar.addManaBeMaca();
+                    other.gameObject.GetComponent<BlueParticle>().Detonate();
+                    if (playing)
+                    {
+                        gameManager.PlaySound(SoundManager.Sounds.MANA_PICKUP);
+                    }
+                    break;
             
-            case "Collapse":
-                // add rigid body to all children
-                Transform parentParent = otherTransform.parent.parent;
-                parentParent.tag = "Collapsed";
-                AddRigidChildren(parentParent);
-                CheckCollision(otherTransform);
-                if (playing)
-                {
-                    ShakePlayer();
-                }
-
-                gameManager.PlaySound(SoundManager.Sounds.OBJECT_COLLAPSE);
-                break;
+                case "PickUp":
+                
+                    // pickUpCollected++;
+                    // playerPickupCounter.AddPickup();
+                    ball.DOScale(new Vector3(ball.localScale.x+2, 4, ball.localScale.z+2), 1.5f);
+                    camera.changeCameraPosition();
+                    other.gameObject.GetComponent<Explosion>().Dest();
+                    gameManager.PlaySound(SoundManager.Sounds.BOMB_PICKUP);
+                    break;
             
-            case "Collapsed":
-                break;
+                case "Collapse":
+                    // add rigid body to all children
+                    playerManaBar.addMana();
+                    Transform parentParent = otherTransform.parent.parent;
+                    parentParent.tag = "Collapsed";
+                    AddRigidChildren(parentParent);
+                    CheckCollision(otherTransform);
+                    gameManager.PlaySound(SoundManager.Sounds.OBJECT_COLLAPSE);
+                    break;
             
-            default:
-                GameObject otherGameObject = other.gameObject;
-                if (otherGameObject.GetComponent<Rigidbody>() == null)
-                {
-                    otherGameObject.AddComponent<Rigidbody>().AddForce(Random.Range(0f, 0.5f),
-                        Random.Range(0f, 0.5f), Random.Range(0f, 0.5f));
-                }
-                break;
+                case "Collapsed":
+                    break;
+            
+                default:
+                    GameObject otherGameObject = other.gameObject;
+                    if (otherGameObject.GetComponent<Rigidbody>() == null)
+                    {
+                        otherGameObject.AddComponent<Rigidbody>().AddForce(Random.Range(0f, 0.5f),
+                            Random.Range(0f, 0.5f), Random.Range(0f, 0.5f));
+                    }
+                    break;
+            }
         }
     }
 
@@ -186,14 +195,9 @@ public class PlayerControl : MonoBehaviour
             bool destroyedItem = gameManager.AddDestroyedItem(multiTag, other.transform.position);
             if (!destroyedItem)
             {
-                timer.decTime();
+                // timer.decTime();
                 // todo think what should happen here
                 // playerManaBar.decManaBeMaca();
-            }
-
-            else
-            {
-                playerPickupCounter.AddPickup();
             }
         }
     }
@@ -226,21 +230,21 @@ public class PlayerControl : MonoBehaviour
      * shit to do before moving to next level:
      * rotate, scale, explosion particle...
      */
-    protected void NextLevel()
+    public void NextLevel()
     {
-        gameManager.disableImage();
+        // gameManager.disableImage();
         breaking = true;
         playing = false;
-        Destroy(playerManaBar.transform.parent.gameObject);
-        Destroy(playerPickupCounter.gameObject);
-        Instantiate(explosion, transform.position, transform.rotation);
+        // Destroy(playerManaBar.transform.parent.gameObject);
+        // Destroy(playerPickupCounter.gameObject);
+        // Instantiate(explosion, transform.position, transform.rotation);
 
         // explode
-        transform.DOScale(new Vector3(50, 0, 15), 1.5f);
-        transform.DOLocalRotate(new Vector3(15, 270, 0), 15).SetLoops(-1, LoopType.Incremental).SetEase(Ease.Linear)
-            .SetRelative();
-
-        gameManager.PlaySound(SoundManager.Sounds.BIG_EXP);
+        Destroy(rb);
+        transform.DOScale(new Vector3(50, 20, 15), 1.5f);
+        transform.DOLocalRotate(new Vector3(15, 270, 10), 15).SetLoops(-1, LoopType.Incremental).SetEase(Ease.Linear).SetRelative();
+        // camera.cameraUp();
+        // gameManager.PlaySound(SoundManager.Sounds.BIG_EXP);
         StartCoroutine(MoveScene());
     }
 
@@ -252,5 +256,12 @@ public class PlayerControl : MonoBehaviour
     {
         yield return new WaitForSeconds(10);
         gameManager.NextLevel();
+    }
+    
+    IEnumerator stopBreaking()
+    {
+        breaking = false;
+        yield return new WaitForSeconds(5);
+        breaking = true;
     }
 }

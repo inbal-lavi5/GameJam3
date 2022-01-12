@@ -10,7 +10,7 @@ using Random = UnityEngine.Random;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] public int manaPickUpsToSpreadAtStart = 30;
-    [SerializeField] public int pickUpsToSpread = 3;
+    [SerializeField] public int pickUpsToSpread = 15;
     [SerializeField] public int pickUpsToCollectTillExplosion = 5;
     [SerializeField] public float randomLocationToInstantiate = 10;
 
@@ -29,13 +29,16 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         NextItemsToDestroy();
-        // spreadItems("PickUpMana", -160, 160, -260, 400, manaPickUpsToSpreadAtStart);
+        spreadItems("PickUp", -160, 160, -260, 400, pickUpsToSpread);
+        spreadItems("PickUp1", -160, 160, -260, 400, 20);
+        spreadItems("PickUpMana", -160, 160, -260, 400, manaPickUpsToSpreadAtStart);
+
     }
     
     protected virtual void NextItemsToDestroy()
     {
-        int randomGoal = Random.Range(0, images.Count);
-        objectToDestroy.sprite = images[randomGoal];
+        // int randomGoal = Random.Range(0, images.Count);
+        // objectToDestroy.sprite = images[randomGoal];
         // print(objectToDestroy.sprite.name);
 
         // objectToDestroyAnimator.Play("Tree");
@@ -104,7 +107,7 @@ public class GameManager : MonoBehaviour
         if (tags.HasTag(objectToDestroy.sprite.name))
         {
             // spreadItems("PickUp", location.x - randomLocationToInstantiate, location.x + randomLocationToInstantiate, location.z - randomLocationToInstantiate, location.z + randomLocationToInstantiate, pickUpsToSpread);
-            NextItemsToDestroy();
+            // NextItemsToDestroy();
             return true;
         }
 

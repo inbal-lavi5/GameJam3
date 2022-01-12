@@ -7,8 +7,9 @@ using UnityEngine.UI;
 public class ManaBar : MonoBehaviour
 {
     private Image bar;
+    private Text count;
 
-    public int MANA_MAX = 200;
+    public int MANA_MAX = 100;
     public int MANA_MIN = 0;
     public float MANA_DEC = 30f;
     public float MANA_ADD = 1f;
@@ -21,12 +22,13 @@ public class ManaBar : MonoBehaviour
     private void Start()
     {
         bar = GetComponent<Image>();
+        count = transform.GetChild(0).GetComponent<Text>();
         manaAmount = MANA_MIN;
     }
 
     private void Update()
     {
-        if (dec)
+        /*if (dec)
         {
             decMana();
         }
@@ -34,8 +36,9 @@ public class ManaBar : MonoBehaviour
         else
         {
             addMana();
-        }
+        }*/
 
+        count.text = getMana() + "%";  //  + "/" + pickUpsToCollectTillExplosion;
         bar.fillAmount = normalizedMana();
     }
 
@@ -61,9 +64,9 @@ public class ManaBar : MonoBehaviour
         }
     }
 
-    private void addMana()
+    public void addMana()
     {
-        manaAmount += MANA_ADD * Time.deltaTime;
+        manaAmount += MANA_ADD; // * Time.deltaTime;
 
         if (manaAmount > MANA_MAX)
         {
@@ -73,7 +76,7 @@ public class ManaBar : MonoBehaviour
 
     private void decMana()
     {
-        manaAmount -= MANA_DEC * Time.deltaTime;
+        manaAmount -= MANA_DEC; // * Time.deltaTime;
 
         if (manaAmount < MANA_MIN)
         {

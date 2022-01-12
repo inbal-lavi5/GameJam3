@@ -18,7 +18,7 @@ public class PlayerControlTutorial : PlayerControl
         tutorialManager = gameManager.GetComponent<TutorialManager>();
         rb = GetComponent<Rigidbody>();
         moveDir = new Vector3(0, 0f, 1f).normalized;
-        playerPickupCounter.SetUpMax(gameManager.pickUpsToCollectTillExplosion);
+        // playerPickupCounter.SetUpMax(gameManager.pickUpsToCollectTillExplosion);
         playerManaBar.transform.parent.gameObject.SetActive(false);
     }
 
@@ -153,15 +153,15 @@ public class PlayerControlTutorial : PlayerControl
             if (otherTransform.CompareTag("PickUp"))
             {
                 pickUpCollected++;
-                playerPickupCounter.AddPickup();
+                // playerPickupCounter.AddPickup();
 
                 other.gameObject.GetComponent<Explosion>().Dest();
                 gameManager.PlaySound(SoundManager.Sounds.BOMB_PICKUP);
 
-                if (playerPickupCounter.CollectedAll())
+                /*if (playerPickupCounter.CollectedAll())
                 {
                     NextLevel();
-                }
+                }*/
             }
         }
     }

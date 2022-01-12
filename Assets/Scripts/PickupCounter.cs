@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class PickupCounter : MonoBehaviour
 {
-    private Text count;
+    /*private Text count;
     private float pickUpAmount = 0;
     // private int pickUpsToCollectTillExplosion = 10;
 
@@ -44,5 +44,5 @@ public class PickupCounter : MonoBehaviour
     private float normalizedPickup()
     {
         return pickUpAmount / pickUpsToCollectTillExplosion;
-    }*/
+    }#1#*/
 }

@@ -10,6 +10,7 @@ TagManager:
   - PickUp
   - Collapsed
   - PickUpMana
+  - PickUp1
   layers:
   - Default
   - TransparentFX

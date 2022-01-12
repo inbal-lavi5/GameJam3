@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2592613856103592076}
   m_Layer: 0
   m_Name: PickUp1
-  m_TagString: PickUp
+  m_TagString: PickUp1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -126,4 +126,3 @@ MonoBehaviour:
   radius: 50
   upforce: 7
   explosion: {fileID: 6198952442143691064, guid: 4507a909a632d6e4ea1599f39f2796f1, type: 3}
-  det: 0

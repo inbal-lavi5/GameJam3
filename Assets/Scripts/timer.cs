@@ -8,6 +8,7 @@ public class timer : MonoBehaviour
     [SerializeField] public Text timerText;
     private float currentTime = 0f;
     private float startingTime = 60f;
+    public PlayerControl player;
     
     void Start()
     {
@@ -22,7 +23,7 @@ public class timer : MonoBehaviour
         if (currentTime <= 0)
         {
             currentTime = 0;
-            startOver();
+            player.NextLevel();
         }
     }
 
