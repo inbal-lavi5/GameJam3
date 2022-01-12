@@ -25,6 +25,8 @@ public class PlayerControl : MonoBehaviour
     protected int pickUpCollected = 0;
     [SerializeField] private GameObject explosion;
 
+    [SerializeField] public timer timer;
+    
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -34,12 +36,16 @@ public class PlayerControl : MonoBehaviour
 
     void Update()
     {
-        if (!playing) return;
+        /*if (!playing) return;
+        
         Vector3 position = transform.position;
+        
         if (Input.GetKey(KeyCode.Space))
         {
-            ManaBarHandle(position);
+            playerManaBar.dec = true;
+            SetPlayerAsNOTBreaking();
         }
+        
         else
         {
             playerManaBar.dec = false;
@@ -50,12 +56,13 @@ public class PlayerControl : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             NextLevel();
-        }
+        }*/
     }
 
     protected void ManaBarHandle(Vector3 position)
     {
-        playerManaBar.dec = true;
+        
+        /*playerManaBar.dec = true;
         if (playerManaBar.isManaFinished())
         {
             SetPlayerAsBreaking(position);
@@ -63,10 +70,10 @@ public class PlayerControl : MonoBehaviour
         else
         {
             SetPlayerAsNOTBreaking();
-        }
+        }*/
     }
 
-    protected void SetPlayerAsNOTBreaking()
+    /*protected void SetPlayerAsNOTBreaking()
     {
         breaking = false;
         rb.constraints &= ~RigidbodyConstraints.FreezePositionY;
@@ -77,12 +84,15 @@ public class PlayerControl : MonoBehaviour
         breaking = true;
         transform.position = new Vector3(position.x, playerHeight, position.z);
         rb.constraints |= RigidbodyConstraints.FreezePositionY;
-    }
+    }*/
 
+    
     private void FixedUpdate()
     {
         if (!playing) return;
+        
         float input = Input.GetAxis("Horizontal");
+        
         Vector3 m_EulerAngleVelocity = new Vector3(0, input * rotationSpeed, 0);
         moveDir = new Vector3(input, 0, 1).normalized;
 
@@ -93,11 +103,12 @@ public class PlayerControl : MonoBehaviour
         // rb.MovePosition(rb.position + transform.TransformDirection(moveDir) * moveSpeed * Time.deltaTime);
     }
 
+    
     private void OnCollisionEnter(UnityEngine.Collision other)
     {
         Transform otherTransform = other.transform;
 
-        if (otherTransform.CompareTag("PickUpMana"))
+        /*if (otherTransform.CompareTag("PickUpMana"))
         {
             playerManaBar.addManaBeMaca();
             other.gameObject.GetComponent<BlueParticle>().Detonate();
@@ -105,66 +116,51 @@ public class PlayerControl : MonoBehaviour
             {
                 gameManager.PlaySound(SoundManager.Sounds.MANA_PICKUP);
             }
-        }
-
-        if (breaking)
+        }*/
+        
+        switch (otherTransform.tag)
         {
-            switch (otherTransform.tag)
-            {
-                case "Plane":
-                    break;
-                case "PickUp":
-                    other.gameObject.GetComponent<Explosion>().Detonate();
-                    if (playing)
-                    {
-                        gameManager.PlaySound(SoundManager.Sounds.BOMB_EXP);
-                    }
-
-                    break;
-                case "Collapse":
-                    // add rigid body to all children
-                    Transform parentParent = otherTransform.parent.parent;
-                    parentParent.tag = "Collapsed";
-                    AddRigidChildren(parentParent);
-                    CheckCollision(otherTransform);
-                    if (playing)
-                    {
-                        ShakePlayer();
-                    }
-
-                    gameManager.PlaySound(SoundManager.Sounds.OBJECT_COLLAPSE);
-                    break;
-                case "Collapsed":
-                    break;
-                default:
-                    GameObject otherGameObject = other.gameObject;
-                    if (otherGameObject.GetComponent<Rigidbody>() == null)
-                    {
-                        otherGameObject.AddComponent<Rigidbody>().AddForce(Random.Range(0f, 0.5f),
-                            Random.Range(0f, 0.5f), Random.Range(0f, 0.5f));
-                    }
-
-                    break;
-            }
-        }
-        else if (playing)
-        {
-            if (otherTransform.CompareTag("PickUp"))
-            {
+            case "Plane":
+                break;
+            
+            /*case "PickUp":
+                
                 pickUpCollected++;
                 playerPickupCounter.AddPickup();
 
                 other.gameObject.GetComponent<Explosion>().Dest();
                 gameManager.PlaySound(SoundManager.Sounds.BOMB_PICKUP);
-
-                if (playerPickupCounter.CollectedAll())
+                break;*/
+            
+            case "Collapse":
+                // add rigid body to all children
+                Transform parentParent = otherTransform.parent.parent;
+                parentParent.tag = "Collapsed";
+                AddRigidChildren(parentParent);
+                CheckCollision(otherTransform);
+                if (playing)
                 {
-                    NextLevel();
+                    ShakePlayer();
                 }
-            }
+
+                gameManager.PlaySound(SoundManager.Sounds.OBJECT_COLLAPSE);
+                break;
+            
+            case "Collapsed":
+                break;
+            
+            default:
+                GameObject otherGameObject = other.gameObject;
+                if (otherGameObject.GetComponent<Rigidbody>() == null)
+                {
+                    otherGameObject.AddComponent<Rigidbody>().AddForce(Random.Range(0f, 0.5f),
+                        Random.Range(0f, 0.5f), Random.Range(0f, 0.5f));
+                }
+                break;
         }
     }
 
+    
     /**
      * shakes the player a bit on object hit
      */
@@ -178,6 +174,7 @@ public class PlayerControl : MonoBehaviour
             .Append(transform.DORotate(new Vector3(0, localEulerAngles.y, 0), 0f));
     }
 
+    
     /**
      * check what we collided with and sends to the game manager for processing
      */
@@ -186,14 +183,22 @@ public class PlayerControl : MonoBehaviour
         var multiTag = other.gameObject.GetComponent<CustomTag>();
         if (multiTag != null)
         {
-            bool destroyedItem = gameManager.AddDestroyedItem(multiTag, other.transform);
-            // if (!destroyedItem)
-            // {
-            //     playerManaBar.decManaBeMaca();
-            // } //todo maybe too hard
+            bool destroyedItem = gameManager.AddDestroyedItem(multiTag, other.transform.position);
+            if (!destroyedItem)
+            {
+                timer.decTime();
+                // todo think what should happen here
+                // playerManaBar.decManaBeMaca();
+            }
+
+            else
+            {
+                playerPickupCounter.AddPickup();
+            }
         }
     }
 
+    
     /**
      * adds rigidbody to all children
      */
@@ -216,6 +221,7 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
+    
     /**
      * shit to do before moving to next level:
      * rotate, scale, explosion particle...
@@ -238,6 +244,7 @@ public class PlayerControl : MonoBehaviour
         StartCoroutine(MoveScene());
     }
 
+    
     /**
      * moves to next scene after 10 secs - so we'll see the explosion
      */

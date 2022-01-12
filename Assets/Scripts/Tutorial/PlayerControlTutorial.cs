@@ -30,7 +30,7 @@ public class PlayerControlTutorial : PlayerControl
         {
             if (stage < 3)
             {
-                SetPlayerAsNOTBreaking();
+                // SetPlayerAsNOTBreaking();
             }
             else
             {
@@ -40,7 +40,7 @@ public class PlayerControlTutorial : PlayerControl
         else
         {
             playerManaBar.dec = false;
-            SetPlayerAsBreaking(position);
+            // SetPlayerAsBreaking(position);
         }
 
         if (Tut1Ended() && stage == 1)
@@ -53,7 +53,9 @@ public class PlayerControlTutorial : PlayerControl
         {
             tutorialManager.NextStage();
             playerManaBar.transform.parent.gameObject.SetActive(true);
-            tutorialManager.InstantiateMana();
+            float posx = Random.Range(-160f, 160f);
+            float posz = Random.Range(-260f, 400f);
+            tutorialManager.spreadItems("PickUpMana", -160, 160, -260, 400,gameManager.manaPickUpsToSpreadAtStart);
             stage++;
         }
 

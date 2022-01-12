@@ -8,7 +8,7 @@ public class PickupCounter : MonoBehaviour
 {
     private Text count;
     private float pickUpAmount = 0;
-    private int pickUpsToCollectTillExplosion = 10;
+    // private int pickUpsToCollectTillExplosion = 10;
 
     private void Awake()
     {
@@ -18,29 +18,31 @@ public class PickupCounter : MonoBehaviour
 
     public void SetUpMax(int max)
     {
-        pickUpsToCollectTillExplosion = max;
+        // pickUpsToCollectTillExplosion = max;
         UpdateText();
     }
 
     private void UpdateText()
     {
-        count.text = pickUpAmount + "/" + pickUpsToCollectTillExplosion;
+        count.text = "Score: " + pickUpAmount;  //  + "/" + pickUpsToCollectTillExplosion;
     }
 
     public void AddPickup()
     {
-        pickUpAmount++;
+        pickUpAmount += 10;
         UpdateText();
     }
 
     public bool CollectedAll()
     {
-        return pickUpAmount >= pickUpsToCollectTillExplosion;
+        return true; // todo change or delete
+        // return pickUpAmount >= pickUpsToCollectTillExplosion;
     }
 
 
+    /*
     private float normalizedPickup()
     {
         return pickUpAmount / pickUpsToCollectTillExplosion;
-    }
+    }*/
 }
