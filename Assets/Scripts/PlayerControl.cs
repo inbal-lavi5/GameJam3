@@ -8,39 +8,29 @@ using Random = UnityEngine.Random;
 
 public class PlayerControl : MonoBehaviour
 {
-    [SerializeField] protected GameManager gameManager;
-    protected bool playing = true;
-    protected Rigidbody rb;
-    public cameraManager camera;
-
-    [SerializeField] protected float playerHeight = 3.5f;
-
-    [SerializeField] protected float moveSpeed = 40;
-    protected Vector3 moveDir;
-    [SerializeField] protected float rotationSpeed = 100;
-
-    [SerializeField] protected bool breaking = true;
-    [SerializeField] protected ManaBar playerManaBar;
-    [SerializeField] protected PickupCounter playerPickupCounter;
-
-    protected int pickUpCollected = 0;
-    [SerializeField] private GameObject explosion;
-
-    [SerializeField] public timer timer;
-    private Transform ball;
-
+    [SerializeField] public GameManager gameManager;
+    [SerializeField] public float moveSpeed = 40;
+    [SerializeField] public float rotationSpeed = 100;
+    [SerializeField] public ManaBar playerExpBar;
     [SerializeField] private Camera cameraTop;
     [SerializeField] private Camera cameraBottom;
+    
+
+    private Rigidbody rb;
+    private Vector3 moveDir;
+    private bool breaking = true;
+    private Transform ball;
     private float curSpeed;
+    
     
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         ball = transform.GetChild(0);
         moveDir = new Vector3(0, 0f, 1f).normalized;
-        // playerPickupCounter.SetUpMax(gameManager.pickUpsToCollectTillExplosion);
     }
 
+    
     void Update()
     {
         curSpeed = (moveSpeed != 0) ? moveSpeed : curSpeed; 
@@ -48,7 +38,6 @@ public class PlayerControl : MonoBehaviour
         if (Input.GetKey(KeyCode.S))
         {
             Time.timeScale = 0.1f;
-            // AudioSource.pitch = 0.5f;
             moveSpeed = 0;
             cameraBottom.enabled = false;
             cameraTop.enabled = true;
@@ -62,61 +51,16 @@ public class PlayerControl : MonoBehaviour
             cameraTop.enabled = false;
         }
         
-        /*if (!playing) return;
-        
-        Vector3 position = transform.position;
-        
-        if (Input.GetKey(KeyCode.Space))
-        {
-            playerManaBar.dec = true;
-            SetPlayerAsNOTBreaking();
-        }
-        
-        else
-        {
-            playerManaBar.dec = false;
-            SetPlayerAsBreaking(position);
-        }
-
         //todo remove at end - hack for fast explosion and move to next level
         if (Input.GetKeyDown(KeyCode.E))
         {
             NextLevel();
-        }*/
-    }
-
-    protected void ManaBarHandle(Vector3 position)
-    {
-        
-        /*playerManaBar.dec = true;
-        if (playerManaBar.isManaFinished())
-        {
-            SetPlayerAsBreaking(position);
         }
-        else
-        {
-            SetPlayerAsNOTBreaking();
-        }*/
     }
-
-    /*protected void SetPlayerAsNOTBreaking()
-    {
-        breaking = false;
-        rb.constraints &= ~RigidbodyConstraints.FreezePositionY;
-    }
-
-    protected void SetPlayerAsBreaking(Vector3 position)
-    {
-        breaking = true;
-        transform.position = new Vector3(position.x, playerHeight, position.z);
-        rb.constraints |= RigidbodyConstraints.FreezePositionY;
-    }*/
 
     
     private void FixedUpdate()
     {
-        if (!playing) return;
-        
         float input = Input.GetAxis("Horizontal");
         
         Vector3 m_EulerAngleVelocity = new Vector3(0, input * rotationSpeed, 0);
@@ -134,7 +78,7 @@ public class PlayerControl : MonoBehaviour
     {
         Transform otherTransform = other.transform;
 
-        if (breaking && playing)
+        if (breaking)
         {
             switch (otherTransform.tag)
             {
@@ -151,29 +95,24 @@ public class PlayerControl : MonoBehaviour
                     moveSpeed += 15;
                     // playerManaBar.addManaBeMaca();
                     other.gameObject.GetComponent<BlueParticle>().Detonate();
-                    if (playing)
-                    {
-                        gameManager.PlaySound(SoundManager.Sounds.MANA_PICKUP);
-                    }
+                    gameManager.PlaySound(SoundManager.Sounds.MANA_PICKUP);
                     break;
             
                 case "PickUp":
-                
-                    // pickUpCollected++;
-                    // playerPickupCounter.AddPickup();
+                    
                     ball.DOScale(new Vector3(ball.localScale.x+2, 4, ball.localScale.z+2), 1.5f);
-                    camera.changeCameraPosition();
+                    // GetComponent<Camera>().changeCameraPosition();
                     other.gameObject.GetComponent<Explosion>().Dest();
                     gameManager.PlaySound(SoundManager.Sounds.BOMB_PICKUP);
                     break;
             
                 case "Collapse":
                     // add rigid body to all children
-                    playerManaBar.addMana();
+                    playerExpBar.addMana();
                     Transform parentParent = otherTransform.parent.parent;
                     parentParent.tag = "Collapsed";
                     AddRigidChildren(parentParent);
-                    CheckCollision(otherTransform);
+                    ShakePlayer();
                     gameManager.PlaySound(SoundManager.Sounds.OBJECT_COLLAPSE);
                     break;
             
@@ -205,26 +144,7 @@ public class PlayerControl : MonoBehaviour
             .Append(transform.DOShakeRotation(0.2f, 10f, 10, 10))
             .Append(transform.DORotate(new Vector3(0, localEulerAngles.y, 0), 0f));
     }
-
     
-    /**
-     * check what we collided with and sends to the game manager for processing
-     */
-    protected void CheckCollision(Transform other)
-    {
-        var multiTag = other.gameObject.GetComponent<CustomTag>();
-        if (multiTag != null)
-        {
-            bool destroyedItem = gameManager.AddDestroyedItem(multiTag, other.transform.position);
-            if (!destroyedItem)
-            {
-                // timer.decTime();
-                // todo think what should happen here
-                // playerManaBar.decManaBeMaca();
-            }
-        }
-    }
-
     
     /**
      * adds rigidbody to all children
@@ -255,13 +175,8 @@ public class PlayerControl : MonoBehaviour
      */
     public void NextLevel()
     {
-        // gameManager.disableImage();
-        breaking = true;
-        playing = false;
-        // Destroy(playerManaBar.transform.parent.gameObject);
-        // Destroy(playerPickupCounter.gameObject);
-        // Instantiate(explosion, transform.position, transform.rotation);
-
+        breaking = false;
+     
         // explode
         Destroy(rb);
         transform.DOScale(new Vector3(50, 20, 15), 1.5f);
