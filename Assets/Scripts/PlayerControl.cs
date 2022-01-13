@@ -28,6 +28,10 @@ public class PlayerControl : MonoBehaviour
 
     [SerializeField] public timer timer;
     private Transform ball;
+
+    [SerializeField] private Camera cameraTop;
+    [SerializeField] private Camera cameraBottom;
+    private float curSpeed;
     
     private void Start()
     {
@@ -39,6 +43,25 @@ public class PlayerControl : MonoBehaviour
 
     void Update()
     {
+        curSpeed = (moveSpeed != 0) ? moveSpeed : curSpeed; 
+
+        if (Input.GetKey(KeyCode.S))
+        {
+            Time.timeScale = 0.1f;
+            // AudioSource.pitch = 0.5f;
+            moveSpeed = 0;
+            cameraBottom.enabled = false;
+            cameraTop.enabled = true;
+        }
+
+        else
+        {
+            Time.timeScale = 1;
+            moveSpeed = curSpeed;
+            cameraBottom.enabled = true;
+            cameraTop.enabled = false;
+        }
+        
         /*if (!playing) return;
         
         Vector3 position = transform.position;
