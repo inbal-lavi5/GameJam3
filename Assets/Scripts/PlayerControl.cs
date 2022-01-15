@@ -10,16 +10,17 @@ public class PlayerControl : MonoBehaviour
 {
     [SerializeField] public GameManager gameManager;
     [SerializeField] private Camera cameraTop;
+    [SerializeField] private Camera cameraUI;
+    [SerializeField] private Canvas canvasUI;
     [SerializeField] private Camera cameraBottom;
     [SerializeField] public ExpBar playerExpBar;
     [SerializeField] public Timer playerTimer;
-
-    
-    [SerializeField] public float moveSpeed = 40;
     [SerializeField] public float rotationSpeed = 100;
    
     [SerializeField] private int timeToRemovePart;
     [SerializeField] private int powerUpsTime;
+    
+    [SerializeField] public float moveSpeed = 40;
     [SerializeField] private int speedToAdd;
 
 
@@ -36,6 +37,7 @@ public class PlayerControl : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         ball = transform.GetChild(0);
         moveDir = new Vector3(0, 0f, 1f).normalized;
+        canvasUI.worldCamera = cameraUI;
     }
 
     
@@ -45,18 +47,12 @@ public class PlayerControl : MonoBehaviour
 
         if (Input.GetKey(KeyCode.S))
         {
-            Time.timeScale = 0.1f;
-            moveSpeed = 0;
-            cameraBottom.enabled = false;
-            cameraTop.enabled = true;
+            activateTopView();
         }
 
         else
         {
-            Time.timeScale = 1;
-            moveSpeed = curSpeed;
-            cameraBottom.enabled = true;
-            cameraTop.enabled = false;
+            activateNormalView();
         }
         
         //todo remove at end - hack for fast explosion and move to next level
@@ -67,6 +63,28 @@ public class PlayerControl : MonoBehaviour
     }
 
     
+    private void activateNormalView()
+    {
+        canvasUI.worldCamera = cameraUI;
+        Time.timeScale = 1;
+        playerTimer.scaleTimeNormal();
+        moveSpeed = curSpeed;
+        cameraBottom.enabled = true;
+        cameraTop.enabled = false;
+    }
+
+    
+    private void activateTopView()
+    {
+        canvasUI.worldCamera = cameraTop;
+        Time.timeScale = 0.1f;
+        playerTimer.scaleTimeUp();
+        moveSpeed = 0;
+        cameraBottom.enabled = false;
+        cameraTop.enabled = true;
+    }
+
+
     private void FixedUpdate()
     {
         float input = Input.GetAxis("Horizontal");
@@ -141,17 +159,17 @@ public class PlayerControl : MonoBehaviour
 
     private void timeHandler(GameObject other)
     {
-        playerTimer.addTime();
         other.GetComponent<Explosion>().Dest();
         gameManager.PlaySound(SoundManager.Sounds.BOMB_PICKUP);
+        playerTimer.addTime();
     }
 
 
     private void speedHandler(GameObject other)
     {
-        moveSpeed += speedToAdd;
         other.GetComponent<BlueParticle>().Detonate();
         gameManager.PlaySound(SoundManager.Sounds.MANA_PICKUP);
+        StartCoroutine(addSpeed());
     }
 
 
@@ -161,19 +179,31 @@ public class PlayerControl : MonoBehaviour
         gameManager.PlaySound(SoundManager.Sounds.BOMB_PICKUP);
         StartCoroutine(stopBreaking());
     }
-
-
-    /**
-     * shakes the player a bit on object hit
-     */
-    protected void ShakePlayer()
+    
+    
+    IEnumerator stopBreaking()
     {
-        Vector3 localEulerAngles = transform.localEulerAngles;
-        Sequence mySequence = DOTween.Sequence();
-        mySequence
-            .Append(transform.DOShakePosition(0.1f))
-            .Append(transform.DOShakeRotation(0.2f, 10f, 10, 10))
-            .Append(transform.DORotate(new Vector3(0, localEulerAngles.y, 0), 0f));
+        breaking = false;
+        yield return new WaitForSeconds(powerUpsTime);
+        breaking = true;
+    }
+    
+    
+    IEnumerator addSpeed()
+    {
+        curSpeed += speedToAdd;
+        yield return new WaitForSeconds(powerUpsTime);
+        curSpeed = moveSpeed;
+    }
+    
+    
+    /**
+     * remove part from scene after timeToRemovePart seconds
+     */
+    IEnumerator RemovePart(Transform part)
+    {
+        yield return new WaitForSeconds(timeToRemovePart);
+        Destroy(part.gameObject);
     }
     
     
@@ -218,18 +248,20 @@ public class PlayerControl : MonoBehaviour
         // gameManager.PlaySound(SoundManager.Sounds.BIG_EXP);
         // StartCoroutine(MoveScene());
     }
-
     
-    /**
-     * remove part from scene after timeToRemovePart seconds
-     */
-    IEnumerator RemovePart(Transform part)
+    
+    /*/* shakes the player a bit on object hit *#1#
+    protected void ShakePlayer()
     {
-        yield return new WaitForSeconds(timeToRemovePart);
-        Destroy(part.gameObject);
-    }
-    
-    
+        Vector3 localEulerAngles = transform.localEulerAngles;
+        Sequence mySequence = DOTween.Sequence();
+        mySequence
+            .Append(transform.DOShakePosition(0.1f))
+            .Append(transform.DOShakeRotation(0.2f, 10f, 10, 10))
+            .Append(transform.DORotate(new Vector3(0, localEulerAngles.y, 0), 0f));
+    }*/
+
+
     /*/**
      * moves to next scene after 10 secs - so we'll see the explosion
      #1#
@@ -238,12 +270,4 @@ public class PlayerControl : MonoBehaviour
         yield return new WaitForSeconds(10);
         gameManager.NextLevel();
     }*/
-    
-    
-    IEnumerator stopBreaking()
-    {
-        breaking = false;
-        yield return new WaitForSeconds(powerUpsTime);
-        breaking = true;
-    }
 }

@@ -11,6 +11,7 @@ public class Timer : MonoBehaviour
     private float currentTime = 0f;
     private float startingTime = 60f;
     private float timeToAdd = 5;
+    private float scaleTimeFactor = 1;
     
     void Start()
     {
@@ -19,13 +20,13 @@ public class Timer : MonoBehaviour
 
     void Update()
     {
-        currentTime -= 1 * Time.deltaTime;
+        currentTime -= 1 * Time.deltaTime * scaleTimeFactor;
         timerText.text = currentTime.ToString("0");
 
         if (currentTime <= 0)
         {
             currentTime = 0;
-            player.NextLevel();
+            player.NextLevel(); // todo change to certain condition
         }
     }
 
@@ -34,6 +35,16 @@ public class Timer : MonoBehaviour
         // continue
     }
 
+    public void scaleTimeUp()
+    {
+        scaleTimeFactor = 10;
+    }
+    
+    public void scaleTimeNormal()
+    {
+        scaleTimeFactor = 1;
+    }
+    
     public void addTime()
     {
         currentTime += timeToAdd;
