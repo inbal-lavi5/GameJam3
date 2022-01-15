@@ -191,9 +191,9 @@ public class PlayerControl : MonoBehaviour
     
     IEnumerator addSpeed()
     {
-        curSpeed += speedToAdd;
+        moveSpeed += speedToAdd;
         yield return new WaitForSeconds(powerUpsTime);
-        curSpeed = moveSpeed;
+        moveSpeed -= speedToAdd;
     }
     
     
