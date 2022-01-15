@@ -15,6 +15,8 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private Camera cameraBottom;
     [SerializeField] public ExpBar playerExpBar;
     [SerializeField] public Timer playerTimer;
+    [SerializeField] public ScreenEffectsManager screenManager;
+
     [SerializeField] public float rotationSpeed = 100;
    
     [SerializeField] private int timeToRemovePart;
@@ -162,6 +164,7 @@ public class PlayerControl : MonoBehaviour
         other.GetComponent<Explosion>().Dest();
         gameManager.PlaySound(SoundManager.Sounds.BOMB_PICKUP);
         playerTimer.addTime();
+        screenManager.timedOn();
     }
 
 
@@ -184,7 +187,9 @@ public class PlayerControl : MonoBehaviour
     IEnumerator stopBreaking()
     {
         breaking = false;
+        screenManager.blockOn();
         yield return new WaitForSeconds(powerUpsTime);
+        screenManager.normal();
         breaking = true;
     }
     
@@ -192,7 +197,9 @@ public class PlayerControl : MonoBehaviour
     IEnumerator addSpeed()
     {
         moveSpeed += speedToAdd;
+        screenManager.speedOn();
         yield return new WaitForSeconds(powerUpsTime);
+        screenManager.normal();
         moveSpeed -= speedToAdd;
     }
     
