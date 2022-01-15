@@ -11,27 +11,17 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] public int manaPickUpsToSpreadAtStart = 30;
     [SerializeField] public int pickUpsToSpread = 15;
-    [SerializeField] public int pickUpsToCollectTillExplosion = 5;
-    [SerializeField] public float randomLocationToInstantiate = 10;
-
     [SerializeField] public SoundManager SoundManager;
-
     [SerializeField] private int level = 1;
-
     [SerializeField] public List<string> levelsList = new List<string>
         {"city tutorial", "city", "country"};
 
-    [SerializeField] public Image objectToDestroy;
-    [SerializeField] public Animator objectToDestroyAnimator;
-    [SerializeField] public List<Sprite> images;
-
-
+    
     void Awake()
     {
-        spreadItems("PickUp", -160, 160, -260, 400, pickUpsToSpread);
-        spreadItems("PickUp1", -160, 160, -260, 400, 20);
-        spreadItems("PickUpMana", -160, 160, -260, 400, manaPickUpsToSpreadAtStart);
-
+        spreadItems("Time", -160, 160, -260, 400, pickUpsToSpread);
+        spreadItems("Stop", -160, 160, -260, 400, 20);
+        spreadItems("Speed", -160, 160, -260, 400, manaPickUpsToSpreadAtStart);
     }
     
     private void Update()

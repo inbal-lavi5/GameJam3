@@ -9,12 +9,20 @@ using Random = UnityEngine.Random;
 public class PlayerControl : MonoBehaviour
 {
     [SerializeField] public GameManager gameManager;
-    [SerializeField] public float moveSpeed = 40;
-    [SerializeField] public float rotationSpeed = 100;
-    [SerializeField] public ManaBar playerExpBar;
     [SerializeField] private Camera cameraTop;
     [SerializeField] private Camera cameraBottom;
+    [SerializeField] public ExpBar playerExpBar;
+    [SerializeField] public Timer playerTimer;
+
     
+    [SerializeField] public float moveSpeed = 40;
+    [SerializeField] public float rotationSpeed = 100;
+   
+    [SerializeField] private int timeToRemovePart;
+    [SerializeField] private int powerUpsTime;
+    [SerializeField] private int speedToAdd;
+
+
 
     private Rigidbody rb;
     private Vector3 moveDir;
@@ -76,62 +84,85 @@ public class PlayerControl : MonoBehaviour
     
     private void OnCollisionEnter(UnityEngine.Collision other)
     {
-        Transform otherTransform = other.transform;
-
-        if (breaking)
-        {
+        if (breaking) {
+            
+            Transform otherTransform = other.transform; 
+            GameObject otherGameObject = other.gameObject;
+        
             switch (otherTransform.tag)
             {
                 case "Plane":
                     break;
                 
-                case "PickUp1":
-                    other.gameObject.SetActive(false);
-                    gameManager.PlaySound(SoundManager.Sounds.BOMB_PICKUP);
-                    StartCoroutine(stopBreaking());
+                case "Stop":
+                    stopHandler(otherGameObject);
                     break;
 
-                case "PickUpMana":
-                    moveSpeed += 15;
-                    // playerManaBar.addManaBeMaca();
-                    other.gameObject.GetComponent<BlueParticle>().Detonate();
-                    gameManager.PlaySound(SoundManager.Sounds.MANA_PICKUP);
+                case "Speed":
+                    speedHandler(otherGameObject);
                     break;
             
-                case "PickUp":
-                    
-                    ball.DOScale(new Vector3(ball.localScale.x+2, 4, ball.localScale.z+2), 1.5f);
-                    // GetComponent<Camera>().changeCameraPosition();
-                    other.gameObject.GetComponent<Explosion>().Dest();
-                    gameManager.PlaySound(SoundManager.Sounds.BOMB_PICKUP);
+                case "Time":
+                    timeHandler(otherGameObject);
                     break;
             
                 case "Collapse":
-                    // add rigid body to all children
-                    playerExpBar.addMana();
-                    Transform parentParent = otherTransform.parent.parent;
-                    parentParent.tag = "Collapsed";
-                    AddRigidChildren(parentParent);
-                    ShakePlayer();
-                    gameManager.PlaySound(SoundManager.Sounds.OBJECT_COLLAPSE);
+                    collapseHandler(otherTransform);
                     break;
             
                 case "Collapsed":
                     break;
             
                 default:
-                    GameObject otherGameObject = other.gameObject;
-                    if (otherGameObject.GetComponent<Rigidbody>() == null)
-                    {
-                        otherGameObject.AddComponent<Rigidbody>().AddForce(Random.Range(0f, 0.5f),
-                            Random.Range(0f, 0.5f), Random.Range(0f, 0.5f));
-                    }
+                    defaultHandler(otherGameObject);
                     break;
             }
         }
     }
 
     
+    private static void defaultHandler(GameObject otherGameObject)
+    {
+        if (otherGameObject.GetComponent<Rigidbody>() == null)
+        {
+            otherGameObject.AddComponent<Rigidbody>().AddForce(Random.Range(0f, 0.5f),
+                Random.Range(0f, 0.5f), Random.Range(0f, 0.5f));
+        }
+    }
+
+    private void collapseHandler(Transform otherTransform)
+    {
+        playerExpBar.addExp();
+        AddRigidChildren(otherTransform.parent.parent);
+        // ShakePlayer();
+        gameManager.PlaySound(SoundManager.Sounds.OBJECT_COLLAPSE);
+    }
+
+
+    private void timeHandler(GameObject other)
+    {
+        playerTimer.addTime();
+        other.GetComponent<Explosion>().Dest();
+        gameManager.PlaySound(SoundManager.Sounds.BOMB_PICKUP);
+    }
+
+
+    private void speedHandler(GameObject other)
+    {
+        moveSpeed += speedToAdd;
+        other.GetComponent<BlueParticle>().Detonate();
+        gameManager.PlaySound(SoundManager.Sounds.MANA_PICKUP);
+    }
+
+
+    private void stopHandler(GameObject other)
+    {
+        other.SetActive(false);
+        gameManager.PlaySound(SoundManager.Sounds.BOMB_PICKUP);
+        StartCoroutine(stopBreaking());
+    }
+
+
     /**
      * shakes the player a bit on object hit
      */
@@ -151,6 +182,8 @@ public class PlayerControl : MonoBehaviour
      */
     protected void AddRigidChildren(Transform parent)
     {
+        parent.tag = "Collapsed";
+        
         for (int i = 0; i < parent.childCount; i++)
         {
             Transform child = parent.GetChild(i);
@@ -159,6 +192,7 @@ public class PlayerControl : MonoBehaviour
                 child.gameObject.AddComponent<Rigidbody>().AddForce(Random.Range(0f, 0.5f), Random.Range(0f, 0.5f),
                     Random.Range(0f, 0.5f));
                 child.tag = "Collapsed";
+                StartCoroutine(RemovePart(child));
             }
 
             if (child.childCount > 0)
@@ -178,28 +212,38 @@ public class PlayerControl : MonoBehaviour
         breaking = false;
      
         // explode
-        Destroy(rb);
         transform.DOScale(new Vector3(50, 20, 15), 1.5f);
         transform.DOLocalRotate(new Vector3(15, 270, 10), 15).SetLoops(-1, LoopType.Incremental).SetEase(Ease.Linear).SetRelative();
         // camera.cameraUp();
         // gameManager.PlaySound(SoundManager.Sounds.BIG_EXP);
-        StartCoroutine(MoveScene());
+        // StartCoroutine(MoveScene());
     }
 
     
     /**
-     * moves to next scene after 10 secs - so we'll see the explosion
+     * remove part from scene after timeToRemovePart seconds
      */
+    IEnumerator RemovePart(Transform part)
+    {
+        yield return new WaitForSeconds(timeToRemovePart);
+        Destroy(part.gameObject);
+    }
+    
+    
+    /*/**
+     * moves to next scene after 10 secs - so we'll see the explosion
+     #1#
     IEnumerator MoveScene()
     {
         yield return new WaitForSeconds(10);
         gameManager.NextLevel();
-    }
+    }*/
+    
     
     IEnumerator stopBreaking()
     {
         breaking = false;
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(powerUpsTime);
         breaking = true;
     }
 }
