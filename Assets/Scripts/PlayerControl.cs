@@ -8,115 +8,87 @@ using Random = UnityEngine.Random;
 
 public class PlayerControl : MonoBehaviour
 {
-    [SerializeField] protected GameManager gameManager;
-    protected bool playing = true;
-    protected Rigidbody rb;
-    public cameraManager camera;
-
-    [SerializeField] protected float playerHeight = 3.5f;
-
-    [SerializeField] protected float moveSpeed = 40;
-    protected Vector3 moveDir;
-    [SerializeField] protected float rotationSpeed = 100;
-
-    [SerializeField] protected bool breaking = true;
-    [SerializeField] protected ManaBar playerManaBar;
-    [SerializeField] protected PickupCounter playerPickupCounter;
-
-    protected int pickUpCollected = 0;
-    [SerializeField] private GameObject explosion;
-
-    [SerializeField] public timer timer;
-    private Transform ball;
-
+    [SerializeField] public GameManager gameManager;
     [SerializeField] private Camera cameraTop;
+    [SerializeField] private Camera cameraUI;
+    [SerializeField] private Canvas canvasUI;
     [SerializeField] private Camera cameraBottom;
+    [SerializeField] public ExpBar playerExpBar;
+    [SerializeField] public Timer playerTimer;
+    [SerializeField] public ScreenEffectsManager screenManager;
+
+    [SerializeField] public float rotationSpeed = 100;
+   
+    [SerializeField] private int timeToRemovePart;
+    [SerializeField] private int powerUpsTime;
+    
+    [SerializeField] public float moveSpeed = 40;
+    [SerializeField] private int speedToAdd;
+
+
+
+    private Rigidbody rb;
+    private Vector3 moveDir;
+    private bool breaking = true;
+    private Transform ball;
     private float curSpeed;
+    
     
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         ball = transform.GetChild(0);
         moveDir = new Vector3(0, 0f, 1f).normalized;
-        // playerPickupCounter.SetUpMax(gameManager.pickUpsToCollectTillExplosion);
+        canvasUI.worldCamera = cameraUI;
     }
 
+    
     void Update()
     {
         curSpeed = (moveSpeed != 0) ? moveSpeed : curSpeed; 
 
         if (Input.GetKey(KeyCode.S))
         {
-            Time.timeScale = 0.1f;
-            // AudioSource.pitch = 0.5f;
-            moveSpeed = 0;
-            cameraBottom.enabled = false;
-            cameraTop.enabled = true;
+            activateTopView();
         }
 
         else
         {
-            Time.timeScale = 1;
-            moveSpeed = curSpeed;
-            cameraBottom.enabled = true;
-            cameraTop.enabled = false;
+            activateNormalView();
         }
         
-        /*if (!playing) return;
-        
-        Vector3 position = transform.position;
-        
-        if (Input.GetKey(KeyCode.Space))
-        {
-            playerManaBar.dec = true;
-            SetPlayerAsNOTBreaking();
-        }
-        
-        else
-        {
-            playerManaBar.dec = false;
-            SetPlayerAsBreaking(position);
-        }
-
         //todo remove at end - hack for fast explosion and move to next level
         if (Input.GetKeyDown(KeyCode.E))
         {
             NextLevel();
-        }*/
-    }
-
-    protected void ManaBarHandle(Vector3 position)
-    {
-        
-        /*playerManaBar.dec = true;
-        if (playerManaBar.isManaFinished())
-        {
-            SetPlayerAsBreaking(position);
         }
-        else
-        {
-            SetPlayerAsNOTBreaking();
-        }*/
     }
-
-    /*protected void SetPlayerAsNOTBreaking()
-    {
-        breaking = false;
-        rb.constraints &= ~RigidbodyConstraints.FreezePositionY;
-    }
-
-    protected void SetPlayerAsBreaking(Vector3 position)
-    {
-        breaking = true;
-        transform.position = new Vector3(position.x, playerHeight, position.z);
-        rb.constraints |= RigidbodyConstraints.FreezePositionY;
-    }*/
 
     
+    private void activateNormalView()
+    {
+        canvasUI.worldCamera = cameraUI;
+        Time.timeScale = 1;
+        playerTimer.scaleTimeNormal();
+        moveSpeed = curSpeed;
+        cameraBottom.enabled = true;
+        cameraTop.enabled = false;
+    }
+
+    
+    private void activateTopView()
+    {
+        canvasUI.worldCamera = cameraTop;
+        Time.timeScale = 0.1f;
+        playerTimer.scaleTimeUp();
+        moveSpeed = 0;
+        cameraBottom.enabled = false;
+        cameraTop.enabled = true;
+    }
+
+
     private void FixedUpdate()
     {
-        if (!playing) return;
-        
         float input = Input.GetAxis("Horizontal");
         
         Vector3 m_EulerAngleVelocity = new Vector3(0, input * rotationSpeed, 0);
@@ -132,105 +104,123 @@ public class PlayerControl : MonoBehaviour
     
     private void OnCollisionEnter(UnityEngine.Collision other)
     {
-        Transform otherTransform = other.transform;
-
-        if (breaking && playing)
-        {
+        if (breaking) {
+            
+            Transform otherTransform = other.transform; 
+            GameObject otherGameObject = other.gameObject;
+        
             switch (otherTransform.tag)
             {
                 case "Plane":
                     break;
                 
-                case "PickUp1":
-                    other.gameObject.SetActive(false);
-                    gameManager.PlaySound(SoundManager.Sounds.BOMB_PICKUP);
-                    StartCoroutine(stopBreaking());
+                case "Stop":
+                    stopHandler(otherGameObject);
                     break;
 
-                case "PickUpMana":
-                    moveSpeed += 15;
-                    // playerManaBar.addManaBeMaca();
-                    other.gameObject.GetComponent<BlueParticle>().Detonate();
-                    if (playing)
-                    {
-                        gameManager.PlaySound(SoundManager.Sounds.MANA_PICKUP);
-                    }
+                case "Speed":
+                    speedHandler(otherGameObject);
                     break;
             
-                case "PickUp":
-                
-                    // pickUpCollected++;
-                    // playerPickupCounter.AddPickup();
-                    ball.DOScale(new Vector3(ball.localScale.x+2, 4, ball.localScale.z+2), 1.5f);
-                    camera.changeCameraPosition();
-                    other.gameObject.GetComponent<Explosion>().Dest();
-                    gameManager.PlaySound(SoundManager.Sounds.BOMB_PICKUP);
+                case "Time":
+                    timeHandler(otherGameObject);
                     break;
             
                 case "Collapse":
-                    // add rigid body to all children
-                    playerManaBar.addMana();
-                    Transform parentParent = otherTransform.parent.parent;
-                    parentParent.tag = "Collapsed";
-                    AddRigidChildren(parentParent);
-                    CheckCollision(otherTransform);
-                    gameManager.PlaySound(SoundManager.Sounds.OBJECT_COLLAPSE);
+                    collapseHandler(otherTransform);
                     break;
             
                 case "Collapsed":
                     break;
             
                 default:
-                    GameObject otherGameObject = other.gameObject;
-                    if (otherGameObject.GetComponent<Rigidbody>() == null)
-                    {
-                        otherGameObject.AddComponent<Rigidbody>().AddForce(Random.Range(0f, 0.5f),
-                            Random.Range(0f, 0.5f), Random.Range(0f, 0.5f));
-                    }
+                    defaultHandler(otherGameObject);
                     break;
             }
         }
     }
 
     
-    /**
-     * shakes the player a bit on object hit
-     */
-    protected void ShakePlayer()
+    private static void defaultHandler(GameObject otherGameObject)
     {
-        Vector3 localEulerAngles = transform.localEulerAngles;
-        Sequence mySequence = DOTween.Sequence();
-        mySequence
-            .Append(transform.DOShakePosition(0.1f))
-            .Append(transform.DOShakeRotation(0.2f, 10f, 10, 10))
-            .Append(transform.DORotate(new Vector3(0, localEulerAngles.y, 0), 0f));
-    }
-
-    
-    /**
-     * check what we collided with and sends to the game manager for processing
-     */
-    protected void CheckCollision(Transform other)
-    {
-        var multiTag = other.gameObject.GetComponent<CustomTag>();
-        if (multiTag != null)
+        if (otherGameObject.GetComponent<Rigidbody>() == null)
         {
-            bool destroyedItem = gameManager.AddDestroyedItem(multiTag, other.transform.position);
-            if (!destroyedItem)
-            {
-                // timer.decTime();
-                // todo think what should happen here
-                // playerManaBar.decManaBeMaca();
-            }
+            otherGameObject.AddComponent<Rigidbody>().AddForce(Random.Range(0f, 0.5f),
+                Random.Range(0f, 0.5f), Random.Range(0f, 0.5f));
         }
     }
 
+    private void collapseHandler(Transform otherTransform)
+    {
+        playerExpBar.addExp();
+        AddRigidChildren(otherTransform.parent.parent);
+        // ShakePlayer();
+        gameManager.PlaySound(SoundManager.Sounds.OBJECT_COLLAPSE);
+    }
+
+
+    private void timeHandler(GameObject other)
+    {
+        other.GetComponent<Explosion>().Dest();
+        gameManager.PlaySound(SoundManager.Sounds.BOMB_PICKUP);
+        playerTimer.addTime();
+        screenManager.timedOn();
+    }
+
+
+    private void speedHandler(GameObject other)
+    {
+        other.GetComponent<BlueParticle>().Detonate();
+        gameManager.PlaySound(SoundManager.Sounds.MANA_PICKUP);
+        StartCoroutine(addSpeed());
+    }
+
+
+    private void stopHandler(GameObject other)
+    {
+        other.SetActive(false);
+        gameManager.PlaySound(SoundManager.Sounds.BOMB_PICKUP);
+        StartCoroutine(stopBreaking());
+    }
+    
+    
+    IEnumerator stopBreaking()
+    {
+        breaking = false;
+        screenManager.blockOn();
+        yield return new WaitForSeconds(powerUpsTime);
+        screenManager.normal();
+        breaking = true;
+    }
+    
+    
+    IEnumerator addSpeed()
+    {
+        moveSpeed += speedToAdd;
+        screenManager.speedOn();
+        yield return new WaitForSeconds(powerUpsTime);
+        screenManager.normal();
+        moveSpeed -= speedToAdd;
+    }
+    
+    
+    /**
+     * remove part from scene after timeToRemovePart seconds
+     */
+    IEnumerator RemovePart(Transform part)
+    {
+        yield return new WaitForSeconds(timeToRemovePart);
+        Destroy(part.gameObject);
+    }
+    
     
     /**
      * adds rigidbody to all children
      */
     protected void AddRigidChildren(Transform parent)
     {
+        parent.tag = "Collapsed";
+        
         for (int i = 0; i < parent.childCount; i++)
         {
             Transform child = parent.GetChild(i);
@@ -239,6 +229,7 @@ public class PlayerControl : MonoBehaviour
                 child.gameObject.AddComponent<Rigidbody>().AddForce(Random.Range(0f, 0.5f), Random.Range(0f, 0.5f),
                     Random.Range(0f, 0.5f));
                 child.tag = "Collapsed";
+                StartCoroutine(RemovePart(child));
             }
 
             if (child.childCount > 0)
@@ -255,36 +246,35 @@ public class PlayerControl : MonoBehaviour
      */
     public void NextLevel()
     {
-        // gameManager.disableImage();
-        breaking = true;
-        playing = false;
-        // Destroy(playerManaBar.transform.parent.gameObject);
-        // Destroy(playerPickupCounter.gameObject);
-        // Instantiate(explosion, transform.position, transform.rotation);
-
+        breaking = false;
+     
         // explode
-        Destroy(rb);
         transform.DOScale(new Vector3(50, 20, 15), 1.5f);
         transform.DOLocalRotate(new Vector3(15, 270, 10), 15).SetLoops(-1, LoopType.Incremental).SetEase(Ease.Linear).SetRelative();
         // camera.cameraUp();
         // gameManager.PlaySound(SoundManager.Sounds.BIG_EXP);
-        StartCoroutine(MoveScene());
+        // StartCoroutine(MoveScene());
     }
-
     
-    /**
+    
+    /*/* shakes the player a bit on object hit *#1#
+    protected void ShakePlayer()
+    {
+        Vector3 localEulerAngles = transform.localEulerAngles;
+        Sequence mySequence = DOTween.Sequence();
+        mySequence
+            .Append(transform.DOShakePosition(0.1f))
+            .Append(transform.DOShakeRotation(0.2f, 10f, 10, 10))
+            .Append(transform.DORotate(new Vector3(0, localEulerAngles.y, 0), 0f));
+    }*/
+
+
+    /*/**
      * moves to next scene after 10 secs - so we'll see the explosion
-     */
+     #1#
     IEnumerator MoveScene()
     {
         yield return new WaitForSeconds(10);
         gameManager.NextLevel();
-    }
-    
-    IEnumerator stopBreaking()
-    {
-        breaking = false;
-        yield return new WaitForSeconds(5);
-        breaking = true;
-    }
+    }*/
 }

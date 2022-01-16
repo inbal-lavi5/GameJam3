@@ -21,15 +21,4 @@ public class cameraManager : MonoBehaviour
         Vector3 curAngle = new Vector3(Mathf.LerpAngle(transform.rotation.eulerAngles.x, newXAngle, Time.deltaTime * cameraSpeed), transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
         transform.eulerAngles = curAngle;
     }
-
-    public void cameraUp()
-    {
-        // Vector3 finalPsition = new Vector3(0, 73, -160);
-        // transform.position = Vector3.Lerp(transform.position, finalPsition, Time.deltaTime * 100);
-        transform.position = new Vector3(0, 500, -160);
-        
-        // float newXAngle = transform.rotation.eulerAngles.x + angleChange;
-        // Vector3 curAngle = new Vector3(Mathf.LerpAngle(transform.rotation.eulerAngles.x, 12, Time.deltaTime * 100), transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
-        transform.eulerAngles = new Vector3(70, 0, 0);;
-    }
 }

@@ -7,10 +7,12 @@ TagManager:
   - End
   - Collapse
   - Plane
-  - PickUp
   - Collapsed
+  - Stop
+  - Speed
+  - Time
+  - PickUp
   - PickUpMana
-  - PickUp1
   layers:
   - Default
   - TransparentFX
@@ -18,7 +20,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Player
   - 
   - 
   - 
@@ -47,4 +49,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Player
+    uniqueID: 631318007
     locked: 0
