@@ -6,16 +6,15 @@ using UnityEngine.UI;
 
 public class ExpBar : MonoBehaviour
 {
-    
     private int EXP_MAX = 100;
     private int EXP_MIN = 0;
     private float EXP_ADD = 1f;
-    
+
     private Image bar;
     private Text precentage;
     private float curAmount;
 
-    
+
     private void Start()
     {
         bar = GetComponent<Image>();
@@ -23,21 +22,22 @@ public class ExpBar : MonoBehaviour
         curAmount = EXP_MIN;
         updateUI();
     }
-    
 
-    public void addExp()
+
+    public void addExp(float size)
     {
-        curAmount += EXP_ADD;
+        // curAmount += EXP_ADD;
+        curAmount += size;
 
-        if (curAmount > EXP_MAX)
+        if (curAmount >= EXP_MAX)
         {
             curAmount = EXP_MAX;
         }
-        
+
         updateUI();
     }
 
-    
+
     private void updateUI()
     {
         precentage.text = curAmount + "%";
@@ -48,5 +48,10 @@ public class ExpBar : MonoBehaviour
     private float normalizedMana()
     {
         return curAmount / EXP_MAX;
+    }
+
+    public bool isFinished()
+    {
+        return curAmount >= EXP_MAX;
     }
 }

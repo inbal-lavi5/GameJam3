@@ -23,21 +23,21 @@ public class ScreenEffectsManager : MonoBehaviour
         normal();
     }
 
-    public void ScreenEffect(Effects sfx)
+    public void ScreenEffect(Effects sfx, float time)
     {
         switch (sfx)
         {
             case Effects.TIME:
-                timedOn();
+                StartCoroutine(timeCoroutine());
                 break;
             case Effects.STOP:
-                blockOn();
+                StartCoroutine(stopCoroutine(time));
                 break;
             case Effects.SPEED:
-                speedOn();
+                StartCoroutine(speedCoroutine(time));
                 break;
             case Effects.BOMB:
-                bombOn();
+                StartCoroutine(bombCoroutine());
                 break;
             case Effects.NORMAL:
                 normal();
@@ -45,31 +45,25 @@ public class ScreenEffectsManager : MonoBehaviour
         }
     }
 
-    public void speedOn()
-    {
-        speedScreen.SetActive(true);
-    }
-
-    public void timedOn()
-    {
-        StartCoroutine(timeCoroutine());
-    }
-
-    public void blockOn()
-    {
-        stopScreen.SetActive(true);
-    }
-
-    public void bombOn()
-    {
-        StartCoroutine(bombCoroutine());
-    }
-
     public void normal()
     {
         stopScreen.SetActive(false);
         speedScreen.SetActive(false);
         timeScreen.SetActive(false);
+    }
+
+    IEnumerator stopCoroutine(float time)
+    {
+        stopScreen.SetActive(true);
+        yield return new WaitForSeconds(time);
+        stopScreen.SetActive(false);
+    }
+
+    IEnumerator speedCoroutine(float time)
+    {
+        speedScreen.SetActive(true);
+        yield return new WaitForSeconds(time);
+        speedScreen.SetActive(false);
     }
 
     IEnumerator timeCoroutine()

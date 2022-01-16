@@ -9,14 +9,13 @@ using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] public int manaPickUpsToSpreadAtStart = 30;
-    [SerializeField] public int pickUpsToSpread = 15;
     [SerializeField] private SoundManager soundManager;
     [SerializeField] private ScreenEffectsManager screenManager;
+    
+    [SerializeField] private GameObject losePanel;
 
     private int timeToRemovePart = 10;
     [SerializeField] public int powerUpsTime;
-
 
     [SerializeField] private int level = 0;
 
@@ -26,15 +25,18 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        // spreadItems("Time", -160, 160, -260, 400, pickUpsToSpread);
-        // spreadItems("Stop", -160, 160, -260, 400, 20);
-        // spreadItems("Speed", -160, 160, -260, 400, manaPickUpsToSpreadAtStart);
-        spreadItems("Bomb", -160, 160, -260, 400, 50);
+        // power ups
+        spreadItems("Time", -160, 160, -260, 400, 10);
+        spreadItems("Speed", -160, 160, -260, 400, 10);
+        spreadItems("Bomb", -160, 160, -260, 400, 5);
+
+        // power down
+        spreadItems("Stop", -160, 160, -260, 400, 20);
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R)) //todo remove at end
+        if (Input.GetKeyDown(KeyCode.R))
         {
             Reset();
         }
@@ -45,6 +47,11 @@ public class GameManager : MonoBehaviour
     {
         level = 0;
         SceneManager.LoadScene(levelsList[level]);
+    }
+
+    public void Lose()
+    {
+        losePanel.SetActive(true);
     }
 
 
@@ -121,6 +128,6 @@ public class GameManager : MonoBehaviour
 
     public void ManageScreen(ScreenEffectsManager.Effects fx)
     {
-        screenManager.ScreenEffect(fx);
+        screenManager.ScreenEffect(fx, powerUpsTime);
     }
 }

@@ -14,13 +14,9 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] public ExpBar playerExpBar;
 
     [SerializeField] public Timer playerTimer;
-    // [SerializeField] public ScreenEffectsManager screenManager;
 
     [SerializeField] private float playerHeight = 3.5f;
     [SerializeField] public float rotationSpeed = 100;
-
-    // [SerializeField] private int timeToRemovePart;
-    // [SerializeField] private int powerUpsTime;
 
     [SerializeField] public float moveSpeed = 40;
     [SerializeField] private int speedToAdd;
@@ -34,29 +30,40 @@ public class PlayerControl : MonoBehaviour
 
     private void Start()
     {
+        curSpeed = moveSpeed;
         rb = GetComponent<Rigidbody>();
         moveDir = new Vector3(0, 0f, 1f).normalized;
+        activateNormalView();
     }
 
 
     void Update()
     {
-        curSpeed = (moveSpeed != 0) ? moveSpeed : curSpeed;
+        // curSpeed = (moveSpeed != 0) ? moveSpeed : curSpeed;
+        // if (Input.GetKey(KeyCode.S))
+        // {
+        //     activateTopView();
+        // }
+        // else
+        // {
+        //     activateNormalView();
+        // }
 
-        if (Input.GetKey(KeyCode.S))
+        if (playerExpBar.isFinished())
         {
-            activateTopView();
+            ZoomOut();
         }
 
-        else
+        if (playerTimer.isFinished())
         {
-            activateNormalView();
+            ZoomOut();
+            gameManager.Lose();
         }
 
         //todo remove at end - hack for fast explosion and move to next level
         if (Input.GetKeyDown(KeyCode.E))
         {
-            NextLevel();
+            ZoomOut();
         }
     }
 
@@ -151,9 +158,10 @@ public class PlayerControl : MonoBehaviour
 
     private void collapseHandler(Transform otherTransform)
     {
-        playerExpBar.addExp();
+        float objectSize = otherTransform.GetComponent<ObjectSize>().GetSize();
+        if (objectSize >= 3) ShakePlayer();
+        playerExpBar.addExp(objectSize);
         gameManager.AddRigidChildren(otherTransform.parent.parent);
-        ShakePlayer();
         gameManager.PlaySound(SoundManager.Sounds.OBJECT_COLLAPSE);
     }
 
@@ -163,12 +171,12 @@ public class PlayerControl : MonoBehaviour
         other.GetComponent<Particle>().Detonate();
         gameManager.PlaySound(SoundManager.Sounds.BOMB_PICKUP);
         playerTimer.addTime();
-        // screenManager.timedOn();
         gameManager.ManageScreen(ScreenEffectsManager.Effects.TIME);
     }
 
     private void bombHandler(GameObject other)
     {
+        playerExpBar.addExp(10);
         other.GetComponent<Particle>().Detonate();
         gameManager.PlaySound(SoundManager.Sounds.BOMB_PICKUP);
     }
@@ -184,7 +192,6 @@ public class PlayerControl : MonoBehaviour
     private void stopHandler(GameObject other)
     {
         other.GetComponent<Particle>().Detonate();
-        other.SetActive(false);
         gameManager.PlaySound(SoundManager.Sounds.BOMB_PICKUP);
         StartCoroutine(stopBreaking());
     }
@@ -192,16 +199,13 @@ public class PlayerControl : MonoBehaviour
 
     IEnumerator stopBreaking()
     {
-        breaking = false;
-        // screenManager.blockOn();
         gameManager.ManageScreen(ScreenEffectsManager.Effects.STOP);
+        breaking = false;
         rb.constraints &= ~RigidbodyConstraints.FreezePositionY;
 
         yield return new WaitForSeconds(gameManager.powerUpsTime);
 
         breaking = true;
-        // screenManager.normal();
-        gameManager.ManageScreen(ScreenEffectsManager.Effects.NORMAL);
         rb.constraints |= RigidbodyConstraints.FreezePositionY;
         Vector3 pos = transform.position;
         transform.position = new Vector3(pos.x, playerHeight, pos.z);
@@ -210,15 +214,24 @@ public class PlayerControl : MonoBehaviour
 
     IEnumerator addSpeed()
     {
-        moveSpeed += speedToAdd;
-        // screenManager.speedOn();
         gameManager.ManageScreen(ScreenEffectsManager.Effects.SPEED);
+        moveSpeed += speedToAdd;
 
         yield return new WaitForSeconds(gameManager.powerUpsTime);
-        
-        // screenManager.normal();
-        gameManager.ManageScreen(ScreenEffectsManager.Effects.NORMAL);
+
         moveSpeed -= speedToAdd;
+    }
+
+
+    /* shakes the player a bit on object hit #1# */
+    private void ShakePlayer()
+    {
+        Vector3 localEulerAngles = transform.localEulerAngles;
+        Sequence mySequence = DOTween.Sequence();
+        mySequence
+            .Append(transform.DOShakeRotation(0.2f, 10f, 10, 10))
+            .Append(transform.DOShakePosition(0.1f))
+            .Append(transform.DORotate(new Vector3(0, localEulerAngles.y, 0), 0f));
     }
 
 
@@ -226,7 +239,7 @@ public class PlayerControl : MonoBehaviour
      * shit to do before moving to next level:
      * rotate, scale, explosion particle...
      */
-    public void NextLevel()
+    public void ZoomOut()
     {
         breaking = false;
 
@@ -237,18 +250,6 @@ public class PlayerControl : MonoBehaviour
         // camera.cameraUp();
         // gameManager.PlaySound(SoundManager.Sounds.BIG_EXP);
         // StartCoroutine(MoveScene());
-    }
-
-
-    /* shakes the player a bit on object hit #1# */
-    private void ShakePlayer()
-    {
-        Vector3 localEulerAngles = transform.localEulerAngles;
-        Sequence mySequence = DOTween.Sequence();
-        mySequence
-            .Append(transform.DOShakePosition(0.1f))
-            .Append(transform.DOShakeRotation(0.2f, 10f, 10, 10))
-            .Append(transform.DORotate(new Vector3(0, localEulerAngles.y, 0), 0f));
     }
 
 
