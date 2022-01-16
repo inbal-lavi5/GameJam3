@@ -20,14 +20,9 @@ public class Explosion : Particle
         foreach (Collider hit in coliders)
         {
             Rigidbody rb = hit.GetComponent<Rigidbody>();
-            if (rb == null && !hit.CompareTag("Plane") && !hit.CompareTag("Player"))
+            if (rb == null && hit.CompareTag("Collapse"))
             {
-                hit.gameObject.AddComponent<Rigidbody>()
-                    .AddExplosionForce(power, explosionPosition, radius, upforce, ForceMode.Impulse);
-                if (hit.CompareTag("Collapse"))
-                {
-                    gameManager.AddRigidChildren(hit.transform.parent.parent);
-                }
+                gameManager.AddRigidChildren(hit.transform.parent.parent);
             }
 
             if (rb != null)

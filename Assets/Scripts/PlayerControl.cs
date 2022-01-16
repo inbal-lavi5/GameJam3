@@ -52,6 +52,7 @@ public class PlayerControl : MonoBehaviour
         if (playerExpBar.isFinished())
         {
             ZoomOut();
+            playerTimer.stopTimer();
             gameManager.NextLevelScreen();
         }
 
@@ -65,6 +66,7 @@ public class PlayerControl : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             ZoomOut();
+            playerTimer.stopTimer();
             gameManager.NextLevelScreen();
         }
     }
@@ -161,7 +163,7 @@ public class PlayerControl : MonoBehaviour
     private void collapseHandler(Transform otherTransform)
     {
         float objectSize = otherTransform.GetComponent<ObjectSize>().GetSize();
-        if (objectSize >= 1) ShakePlayer();
+        if (objectSize >= 0.5f) ShakePlayer();
         playerExpBar.addExp(objectSize);
         gameManager.AddRigidChildren(otherTransform.parent.parent);
         gameManager.PlaySound(SoundManager.Sounds.OBJECT_COLLAPSE);
@@ -232,7 +234,7 @@ public class PlayerControl : MonoBehaviour
         Sequence mySequence = DOTween.Sequence();
         mySequence
             .Append(transform.DOShakeRotation(0.2f, 10f, 10, 10))
-            .Append(transform.DOShakePosition(0.1f))
+            .Insert(0, transform.DOShakePosition(0.1f))
             .Append(transform.DORotate(new Vector3(0, localEulerAngles.y, 0), 0f));
     }
 
@@ -246,10 +248,13 @@ public class PlayerControl : MonoBehaviour
         breaking = false;
 
         // explode
-        transform.DOScale(new Vector3(50, 20, 15), 1.5f);
-        transform.DOLocalRotate(new Vector3(15, 270, 10), 15).SetLoops(-1, LoopType.Incremental).SetEase(Ease.Linear)
-            .SetRelative();
-        // camera.cameraUp();
+        Sequence mySequence = DOTween.Sequence();
+        mySequence
+            .Append(transform.DOScale(new Vector3(50, 20, 15), 1.5f))
+            .Insert(0, transform.DOMove(new Vector3(5f, 3.5f, 120f), 3f))
+            .Insert(0, transform.DORotate(new Vector3(15, 360, 10), 50).SetLoops(-1, LoopType.Incremental)
+                .SetEase(Ease.Linear).SetRelative());
+
         // gameManager.PlaySound(SoundManager.Sounds.BIG_EXP);
         // StartCoroutine(MoveScene());
     }
