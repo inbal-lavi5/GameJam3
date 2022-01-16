@@ -43,13 +43,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a287b879285c9b43a60a39f82d652af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manaPickUpsToSpreadAtStart: 15
-  pickUpsToSpread: 30
-  SoundManager: {fileID: 0}
+  soundManager: {fileID: 0}
   screenManager: {fileID: 0}
-  timeToRemovePart: 10
-  powerUpsTime: 10
-  level: 0
-  levelsList:
-  - city
-  - country
+  losePanel: {fileID: 0}
+  nextPanel: {fileID: 0}
+  powerUpsTime: 5
+  boundaryXmin: -190
+  boundaryXmax: 190
+  boundaryZmin: -200
+  boundaryZmax: 400

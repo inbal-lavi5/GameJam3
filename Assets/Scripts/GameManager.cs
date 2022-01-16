@@ -22,10 +22,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int boundaryXmax = 190;
     [SerializeField] private int boundaryZmin = -200;
     [SerializeField] private int boundaryZmax = 400;
-    [SerializeField] private int level = 0;
-
-    [SerializeField] public List<string> levelsList = new List<string>
-        {"city", "country"};
 
 
     void Awake()
@@ -43,20 +39,19 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            Reset();
+            ResetGame();
         }
     }
 
 
-    public void Reset()
+    public void ResetGame()
     {
-        level = 0;
-        SceneManager.LoadScene(levelsList[level]);
+        SceneManager.LoadScene(0);
     }
 
     public void ResetLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void NextLevelScreen()

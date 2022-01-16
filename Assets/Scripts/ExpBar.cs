@@ -18,6 +18,7 @@ public class ExpBar : MonoBehaviour
     private void Start()
     {
         bar = GetComponent<Image>();
+        bar.fillMethod = Image.FillMethod.Vertical;
         precentage = transform.GetChild(0).GetComponent<Text>();
         curAmount = EXP_MIN;
         updateUI();

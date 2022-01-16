@@ -13,6 +13,8 @@ public class Timer : MonoBehaviour
     private float scaleTimeFactor = 1;
     private int ogFontSize;
 
+    private bool stop;
+
     void Start()
     {
         currentTime = startingTime;
@@ -21,6 +23,7 @@ public class Timer : MonoBehaviour
 
     void Update()
     {
+        if (stop) return;
         currentTime -= 1 * Time.deltaTime * scaleTimeFactor;
         timerText.text = currentTime.ToString("0");
 
@@ -64,5 +67,10 @@ public class Timer : MonoBehaviour
     public bool isFinished()
     {
         return currentTime <= 0;
+    }
+
+    public void stopTimer()
+    {
+        stop = true;
     }
 }
