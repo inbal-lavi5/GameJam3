@@ -5,41 +5,84 @@ using UnityEngine;
 
 public class ScreenEffectsManager : MonoBehaviour
 {
-    [SerializeField] private GameObject blue;
-    [SerializeField] private GameObject red;
-    [SerializeField] private GameObject green;
+    public enum Effects
+    {
+        NORMAL,
+        TIME,
+        STOP,
+        SPEED,
+        BOMB
+    }
+
+    [SerializeField] private GameObject stopScreen;
+    [SerializeField] private GameObject speedScreen;
+    [SerializeField] private GameObject timeScreen;
 
     private void Start()
     {
         normal();
     }
 
+    public void ScreenEffect(Effects sfx)
+    {
+        switch (sfx)
+        {
+            case Effects.TIME:
+                timedOn();
+                break;
+            case Effects.STOP:
+                blockOn();
+                break;
+            case Effects.SPEED:
+                speedOn();
+                break;
+            case Effects.BOMB:
+                bombOn();
+                break;
+            case Effects.NORMAL:
+                normal();
+                break;
+        }
+    }
+
     public void speedOn()
     {
-        red.SetActive(true);
+        speedScreen.SetActive(true);
     }
-    
+
     public void timedOn()
     {
         StartCoroutine(timeCoroutine());
     }
-    
+
     public void blockOn()
     {
-        blue.SetActive(true);
+        stopScreen.SetActive(true);
+    }
+
+    public void bombOn()
+    {
+        StartCoroutine(bombCoroutine());
     }
 
     public void normal()
     {
-        blue.SetActive(false);
-        red.SetActive(false);
-        green.SetActive(false);
+        stopScreen.SetActive(false);
+        speedScreen.SetActive(false);
+        timeScreen.SetActive(false);
     }
-    
+
     IEnumerator timeCoroutine()
     {
-        green.SetActive(true);
+        timeScreen.SetActive(true);
         yield return new WaitForSeconds(0.2f);
-        green.SetActive(false);
+        timeScreen.SetActive(false);
+    }
+
+    IEnumerator bombCoroutine()
+    {
+        speedScreen.SetActive(true);
+        yield return new WaitForSeconds(0.2f);
+        speedScreen.SetActive(false);
     }
 }

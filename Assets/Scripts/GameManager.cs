@@ -11,19 +11,27 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] public int manaPickUpsToSpreadAtStart = 30;
     [SerializeField] public int pickUpsToSpread = 15;
-    [SerializeField] public SoundManager SoundManager;
-    [SerializeField] private int level = 1;
-    [SerializeField] public List<string> levelsList = new List<string>
-        {"city tutorial", "city", "country"};
+    [SerializeField] private SoundManager soundManager;
+    [SerializeField] private ScreenEffectsManager screenManager;
 
-    
+    private int timeToRemovePart = 10;
+    [SerializeField] public int powerUpsTime;
+
+
+    [SerializeField] private int level = 0;
+
+    [SerializeField] public List<string> levelsList = new List<string>
+        {"city", "country"};
+
+
     void Awake()
     {
-        spreadItems("Time", -160, 160, -260, 400, pickUpsToSpread);
-        spreadItems("Stop", -160, 160, -260, 400, 20);
-        spreadItems("Speed", -160, 160, -260, 400, manaPickUpsToSpreadAtStart);
+        // spreadItems("Time", -160, 160, -260, 400, pickUpsToSpread);
+        // spreadItems("Stop", -160, 160, -260, 400, 20);
+        // spreadItems("Speed", -160, 160, -260, 400, manaPickUpsToSpreadAtStart);
+        spreadItems("Bomb", -160, 160, -260, 400, 50);
     }
-    
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.R)) //todo remove at end
@@ -32,14 +40,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    
+
     public void Reset()
     {
-        level = 1;
+        level = 0;
         SceneManager.LoadScene(levelsList[level]);
     }
 
-    
+
     public void spreadItems(String item, float xMin, float xMax, float zMin, float zMax, int amount)
     {
         GameObject itemToSpreadLoad = (GameObject) Resources.Load(item, typeof(GameObject));
@@ -51,7 +59,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    
+
     private Vector3 generateLocation(float xMin, float xMax, float zMin, float zMax)
     {
         float posx = Random.Range(xMin, xMax);
@@ -59,7 +67,7 @@ public class GameManager : MonoBehaviour
         return new Vector3(posx, 4f, posz);
     }
 
-    
+
     public void NextLevel()
     {
         level++;
@@ -74,10 +82,45 @@ public class GameManager : MonoBehaviour
         yield return new WaitUntil(() => isLoaded);
         // InstantiatePickups("PickUpMana", manaPickUpsToSpreadAtStart);
     }
-    
-    
+
+
+    public void AddRigid(GameObject otherGameObject)
+    {
+        otherGameObject.AddComponent<Rigidbody>().AddForce(Random.Range(0f, 0.5f),
+            Random.Range(0f, 0.5f), Random.Range(0f, 0.5f));
+    }
+
+    public void AddRigidChildren(Transform parent)
+    {
+        parent.tag = "Collapsed";
+
+        for (int i = 0; i < parent.childCount; i++)
+        {
+            Transform child = parent.GetChild(i);
+            if (child.gameObject.GetComponent<Rigidbody>() == null)
+            {
+                // child.gameObject.AddComponent<Rigidbody>().AddForce(Random.Range(0f, 0.5f), Random.Range(0f, 0.5f),
+                //     Random.Range(0f, 0.5f));
+                AddRigid(child.gameObject);
+                child.tag = "Collapsed";
+                // StartCoroutine(RemovePart(child));
+                Destroy(child.gameObject, timeToRemovePart);
+            }
+
+            if (child.childCount > 0)
+            {
+                AddRigidChildren(child);
+            }
+        }
+    }
+
     public void PlaySound(SoundManager.Sounds sfx)
     {
-        SoundManager.PlaySound(sfx);
+        soundManager.PlaySound(sfx);
+    }
+
+    public void ManageScreen(ScreenEffectsManager.Effects fx)
+    {
+        screenManager.ScreenEffect(fx);
     }
 }
