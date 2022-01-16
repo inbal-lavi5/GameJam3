@@ -5,19 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/opening scene.unity
-    guid: 7d7fde4bc83cb2f40b339bdc0f13ec2c
-  - enabled: 0
-    path: Assets/Scenes/city tutorial.unity
-    guid: 4c1fee010191be2489a724b4dd23e9ce
   - enabled: 1
     path: Assets/Scenes/city.unity
+    guid: d1f4de11c24b36944a317b122fe8db9b
+  - enabled: 1
+    path: Assets/Scenes/vilage.unity
     guid: bd3b1b9a361eace4a95923a5e51e5dc2
-  - enabled: 0
-    path: Assets/Scenes/country.unity
-    guid: 093805cd271b65540a838789fc3b4a76
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   m_configObjects: {}

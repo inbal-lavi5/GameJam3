@@ -52,18 +52,20 @@ public class PlayerControl : MonoBehaviour
         if (playerExpBar.isFinished())
         {
             ZoomOut();
+            gameManager.NextLevelScreen();
         }
 
         if (playerTimer.isFinished())
         {
             ZoomOut();
-            gameManager.Lose();
+            gameManager.LoseScreen();
         }
 
         //todo remove at end - hack for fast explosion and move to next level
         if (Input.GetKeyDown(KeyCode.E))
         {
             ZoomOut();
+            gameManager.NextLevelScreen();
         }
     }
 
@@ -159,7 +161,7 @@ public class PlayerControl : MonoBehaviour
     private void collapseHandler(Transform otherTransform)
     {
         float objectSize = otherTransform.GetComponent<ObjectSize>().GetSize();
-        if (objectSize >= 3) ShakePlayer();
+        if (objectSize >= 1) ShakePlayer();
         playerExpBar.addExp(objectSize);
         gameManager.AddRigidChildren(otherTransform.parent.parent);
         gameManager.PlaySound(SoundManager.Sounds.OBJECT_COLLAPSE);

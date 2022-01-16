@@ -8,7 +8,7 @@ public class CarMovement : MonoBehaviour
     public float speed = 17;
     private Vector3 forward;
     private int dir = -1;
-    [SerializeField] bool small = true;
+    [SerializeField] bool left = true;
     [SerializeField] float startX;
     [SerializeField] float endX;
 
@@ -25,7 +25,7 @@ public class CarMovement : MonoBehaviour
         {
             transform.Translate(forward * speed * Time.deltaTime);
             Vector3 position = transform.localPosition;
-            if (position.x <= endX && small || position.x >= endX && !small)
+            if (position.x <= endX && left || position.x >= endX && !left)
             {
                 transform.localPosition = new Vector3(startX, position.y, position.z);
             }

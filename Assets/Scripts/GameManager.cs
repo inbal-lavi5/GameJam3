@@ -11,12 +11,17 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private SoundManager soundManager;
     [SerializeField] private ScreenEffectsManager screenManager;
-    
+
     [SerializeField] private GameObject losePanel;
+    [SerializeField] private GameObject nextPanel;
 
     private int timeToRemovePart = 10;
     [SerializeField] public int powerUpsTime;
 
+    [SerializeField] private int boundaryXmin = -190;
+    [SerializeField] private int boundaryXmax = 190;
+    [SerializeField] private int boundaryZmin = -200;
+    [SerializeField] private int boundaryZmax = 400;
     [SerializeField] private int level = 0;
 
     [SerializeField] public List<string> levelsList = new List<string>
@@ -26,12 +31,12 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         // power ups
-        spreadItems("Time", -160, 160, -260, 400, 10);
-        spreadItems("Speed", -160, 160, -260, 400, 10);
-        spreadItems("Bomb", -160, 160, -260, 400, 5);
+        spreadItems("Time", boundaryXmin, boundaryXmax, boundaryZmin, boundaryZmax, 10);
+        spreadItems("Speed", boundaryXmin, boundaryXmax, boundaryZmin, boundaryZmax, 10);
+        spreadItems("Bomb", boundaryXmin, boundaryXmax, boundaryZmin, boundaryZmax, 5);
 
         // power down
-        spreadItems("Stop", -160, 160, -260, 400, 20);
+        spreadItems("Stop", boundaryXmin, boundaryXmax, boundaryZmin, boundaryZmax, 20);
     }
 
     private void Update()
@@ -49,11 +54,20 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(levelsList[level]);
     }
 
-    public void Lose()
+    public void ResetLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void NextLevelScreen()
+    {
+        nextPanel.SetActive(true);
+    }
+
+    public void LoseScreen()
     {
         losePanel.SetActive(true);
     }
-
 
     public void spreadItems(String item, float xMin, float xMax, float zMin, float zMax, int amount)
     {
@@ -77,8 +91,9 @@ public class GameManager : MonoBehaviour
 
     public void NextLevel()
     {
-        level++;
-        SceneManager.LoadScene(levelsList[level]);
+        // level++;
+        // SceneManager.LoadScene(levelsList[level]);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         //StartCoroutine(ExecuteAfterSceneLoaded());
     }
 
