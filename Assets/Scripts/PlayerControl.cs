@@ -40,7 +40,7 @@ public class PlayerControl : MonoBehaviour
     void Update()
     {
         // curSpeed = (moveSpeed != 0) ? moveSpeed : curSpeed;
-        // if (Input.GetKey(KeyCode.S))
+        // if (Input.GetKey(KeyCode.Space))
         // {
         //     activateTopView();
         // }
@@ -74,9 +74,9 @@ public class PlayerControl : MonoBehaviour
 
     private void activateNormalView()
     {
-        Time.timeScale = 1;
-        playerTimer.scaleTimeNormal();
-        moveSpeed = curSpeed;
+        // Time.timeScale = 1;
+        // playerTimer.scaleTimeNormal();
+        // moveSpeed = curSpeed;
         cameraBottom.enabled = true;
         cameraTop.enabled = false;
     }
@@ -84,9 +84,9 @@ public class PlayerControl : MonoBehaviour
 
     private void activateTopView()
     {
-        Time.timeScale = 0.1f;
-        playerTimer.scaleTimeUp();
-        moveSpeed = 0;
+        // Time.timeScale = 0.1f;
+        // playerTimer.scaleTimeUp();
+        // moveSpeed = 0;
         cameraBottom.enabled = false;
         cameraTop.enabled = true;
     }

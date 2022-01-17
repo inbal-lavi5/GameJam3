@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosion: {fileID: 6198952442143691064, guid: 4507a909a632d6e4ea1599f39f2796f1, type: 3}
-  gameManager: {fileID: 4398900006188556016, guid: 3bf77e399229f654991e7d15f71beec7, type: 3}
+  gameManager: {fileID: 509228394447556519, guid: 3bf77e399229f654991e7d15f71beec7, type: 3}
   power: 50
   radius: 50
   upforce: 10

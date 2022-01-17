@@ -12,6 +12,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private SoundManager soundManager;
     [SerializeField] private ScreenEffectsManager screenManager;
 
+    [SerializeField] private GameObject loadingScene;
+    [SerializeField] private Slider progressSlider;
+    [SerializeField] private Text progressText;
+
     [SerializeField] private GameObject losePanel;
     [SerializeField] private GameObject nextPanel;
 
@@ -35,6 +39,24 @@ public class GameManager : MonoBehaviour
         spreadItems("Stop", boundaryXmin, boundaryXmax, boundaryZmin, boundaryZmax, 20);
     }
 
+    public void spreadItems(String item, float xMin, float xMax, float zMin, float zMax, int amount)
+    {
+        GameObject itemToSpreadLoad = (GameObject) Resources.Load(item, typeof(GameObject));
+
+        for (int i = 0; i < amount; i++)
+        {
+            GameObject itemToSpreadInstance = Instantiate(itemToSpreadLoad);
+            itemToSpreadInstance.transform.position = generateLocation(xMin, xMax, zMin, zMax);
+        }
+    }
+
+    private Vector3 generateLocation(float xMin, float xMax, float zMin, float zMax)
+    {
+        float posx = Random.Range(xMin, xMax);
+        float posz = Random.Range(zMin, zMax);
+        return new Vector3(posx, 4f, posz);
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.R))
@@ -46,12 +68,12 @@ public class GameManager : MonoBehaviour
 
     public void ResetGame()
     {
-        SceneManager.LoadScene(0);
+        StartCoroutine(LoadAsync(0));
     }
 
     public void ResetLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        StartCoroutine(LoadAsync(SceneManager.GetActiveScene().buildIndex));
     }
 
     public void NextLevelScreen()
@@ -64,40 +86,27 @@ public class GameManager : MonoBehaviour
         losePanel.SetActive(true);
     }
 
-    public void spreadItems(String item, float xMin, float xMax, float zMin, float zMax, int amount)
-    {
-        GameObject itemToSpreadLoad = (GameObject) Resources.Load(item, typeof(GameObject));
-
-        for (int i = 0; i < amount; i++)
-        {
-            GameObject itemToSpreadInstance = Instantiate(itemToSpreadLoad);
-            itemToSpreadInstance.transform.position = generateLocation(xMin, xMax, zMin, zMax);
-        }
-    }
-
-
-    private Vector3 generateLocation(float xMin, float xMax, float zMin, float zMax)
-    {
-        float posx = Random.Range(xMin, xMax);
-        float posz = Random.Range(zMin, zMax);
-        return new Vector3(posx, 4f, posz);
-    }
-
 
     public void NextLevel()
     {
-        // level++;
-        // SceneManager.LoadScene(levelsList[level]);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        //StartCoroutine(ExecuteAfterSceneLoaded());
+        StartCoroutine(LoadAsync(SceneManager.GetActiveScene().buildIndex + 1));
     }
 
-    IEnumerator ExecuteAfterSceneLoaded()
+    IEnumerator LoadAsync(int sceneIndex)
     {
-        bool isLoaded = SceneManager.GetActiveScene().isLoaded;
-        // SceneManager.sceneUnloaded
-        yield return new WaitUntil(() => isLoaded);
-        // InstantiatePickups("PickUpMana", manaPickUpsToSpreadAtStart);
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
+
+        loadingScene.SetActive(true);
+
+        while (!operation.isDone)
+        {
+            float progress = Mathf.Clamp01(operation.progress / 0.9f);
+
+            progressSlider.value = progress;
+            progressText.text = progress * 100f + "%";
+
+            yield return null;
+        }
     }
 
 
