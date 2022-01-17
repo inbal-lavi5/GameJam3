@@ -140,8 +140,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1a24b91ee656e74b813846ba00425a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BOMB_EXP: {fileID: 8300000, guid: 63410de51c366b54eb0184aa5d91312a, type: 3}
-  BIG_EXP: {fileID: 8300000, guid: 85aa59a68ee17db4789e94365af38d53, type: 3}
   OBJECT_COLLAPSE: {fileID: 8300000, guid: 0e7ff561e46bd2342b26a08eee4b2bf8, type: 3}
-  BOMB_PICKUP: {fileID: 8300000, guid: b2b31e2ed9198b84083f8c42d8b3d75f, type: 3}
-  MANA_PICKUP: {fileID: 8300000, guid: 7a08dbb7a073f704a943dbd8bcd377cc, type: 3}
+  BOMB_EXP: {fileID: 8300000, guid: 85aa59a68ee17db4789e94365af38d53, type: 3}
+  GOOD_PICKUP: {fileID: 8300000, guid: 7a08dbb7a073f704a943dbd8bcd377cc, type: 3}
+  BAD_PICKUP: {fileID: 8300000, guid: b2b31e2ed9198b84083f8c42d8b3d75f, type: 3}
+  BIG_EXP: {fileID: 8300000, guid: 85aa59a68ee17db4789e94365af38d53, type: 3}

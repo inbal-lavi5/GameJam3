@@ -7,18 +7,18 @@ public class SoundManager : MonoBehaviour
 {
     public enum Sounds
     {
-        BOMB_EXP,
-        BIG_EXP,
         OBJECT_COLLAPSE,
-        BOMB_PICKUP,
-        MANA_PICKUP
+        BOMB_EXP,
+        GOOD_PICKUP,
+        BAD_PICKUP,
+        BIG_EXP,
     }
 
-    [SerializeField] private AudioClip BOMB_EXP;
-    [SerializeField] private AudioClip BIG_EXP;
     [SerializeField] private AudioClip OBJECT_COLLAPSE;
-    [SerializeField] private AudioClip BOMB_PICKUP;
-    [SerializeField] private AudioClip MANA_PICKUP;
+    [SerializeField] private AudioClip BOMB_EXP;
+    [SerializeField] private AudioClip GOOD_PICKUP;
+    [SerializeField] private AudioClip BAD_PICKUP;
+    [SerializeField] private AudioClip BIG_EXP;
 
     static AudioSource audioSrc;
 
@@ -41,11 +41,11 @@ public class SoundManager : MonoBehaviour
             case Sounds.OBJECT_COLLAPSE:
                 audioSrc.PlayOneShot(OBJECT_COLLAPSE);
                 break;
-            case Sounds.BOMB_PICKUP:
-                audioSrc.PlayOneShot(BOMB_PICKUP);
+            case Sounds.GOOD_PICKUP:
+                audioSrc.PlayOneShot(GOOD_PICKUP);
                 break;
-            case Sounds.MANA_PICKUP:
-                audioSrc.PlayOneShot(MANA_PICKUP);
+            case Sounds.BAD_PICKUP:
+                audioSrc.PlayOneShot(BAD_PICKUP);
                 break;
         }
     }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -36,6 +37,8 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(true);
         Time.timeScale = 0f;
         isPaused = true;
+        
+        EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(pauseMenu.transform.GetChild(0).gameObject);
     }
 
     public void Resume()

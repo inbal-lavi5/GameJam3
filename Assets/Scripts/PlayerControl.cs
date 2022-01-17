@@ -180,7 +180,7 @@ public class PlayerControl : MonoBehaviour
     private void timeHandler(GameObject other)
     {
         other.GetComponent<Particle>().Detonate();
-        gameManager.PlaySound(SoundManager.Sounds.BOMB_PICKUP);
+        gameManager.PlaySound(SoundManager.Sounds.GOOD_PICKUP);
         playerTimer.addTime();
         gameManager.ManageScreen(ScreenEffectsManager.Effects.TIME);
     }
@@ -189,13 +189,13 @@ public class PlayerControl : MonoBehaviour
     {
         playerExpBar.addExp(10);
         other.GetComponent<Particle>().Detonate();
-        gameManager.PlaySound(SoundManager.Sounds.BOMB_PICKUP);
+        gameManager.PlaySound(SoundManager.Sounds.BOMB_EXP);
     }
 
     private void speedHandler(GameObject other)
     {
         other.GetComponent<Particle>().Detonate();
-        gameManager.PlaySound(SoundManager.Sounds.MANA_PICKUP);
+        gameManager.PlaySound(SoundManager.Sounds.GOOD_PICKUP);
         StartCoroutine(addSpeed());
     }
 
@@ -203,7 +203,7 @@ public class PlayerControl : MonoBehaviour
     private void stopHandler(GameObject other)
     {
         other.GetComponent<Particle>().Detonate();
-        gameManager.PlaySound(SoundManager.Sounds.BOMB_PICKUP);
+        gameManager.PlaySound(SoundManager.Sounds.BAD_PICKUP);
         StartCoroutine(stopBreaking());
     }
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
@@ -20,7 +21,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject winPanel;
     [SerializeField] private GameObject nextPanel;
 
-    private int timeToRemovePart = 10;
+    private int timeToRemovePart = 15;
     [SerializeField] public int powerUpsTime;
 
     [SerializeField] private int boundaryXmin = -190;
@@ -28,7 +29,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int boundaryZmin = -200;
     [SerializeField] private int boundaryZmax = 400;
 
-    [SerializeField] private int numOfLevels = 2;
+    private int numOfLevels = 2;
 
     void Awake()
     {
@@ -84,16 +85,19 @@ public class GameManager : MonoBehaviour
         if (nextSceneIndex >= numOfLevels)
         {
             winPanel.SetActive(true);
+            EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(winPanel.transform.GetChild(0).gameObject);
         }
         else
         {
             nextPanel.SetActive(true);
+            EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(nextPanel.transform.GetChild(0).gameObject);
         }
     }
 
     public void LoseScreen()
     {
         losePanel.SetActive(true);
+        EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(losePanel.transform.GetChild(0).gameObject);
     }
 
     public void NextLevel()
@@ -134,11 +138,8 @@ public class GameManager : MonoBehaviour
             Transform child = parent.GetChild(i);
             if (child.gameObject.GetComponent<Rigidbody>() == null)
             {
-                // child.gameObject.AddComponent<Rigidbody>().AddForce(Random.Range(0f, 0.5f), Random.Range(0f, 0.5f),
-                //     Random.Range(0f, 0.5f));
                 AddRigid(child.gameObject);
                 child.tag = "Collapsed";
-                // StartCoroutine(RemovePart(child));
                 Destroy(child.gameObject, timeToRemovePart);
             }
 
