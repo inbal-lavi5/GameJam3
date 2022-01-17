@@ -22,7 +22,14 @@ public class Explosion : Particle
             Rigidbody rb = hit.GetComponent<Rigidbody>();
             if (rb == null && hit.CompareTag("Collapse"))
             {
-                gameManager.AddRigidChildren(hit.transform.parent.parent);
+                if (hit.GetComponent<OnlyFatherFlag>() == null)
+                {
+                    gameManager.AddRigidChildren(hit.transform.parent.parent);
+                }
+                else
+                {
+                    gameManager.AddRigidChildren(hit.transform.parent);
+                }
             }
 
             if (rb != null)

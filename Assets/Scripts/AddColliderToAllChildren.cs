@@ -17,7 +17,7 @@ public class AddColliderToAllChildren : MonoBehaviour
         {
             Transform child = parent.GetChild(i);
 
-            
+
             // add collider
             MeshCollider meshCollider = child.gameObject.AddComponent<MeshCollider>();
             meshCollider.convex = true;
@@ -26,7 +26,7 @@ public class AddColliderToAllChildren : MonoBehaviour
                 child.tag = parent.tag;
             }
 
-            // add custom tag
+            // add size
             ObjectSize parentObjectSize = parent.gameObject.GetComponent<ObjectSize>();
             if (parentObjectSize != null)
             {
@@ -35,7 +35,15 @@ public class AddColliderToAllChildren : MonoBehaviour
                 {
                     childObjectSize = child.gameObject.AddComponent<ObjectSize>();
                 }
-                childObjectSize.CopyTag(parentObjectSize.GetSize());
+
+                childObjectSize.CopySize(parentObjectSize);
+            }
+
+            // add only father flag
+            OnlyFatherFlag parentOnlyFatherFlag = parent.gameObject.GetComponent<OnlyFatherFlag>();
+            if (parentOnlyFatherFlag != null)
+            {
+                child.gameObject.AddComponent<OnlyFatherFlag>();
             }
 
             // do the same for kids

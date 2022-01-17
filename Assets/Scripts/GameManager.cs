@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text progressText;
 
     [SerializeField] private GameObject losePanel;
+    [SerializeField] private GameObject winPanel;
     [SerializeField] private GameObject nextPanel;
 
     private int timeToRemovePart = 10;
@@ -27,6 +28,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int boundaryZmin = -200;
     [SerializeField] private int boundaryZmax = 400;
 
+    [SerializeField] private int numOfLevels = 2;
 
     void Awake()
     {
@@ -61,7 +63,7 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            ResetGame();
+            ResetLevel();
         }
     }
 
@@ -78,14 +80,21 @@ public class GameManager : MonoBehaviour
 
     public void NextLevelScreen()
     {
-        nextPanel.SetActive(true);
+        int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+        if (nextSceneIndex >= numOfLevels)
+        {
+            winPanel.SetActive(true);
+        }
+        else
+        {
+            nextPanel.SetActive(true);
+        }
     }
 
     public void LoseScreen()
     {
         losePanel.SetActive(true);
     }
-
 
     public void NextLevel()
     {

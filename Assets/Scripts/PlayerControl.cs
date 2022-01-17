@@ -162,10 +162,17 @@ public class PlayerControl : MonoBehaviour
 
     private void collapseHandler(Transform otherTransform)
     {
-        float objectSize = otherTransform.GetComponent<ObjectSize>().GetSize();
-        if (objectSize >= 0.5f) ShakePlayer();
-        playerExpBar.addExp(objectSize);
-        gameManager.AddRigidChildren(otherTransform.parent.parent);
+        ObjectSize objectSize = otherTransform.GetComponent<ObjectSize>();
+        if (objectSize.toShake()) ShakePlayer();
+        playerExpBar.addExp(objectSize.GetSize());
+        if (otherTransform.GetComponent<OnlyFatherFlag>() == null)
+        {
+            gameManager.AddRigidChildren(otherTransform.parent.parent);
+        }
+        else
+        {
+            gameManager.AddRigidChildren(otherTransform.parent);
+        }
         gameManager.PlaySound(SoundManager.Sounds.OBJECT_COLLAPSE);
     }
 
