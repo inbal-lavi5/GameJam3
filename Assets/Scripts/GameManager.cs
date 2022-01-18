@@ -85,19 +85,22 @@ public class GameManager : MonoBehaviour
         if (nextSceneIndex >= numOfLevels)
         {
             winPanel.SetActive(true);
-            EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(winPanel.transform.GetChild(0).gameObject);
+            EventSystem.current.GetComponent<EventSystem>()
+                .SetSelectedGameObject(winPanel.transform.GetChild(0).gameObject);
         }
         else
         {
             nextPanel.SetActive(true);
-            EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(nextPanel.transform.GetChild(0).gameObject);
+            EventSystem.current.GetComponent<EventSystem>()
+                .SetSelectedGameObject(nextPanel.transform.GetChild(0).gameObject);
         }
     }
 
     public void LoseScreen()
     {
         losePanel.SetActive(true);
-        EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(losePanel.transform.GetChild(0).gameObject);
+        EventSystem.current.GetComponent<EventSystem>()
+            .SetSelectedGameObject(losePanel.transform.GetChild(0).gameObject);
     }
 
     public void NextLevel()
@@ -108,7 +111,10 @@ public class GameManager : MonoBehaviour
     IEnumerator LoadAsync(int sceneIndex)
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
-
+        
+        Time.timeScale = 1f;
+        PauseMenu.isPaused = false;
+        
         loadingScene.SetActive(true);
 
         while (!operation.isDone)
