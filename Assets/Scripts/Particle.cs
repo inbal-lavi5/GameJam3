@@ -10,6 +10,6 @@ public class Particle : MonoBehaviour
     {
         GameObject particles = Instantiate(explosion, transform.position, transform.rotation);
         Destroy(particles.gameObject, 2);
-        Destroy(transform.gameObject);
+        Destroy(transform.parent.gameObject);
     }
 }

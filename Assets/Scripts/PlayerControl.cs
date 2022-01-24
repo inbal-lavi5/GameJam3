@@ -42,7 +42,7 @@ public class PlayerControl : MonoBehaviour
     void Update()
     {
         curSpeed = (moveSpeed != 0) ? moveSpeed : curSpeed;
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space) && !PauseMenu.isPaused)
         {
             activateTopView();
         }

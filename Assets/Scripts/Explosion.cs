@@ -38,6 +38,6 @@ public class Explosion : Particle
             }
         }
 
-        Destroy(transform.gameObject);
+        Destroy(transform.parent.gameObject);
     }
 }
