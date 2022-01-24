@@ -28,6 +28,8 @@ public class PlayerControl : MonoBehaviour
     private Vector3 moveDir;
     private bool breaking = true;
     private float curSpeed;
+    private bool topView = false;
+    private bool pauseInProcces = false;
 
 
     private void Start()
@@ -42,10 +44,18 @@ public class PlayerControl : MonoBehaviour
     void Update()
     {
         curSpeed = (moveSpeed != 0) ? moveSpeed : curSpeed;
-        if (Input.GetKey(KeyCode.Space) && !PauseMenu.isPaused)
+        
+        if (PauseMenu.isPaused)
+        {
+            handlePause();
+            return;
+        }
+        
+        if (Input.GetKey(KeyCode.Space))
         {
             activateTopView();
         }
+        
         else
         {
             activateNormalView();
@@ -72,6 +82,33 @@ public class PlayerControl : MonoBehaviour
             gameManager.NextLevelScreen();
         }
     }
+    
+    
+    private void handlePause()
+    {
+        if (!pauseInProcces)
+        {
+            if (topView)
+            {
+                StartCoroutine(moveFromTopToBottom());
+            }
+            else
+            {
+                Time.timeScale = 0;
+            }
+        }
+    }
+
+    
+    IEnumerator moveFromTopToBottom()
+    {
+        pauseInProcces = true;
+        Time.timeScale = 1;
+        activateNormalView();
+        yield return new WaitForSeconds(0.5f);
+        Time.timeScale = 0;
+        pauseInProcces = false;
+    }
 
 
     private void activateNormalView()
@@ -79,6 +116,7 @@ public class PlayerControl : MonoBehaviour
         Time.timeScale = 1;
         playerTimer.scaleTimeNormal();
         moveSpeed = curSpeed;
+        topView = false;
         mainCamera.orthographic = false;
         cameraBottom.Priority = 10;
         cameraTop.Priority = 0;
@@ -90,6 +128,7 @@ public class PlayerControl : MonoBehaviour
         Time.timeScale = 0.1f;
         playerTimer.scaleTimeUp();
         moveSpeed = 0;
+        topView = true;
         mainCamera.orthographic = true;
         cameraBottom.Priority = 0;
         cameraTop.Priority = 10;
