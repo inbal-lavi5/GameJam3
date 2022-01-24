@@ -13,6 +13,8 @@ public class OpeningScene : MonoBehaviour
     [SerializeField] private Slider progressSlider;
     [SerializeField] private Text progressText;
     [SerializeField] private GameObject playButton;
+    
+    [SerializeField] private GameObject instructionsPanel;
 
     void Start()
     {
@@ -53,5 +55,10 @@ public class OpeningScene : MonoBehaviour
 
             yield return null;
         }
+    }
+
+    public void instOfOff()
+    {
+        instructionsPanel.SetActive(!instructionsPanel.activeSelf);
     }
 }

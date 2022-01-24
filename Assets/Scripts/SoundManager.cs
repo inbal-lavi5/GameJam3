@@ -21,14 +21,17 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip BIG_EXP;
     [SerializeField] private AudioClip backgroundSound;
 
+    [SerializeField] private GameObject OnButton;
+    [SerializeField] private GameObject OffButton;
+
     static AudioSource audioSrc;
+    static bool on = true;
 
     // Start is called before the first frame update
     void Start()
     {
         audioSrc = GetComponent<AudioSource>();
         audioSrc.PlayOneShot(backgroundSound);
-
     }
 
     public void PlaySound(Sounds sfx)
@@ -50,6 +53,24 @@ public class SoundManager : MonoBehaviour
             case Sounds.BAD_PICKUP:
                 audioSrc.PlayOneShot(BAD_PICKUP);
                 break;
+        }
+    }
+
+    public void OnOffAudio()
+    {
+        if (on)
+        {
+            on = false;
+            audioSrc.volume = 0;
+            OffButton.SetActive(true);
+            OnButton.SetActive(false);
+        }
+        else
+        {
+            on = true;
+            audioSrc.volume = 0.2f;
+            OffButton.SetActive(false);
+            OnButton.SetActive(true);
         }
     }
 }
