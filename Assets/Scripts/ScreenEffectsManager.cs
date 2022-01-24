@@ -17,6 +17,7 @@ public class ScreenEffectsManager : MonoBehaviour
     [SerializeField] private GameObject stopScreen;
     [SerializeField] private GameObject speedScreen;
     [SerializeField] private GameObject timeScreen;
+    [SerializeField] private Animator fxAnimator;
 
     private void Start()
     {
@@ -61,6 +62,7 @@ public class ScreenEffectsManager : MonoBehaviour
 
     IEnumerator speedCoroutine(float time)
     {
+        fxAnimator.Play("speed",0,0);
         speedScreen.SetActive(true);
         yield return new WaitForSeconds(time);
         speedScreen.SetActive(false);

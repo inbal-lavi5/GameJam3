@@ -6,7 +6,6 @@ using UnityEditor;
 using UnityEngine;
 using DG.Tweening;
 using Random = UnityEngine.Random;
-using Cinemachine;
 
 public class PlayerControl : MonoBehaviour
 {

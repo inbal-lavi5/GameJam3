@@ -18,8 +18,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text progressText;
 
     [SerializeField] private GameObject losePanel;
+    [SerializeField] private GameObject losePanelFirstButton;
     [SerializeField] private GameObject winPanel;
+    [SerializeField] private GameObject winPanelFirstButton;
     [SerializeField] private GameObject nextPanel;
+    [SerializeField] private GameObject nextPanelFirstButton;
 
     private int timeToRemovePart = 15;
     [SerializeField] public int powerUpsTime;
@@ -86,13 +89,13 @@ public class GameManager : MonoBehaviour
         {
             winPanel.SetActive(true);
             EventSystem.current.GetComponent<EventSystem>()
-                .SetSelectedGameObject(winPanel.transform.GetChild(0).gameObject);
+                .SetSelectedGameObject(winPanelFirstButton);
         }
         else
         {
             nextPanel.SetActive(true);
             EventSystem.current.GetComponent<EventSystem>()
-                .SetSelectedGameObject(nextPanel.transform.GetChild(0).gameObject);
+                .SetSelectedGameObject(nextPanelFirstButton);
         }
     }
 
@@ -100,7 +103,7 @@ public class GameManager : MonoBehaviour
     {
         losePanel.SetActive(true);
         EventSystem.current.GetComponent<EventSystem>()
-            .SetSelectedGameObject(losePanel.transform.GetChild(0).gameObject);
+            .SetSelectedGameObject(losePanelFirstButton);
     }
 
     public void NextLevel()
