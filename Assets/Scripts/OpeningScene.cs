@@ -62,7 +62,7 @@ public class OpeningScene : MonoBehaviour
             switch (curMode)
             {
                 case 0:
-                    SceneManager.LoadScene("city");
+                    SceneManager.LoadScene("village");
                     break;
                 case 1:
                     SceneManager.LoadScene("city tutorial");

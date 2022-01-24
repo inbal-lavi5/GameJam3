@@ -24,25 +24,25 @@ public class GameManager : MonoBehaviour
     private int timeToRemovePart = 15;
     [SerializeField] public int powerUpsTime;
 
-    [SerializeField] private int boundaryXmin = -190;
+    /*[SerializeField] private int boundaryXmin = -190;
     [SerializeField] private int boundaryXmax = 190;
     [SerializeField] private int boundaryZmin = -200;
-    [SerializeField] private int boundaryZmax = 400;
+    [SerializeField] private int boundaryZmax = 400;*/
 
-    private int numOfLevels = 2;
+    private int numOfLevels = 3;
 
     void Awake()
     {
-        // power ups
+        /*// power ups
         spreadItems("Time", boundaryXmin, boundaryXmax, boundaryZmin, boundaryZmax, 10);
         spreadItems("Speed", boundaryXmin, boundaryXmax, boundaryZmin, boundaryZmax, 10);
         spreadItems("Bomb", boundaryXmin, boundaryXmax, boundaryZmin, boundaryZmax, 5);
 
         // power down
-        spreadItems("Stop", boundaryXmin, boundaryXmax, boundaryZmin, boundaryZmax, 20);
+        spreadItems("Stop", boundaryXmin, boundaryXmax, boundaryZmin, boundaryZmax, 20);*/
     }
 
-    public void spreadItems(String item, float xMin, float xMax, float zMin, float zMax, int amount)
+    /*public void spreadItems(String item, float xMin, float xMax, float zMin, float zMax, int amount)
     {
         GameObject itemToSpreadLoad = (GameObject) Resources.Load(item, typeof(GameObject));
 
@@ -51,14 +51,14 @@ public class GameManager : MonoBehaviour
             GameObject itemToSpreadInstance = Instantiate(itemToSpreadLoad);
             itemToSpreadInstance.transform.position = generateLocation(xMin, xMax, zMin, zMax);
         }
-    }
+    }*/
 
-    private Vector3 generateLocation(float xMin, float xMax, float zMin, float zMax)
+    /*private Vector3 generateLocation(float xMin, float xMax, float zMin, float zMax)
     {
         float posx = Random.Range(xMin, xMax);
         float posz = Random.Range(zMin, zMax);
         return new Vector3(posx, 4f, posz);
-    }
+    }*/
 
     private void Update()
     {

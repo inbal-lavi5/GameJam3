@@ -19,6 +19,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip GOOD_PICKUP;
     [SerializeField] private AudioClip BAD_PICKUP;
     [SerializeField] private AudioClip BIG_EXP;
+    [SerializeField] private AudioClip backgroundSound;
 
     static AudioSource audioSrc;
 
@@ -26,6 +27,8 @@ public class SoundManager : MonoBehaviour
     void Start()
     {
         audioSrc = GetComponent<AudioSource>();
+        audioSrc.PlayOneShot(backgroundSound);
+
     }
 
     public void PlaySound(Sounds sfx)

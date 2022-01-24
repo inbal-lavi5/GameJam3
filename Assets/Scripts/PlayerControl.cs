@@ -1,16 +1,19 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEditor;
 using UnityEngine;
 using DG.Tweening;
 using Random = UnityEngine.Random;
+using Cinemachine;
 
 public class PlayerControl : MonoBehaviour
 {
     [SerializeField] public GameManager gameManager;
-    [SerializeField] private Camera cameraTop;
-    [SerializeField] private Camera cameraBottom;
+    [SerializeField] private Camera mainCamera;
+    [SerializeField] private CinemachineVirtualCamera cameraTop;
+    [SerializeField] private CinemachineVirtualCamera cameraBottom;
     [SerializeField] public ExpBar playerExpBar;
 
     [SerializeField] public Timer playerTimer;
@@ -39,15 +42,15 @@ public class PlayerControl : MonoBehaviour
 
     void Update()
     {
-        // curSpeed = (moveSpeed != 0) ? moveSpeed : curSpeed;
-        // if (Input.GetKey(KeyCode.Space))
-        // {
-        //     activateTopView();
-        // }
-        // else
-        // {
-        //     activateNormalView();
-        // }
+        curSpeed = (moveSpeed != 0) ? moveSpeed : curSpeed;
+        if (Input.GetKey(KeyCode.Space))
+        {
+            activateTopView();
+        }
+        else
+        {
+            activateNormalView();
+        }
 
         if (playerExpBar.isFinished())
         {
@@ -74,21 +77,23 @@ public class PlayerControl : MonoBehaviour
 
     private void activateNormalView()
     {
-        // Time.timeScale = 1;
-        // playerTimer.scaleTimeNormal();
-        // moveSpeed = curSpeed;
-        cameraBottom.enabled = true;
-        cameraTop.enabled = false;
+        Time.timeScale = 1;
+        playerTimer.scaleTimeNormal();
+        moveSpeed = curSpeed;
+        mainCamera.orthographic = false;
+        cameraBottom.Priority = 10;
+        cameraTop.Priority = 0;
     }
 
 
     private void activateTopView()
     {
-        // Time.timeScale = 0.1f;
-        // playerTimer.scaleTimeUp();
-        // moveSpeed = 0;
-        cameraBottom.enabled = false;
-        cameraTop.enabled = true;
+        Time.timeScale = 0.1f;
+        playerTimer.scaleTimeUp();
+        moveSpeed = 0;
+        mainCamera.orthographic = true;
+        cameraBottom.Priority = 0;
+        cameraTop.Priority = 10;
     }
 
 
