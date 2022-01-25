@@ -13,7 +13,7 @@ public class OpeningScene : MonoBehaviour
     [SerializeField] private Image progressSlider;
     [SerializeField] private GameObject playButton;
     
-    [SerializeField] private GameObject instructionsPanel;
+    [SerializeField] private GameObject instructionPanel;
 
     void Start()
     {
@@ -56,8 +56,23 @@ public class OpeningScene : MonoBehaviour
         }
     }
 
-    public void instOfOff()
+    public void instOnOff()
     {
-        instructionsPanel.SetActive(!instructionsPanel.activeSelf);
+        if (instructionPanel.activeSelf)
+        {
+            StartCoroutine(instOff());
+        }
+        else
+        {
+            instructionPanel.SetActive(true);
+            instructionPanel.GetComponent<Animator>().Play("in");
+        }
+    }
+    
+    IEnumerator instOff()
+    {
+        instructionPanel.GetComponent<Animator>().Play("out");
+        yield return new WaitForSecondsRealtime(1.2f);
+        instructionPanel.SetActive(false);
     }
 }

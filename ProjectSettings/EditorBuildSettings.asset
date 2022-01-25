@@ -6,8 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/0opening scene.unity
+    path: Assets/Scenes/opening scene.unity
     guid: 7d7fde4bc83cb2f40b339bdc0f13ec2c
+  - enabled: 1
+    path: Assets/Scenes/pagan.unity
+    guid: c2a426964aa7e364698d9f3212bfe6a2
   - enabled: 1
     path: Assets/Scenes/village.unity
     guid: cab8a666a78eb1345be448171d9f2bf9

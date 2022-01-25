@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int boundaryZmin = -200;
     [SerializeField] private int boundaryZmax = 400;*/
 
-    private int numOfLevels = 3;
+    private int numOfLevels = 4;
 
     void Awake()
     {
@@ -82,9 +82,24 @@ public class GameManager : MonoBehaviour
         StartCoroutine(LoadAsync(SceneManager.GetActiveScene().buildIndex));
     }
 
-    public void instOfOff()
+    public void instOnOff()
     {
-        instructionPanel.SetActive(!instructionPanel.activeSelf);
+        if (instructionPanel.activeSelf)
+        {
+            StartCoroutine(instOff());
+        }
+        else
+        {
+            instructionPanel.SetActive(true);
+            instructionPanel.GetComponent<Animator>().Play("in");
+        }
+    }
+    
+    IEnumerator instOff()
+    {
+        instructionPanel.GetComponent<Animator>().Play("out");
+        yield return new WaitForSecondsRealtime(3);
+        instructionPanel.SetActive(false);
     }
 
     public void NextLevelScreen()
