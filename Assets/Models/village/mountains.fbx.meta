@@ -1,0 +1,407 @@
+fileFormatVersion: 2
+guid: 88050d220c695574ca19191ed0dadc41
+ModelImporter:
+  serializedVersion: 20200
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart101Surface Color
+    second: {fileID: 2800000, guid: c370d3eb046be8a4bb629714d423e78b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart102Surface Color
+    second: {fileID: 2800000, guid: 95e9b3ab03eed454fad1db79422bb96f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart10Surface_Color
+    second: {fileID: 2800000, guid: eb731e68017ef1c4db4c89e0f7701a28, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart111Surface Color
+    second: {fileID: 2800000, guid: 6bd5b4a2cb6980a4891d6d70fb09b00c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart112Surface Color
+    second: {fileID: 2800000, guid: a4a49ce87b7524e4a8f40618a539e148, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart11Surface Color
+    second: {fileID: 2800000, guid: 9554070e8b35cf64b9f772a5ca12cef7, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart11Surface_Color
+    second: {fileID: 2800000, guid: ed445c8f917ab2a43b0080f795762793, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart121Surface Color
+    second: {fileID: 2800000, guid: ada91e14436841a469435aaae6b39192, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart122Surface Color
+    second: {fileID: 2800000, guid: 50687aee87f2f4041a3ecefe1533ee81, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart12Surface Color
+    second: {fileID: 2800000, guid: fb174db13d5047d4f840d92044c4ddf2, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart12Surface_Color
+    second: {fileID: 2800000, guid: 90294eb7028985346b3b8899e03d1fcb, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart131Surface Color
+    second: {fileID: 2800000, guid: d37a0e2a68c6e4141bace5b13a5876bf, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart132Surface Color
+    second: {fileID: 2800000, guid: 972e5414b157b2c42b525e8ba81f13c6, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart13Surface_Color
+    second: {fileID: 2800000, guid: 5765d3e420bbbd54bb6e377c74412cfb, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart141Surface Color
+    second: {fileID: 2800000, guid: 5c2bb4119b408784ebe546b905398e44, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart142Surface Color
+    second: {fileID: 2800000, guid: 30bc84cf44cd06742bcd71936f5a4c25, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart14Surface_Color
+    second: {fileID: 2800000, guid: 1ee4f72aaba3a77488a29321aa06dd32, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart151Surface Color
+    second: {fileID: 2800000, guid: 7e68b1ba7b8e1824b9311f27f4e73e05, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart152Surface Color
+    second: {fileID: 2800000, guid: e97e6c7e8ecb4fa4da86dd46dfbd47d9, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart15Surface_Color
+    second: {fileID: 2800000, guid: ef9aa9b2a01449544988bd1cc6ccfa34, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart161Surface Color
+    second: {fileID: 2800000, guid: 682572fa71596364884d6fb15ac6843b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart162Surface Color
+    second: {fileID: 2800000, guid: b64b5c4700dc841468f1d62dd83d22f5, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart16Surface_Color
+    second: {fileID: 2800000, guid: 01bf70d9fb8b58745aac3b28e284c587, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart171Surface Color
+    second: {fileID: 2800000, guid: da2cb2b4deeb7b54a82267b5893e98b3, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart172Surface Color
+    second: {fileID: 2800000, guid: a8abfb3f8914c2c4ea285888e8ece17e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart17Surface_Color
+    second: {fileID: 2800000, guid: 761245a601e2c6e4d8e5332bd917c27e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart181Surface Color
+    second: {fileID: 2800000, guid: 70b670551a7ef054c9c98f00fd98b011, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart182Surface Color
+    second: {fileID: 2800000, guid: 587b627bd5f4bfd4b8073c912d0acbbe, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart183Surface Color
+    second: {fileID: 2800000, guid: 44e4da24ae03eb9448e341c1a400a3a6, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart18Surface_Color
+    second: {fileID: 2800000, guid: 5e5f50b2e91abf041ba92d6b9e59d721, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart191Surface Color
+    second: {fileID: 2800000, guid: 743cf2e34b1a8da498ef72ec2f355c71, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart192Surface Color
+    second: {fileID: 2800000, guid: 38ec95c1f506ec944a5c3588b1cb644f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart19Surface_Color
+    second: {fileID: 2800000, guid: 43d45ad590c77df448fb2648c4713718, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart1Surface_Color
+    second: {fileID: 2800000, guid: 515877b69a55a834381cc524c1b28292, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart201Surface Color
+    second: {fileID: 2800000, guid: b4d07a03f0976b4498c8b55ffd9ef20b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart202Surface Color
+    second: {fileID: 2800000, guid: ea27e57c9a9de0d4c8335f2742227f68, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart20Surface_Color
+    second: {fileID: 2800000, guid: 7ea609ef9405b7944ab884af193b224f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart21Surface Color
+    second: {fileID: 2800000, guid: c2e6b9610756f954da215bcc39016d43, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart22Surface Color
+    second: {fileID: 2800000, guid: 80db1103d697ecc4fafe84502d858b70, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart2Surface_Color
+    second: {fileID: 2800000, guid: 55a66bfb455b9984a87cf085f708658e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart31Surface Color
+    second: {fileID: 2800000, guid: d70b87afd1a0c884a85cabffb89846a5, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart32Surface Color
+    second: {fileID: 2800000, guid: 1c4911dfb885e27449fa65bc3fefa624, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart3Surface_Color
+    second: {fileID: 2800000, guid: 249b3052f72c4e0448117ef5a5d78022, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart41Surface Color
+    second: {fileID: 2800000, guid: 0832970aae6f64e48b63d5daca1523e9, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart42Surface Color
+    second: {fileID: 2800000, guid: 6d8603c427079b24f975555df32d2678, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart4Surface_Color
+    second: {fileID: 2800000, guid: 3c6716473a1f64e469edac3832656548, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart51Surface Color
+    second: {fileID: 2800000, guid: bdd792f9224564e4bb89f5e24a24b8b2, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart52Surface Color
+    second: {fileID: 2800000, guid: 37fe04ce9f43a2b45936994784b067da, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart5Surface_Color
+    second: {fileID: 2800000, guid: ec8aa50905612004bb71f235df0fddc4, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart61Surface Color
+    second: {fileID: 2800000, guid: 76559ab2b57a4554883fdd60b499c413, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart62Surface Color
+    second: {fileID: 2800000, guid: c68756f5c4d6a6e418bb72275f39782c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart6Surface_Color
+    second: {fileID: 2800000, guid: 06fc9700fde15554bb53a9711c0d0866, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart71Surface Color
+    second: {fileID: 2800000, guid: f8b4174427ca8c5459d6608b52dd2b54, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart72Surface Color
+    second: {fileID: 2800000, guid: 491d348afaa021543a581483db76dc1a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart7Surface_Color
+    second: {fileID: 2800000, guid: a5d408b7926cc304099ac9631d38c843, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart81Surface Color
+    second: {fileID: 2800000, guid: 897d98e6d7f2ac44d9dbd95566afb018, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart82Surface Color
+    second: {fileID: 2800000, guid: b838992dd58e69142a50bb4ce221ed4c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart8Surface_Color
+    second: {fileID: 2800000, guid: b8b01dbe1d2f3e24fa27051864de13e9, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart91Surface Color
+    second: {fileID: 2800000, guid: 299c5c12a32aa564cb27ffd204464313, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart92Surface Color
+    second: {fileID: 2800000, guid: 4f9c60f170d0efa45b43b23ea4c59760, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cube_fracturepart9Surface_Color
+    second: {fileID: 2800000, guid: 1ff730f9fbddca8499801c1b4358d0c2, type: 3}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

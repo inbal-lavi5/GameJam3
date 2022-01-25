@@ -1,0 +1,727 @@
+fileFormatVersion: 2
+guid: 73d32dea19d92cd4aa08ebf86a392504
+ModelImporter:
+  serializedVersion: 20200
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart10Surface_Color
+    second: {fileID: 2800000, guid: 515a03ae0bf3c414db39fe41d761a3d5, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart111Surface Color
+    second: {fileID: 2800000, guid: 77589df44a9b7e24b9655e8c07a2bf82, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart112Surface Color
+    second: {fileID: 2800000, guid: f00f212a951989e42a9a956c3f10d642, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart113Surface Color
+    second: {fileID: 2800000, guid: 131aa9901b4b2d34c933b8121412e18f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart11Surface Color
+    second: {fileID: 2800000, guid: c7e179b517e78d64683b40775d7d20b8, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart11Surface_Color
+    second: {fileID: 2800000, guid: 09398c3b466d72b43bddc84a16e19763, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart121Surface Color
+    second: {fileID: 2800000, guid: 4a06adb6a88c1e5449d501baa200d00e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart122Surface Color
+    second: {fileID: 2800000, guid: 92abe8a2b00efc44d982f7b6ec6a3b96, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart123Surface Color
+    second: {fileID: 2800000, guid: bb30ee0ef1ff7804880fac5168211f17, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart124Surface Color
+    second: {fileID: 2800000, guid: 8f68f6050f8e3f64d93bde26a252d328, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart125Surface Color
+    second: {fileID: 2800000, guid: 9521b84e3241f1a4ba3aa2881f97dda9, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart126Surface Color
+    second: {fileID: 2800000, guid: aa26002b9b079c647981ecc9e51215f4, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart12Surface Color
+    second: {fileID: 2800000, guid: 42191143c3be6b94b9d3eb813de05b5c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart12Surface_Color
+    second: {fileID: 2800000, guid: 773d6073aeaa7064fb02a727887ddc6c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart131Surface Color
+    second: {fileID: 2800000, guid: 290a28fa8f1a41941ac0f0b90894a710, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart132Surface Color
+    second: {fileID: 2800000, guid: 0e505360154f6cd4b9635645db004c5b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart133Surface Color
+    second: {fileID: 2800000, guid: ca371b694ceeb63448f848ec02e40358, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart134Surface Color
+    second: {fileID: 2800000, guid: f9a97cea09fe35544b84629a98ed5dd0, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart135Surface Color
+    second: {fileID: 2800000, guid: 32eed0a817eb3d8429be65f6fef25b36, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart136Surface Color
+    second: {fileID: 2800000, guid: 94902b630480a3d4d963d7ec4c159195, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart137Surface Color
+    second: {fileID: 2800000, guid: 8ecf8d7244415e648af21d9ad2614767, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart138Surface Color
+    second: {fileID: 2800000, guid: 2966ef90793fc8142b41994941fb2246, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart139Surface Color
+    second: {fileID: 2800000, guid: e05ca6cdb03384841abea8fd3284a252, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart13Surface Color
+    second: {fileID: 2800000, guid: 775d16b2159757f4abfd22e2cbf0da0f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart13Surface_Color
+    second: {fileID: 2800000, guid: cea3cdab91d5a9b44b078197458aa174, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart141Surface Color
+    second: {fileID: 2800000, guid: 8dfeea4b88e154b44a3a019f7aed5cf9, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart142Surface Color
+    second: {fileID: 2800000, guid: 655d68ae35c274941b40cdd712b5f188, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart143Surface Color
+    second: {fileID: 2800000, guid: 531ab2b833ef632488daeec6959d7eb7, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart144Surface Color
+    second: {fileID: 2800000, guid: 2848b582db2edca418ba0636d7640370, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart145Surface Color
+    second: {fileID: 2800000, guid: abd8af1109304ca43bdd9b214f944f96, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart146Surface Color
+    second: {fileID: 2800000, guid: f09af670d03e8e24e9e16ce08b32fbee, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart147Surface Color
+    second: {fileID: 2800000, guid: 8217016afa50c2045b9501ead0f51067, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart148Surface Color
+    second: {fileID: 2800000, guid: a68ed27eabc92ca46b3952033587006f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart14Surface Color
+    second: {fileID: 2800000, guid: 781e0f8ac4baae64ea1f6b3a3082588f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart14Surface_Color
+    second: {fileID: 2800000, guid: 75956bd3951a6ec45bac100970968af1, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart151Surface Color
+    second: {fileID: 2800000, guid: 9eb94bd17146d9548af3f3c69848c1b7, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart152Surface Color
+    second: {fileID: 2800000, guid: c3a6cbf9e91c1494f90a7e17d6e627ab, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart15Surface Color
+    second: {fileID: 2800000, guid: b79345cce548f434dad62fc45843a692, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart15Surface_Color
+    second: {fileID: 2800000, guid: b1cfc4d76c284f3439ab82a6e92bdb55, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart161Surface Color
+    second: {fileID: 2800000, guid: 3169601cbb364844eb079d4efd719f3e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart16Surface_Color
+    second: {fileID: 2800000, guid: c433f04b2c92e2d4881eb380f577cd39, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart171Surface Color
+    second: {fileID: 2800000, guid: f7aac13a10e82b3419c99ae7e03b4d2a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart172Surface Color
+    second: {fileID: 2800000, guid: e1f55534c51b3b441bacba48bc6af465, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart173Surface Color
+    second: {fileID: 2800000, guid: f8f249bb4780f8f42a4fae9dfd04150c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart174Surface Color
+    second: {fileID: 2800000, guid: 8e4d261096de8074aa3bd6d6259aec33, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart175Surface Color
+    second: {fileID: 2800000, guid: cb79d98f3fd276a40a388d7fc5886d81, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart176Surface Color
+    second: {fileID: 2800000, guid: 76455a2722e79374d83c175fde6f7553, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart177Surface Color
+    second: {fileID: 2800000, guid: 8d8fb126a3cfd8c47b6ebf3bf720ec3e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart178Surface Color
+    second: {fileID: 2800000, guid: c6cfc7bb16f4725409572fbb024a31a0, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart179Surface Color
+    second: {fileID: 2800000, guid: 58db5ba745695dd49a82fbf5e4e46159, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart17Surface_Color
+    second: {fileID: 2800000, guid: 2ed96d31427394346bfae0aa9301d26e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart181Surface Color
+    second: {fileID: 2800000, guid: 83c012f070e9b4643b1372fd31dd0a93, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart182Surface Color
+    second: {fileID: 2800000, guid: baa0195651199a54580944c6c8bef5cd, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart183Surface Color
+    second: {fileID: 2800000, guid: fdd626d35f39dc1488aef2b3dfdb68b9, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart184Surface Color
+    second: {fileID: 2800000, guid: 1d9240ad7fe0b3a408689086dc1095f5, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart185Surface Color
+    second: {fileID: 2800000, guid: 243a8affb9df9134195fdd306c7cc2d8, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart186Surface Color
+    second: {fileID: 2800000, guid: 097bfc1f02192bf45b1eeba53e922701, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart187Surface Color
+    second: {fileID: 2800000, guid: dd43820ee2d010542a7d02899d203356, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart18Surface_Color
+    second: {fileID: 2800000, guid: 24f3c2ea6fc77b643b00eb3316abe8ae, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart191Surface Color
+    second: {fileID: 2800000, guid: 451fc2ebde7d5924db06102937a8516d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart192Surface Color
+    second: {fileID: 2800000, guid: 0066da0443d4df64298190e62c5af9c2, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart193Surface Color
+    second: {fileID: 2800000, guid: 7496467c569c7fc43ba59380be02d6c6, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart194Surface Color
+    second: {fileID: 2800000, guid: b07dea7c639afdb4a82655041a02d541, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart195Surface Color
+    second: {fileID: 2800000, guid: da1b526d3fd258f4ba888f6e0e6f9b97, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart196Surface Color
+    second: {fileID: 2800000, guid: fc672815001a0f744ac43341cfb7a03e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart19Surface_Color
+    second: {fileID: 2800000, guid: 509e6e0b22c6e314090f52d4147f880e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart1Surface Color
+    second: {fileID: 2800000, guid: 7a286a61a771ec84cb4b6d60867771d4, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart1Surface_Color
+    second: {fileID: 2800000, guid: bd40a2e422e5e9047a8fc5b79305870f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart201Surface Color
+    second: {fileID: 2800000, guid: 5c292003c364f134fb0c5d513e99c0ca, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart202Surface Color
+    second: {fileID: 2800000, guid: e8627ed8b7da1a44b9b895f5d47b5176, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart203Surface Color
+    second: {fileID: 2800000, guid: ca56bb9ce248e864dacf4be419d0f393, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart20Surface_Color
+    second: {fileID: 2800000, guid: 325ab14a317142a499d24cb89dcec094, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart21Surface Color
+    second: {fileID: 2800000, guid: ac0be8cbbe0e2bc4ab61093221dc9c09, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart22Surface Color
+    second: {fileID: 2800000, guid: e0e527e010105f4478152c3a7d421363, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart23Surface Color
+    second: {fileID: 2800000, guid: 682e7d74b4e4c45498936eb099e45d76, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart24Surface Color
+    second: {fileID: 2800000, guid: 5a60ba4881198cc4081a8782402c1ec9, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart25Surface Color
+    second: {fileID: 2800000, guid: 6d717c245fedfec488a133f4b3bb5198, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart2Surface Color
+    second: {fileID: 2800000, guid: 6e8c25a575893e64282c8691ec3d0d42, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart2Surface_Color
+    second: {fileID: 2800000, guid: ce487ac2cb1ed5c47a4aaeaef3dbb834, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart31Surface Color
+    second: {fileID: 2800000, guid: 0534960785dbcb94d85d886983c0f73a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart3Surface Color
+    second: {fileID: 2800000, guid: d7406feb8e2fa3247a1cd0f27627bd56, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart3Surface_Color
+    second: {fileID: 2800000, guid: 4e6b6a632e195d044b038ddfaf7c465e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart41Surface Color
+    second: {fileID: 2800000, guid: 802f9ec2e8dedc043819c24cdff761b9, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart42Surface Color
+    second: {fileID: 2800000, guid: 0465b65850dc1614381e4fc654307513, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart43Surface Color
+    second: {fileID: 2800000, guid: ce2bf7f7ac2511c43814c1c7591c9ac8, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart44Surface Color
+    second: {fileID: 2800000, guid: 42a12f45529113843b53f43ea9383087, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart45Surface Color
+    second: {fileID: 2800000, guid: 61966198529a4d1449b6a1da308f281c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart46Surface Color
+    second: {fileID: 2800000, guid: bee748703f8456541b6cc10cf72d5e45, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart4Surface_Color
+    second: {fileID: 2800000, guid: d42f41679c5f61945bf9f1b714d05978, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart51Surface Color
+    second: {fileID: 2800000, guid: 6afe6a9d997a90148865d5565dcee2f2, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart52Surface Color
+    second: {fileID: 2800000, guid: 6dc6996c139a49b4f9055e825f66fa96, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart53Surface Color
+    second: {fileID: 2800000, guid: 65c1de136a356f448a9a9eab58e0baa1, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart54Surface Color
+    second: {fileID: 2800000, guid: 8872cf96b8f6f97409107331d4da7f1e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart55Surface Color
+    second: {fileID: 2800000, guid: 2017736675b782f4eaeea0da3a1d82d1, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart56Surface Color
+    second: {fileID: 2800000, guid: 63a6df063cd8e094bb8dcd2d824fa3a0, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart57Surface Color
+    second: {fileID: 2800000, guid: 1ab9372dfd906d6468c9569d6f4af0c0, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart58Surface Color
+    second: {fileID: 2800000, guid: c5b18bd5a1bf74e46911c6db8d5d55af, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart59Surface Color
+    second: {fileID: 2800000, guid: 05e9f15960167254c960ceb932bb7a71, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart5Surface_Color
+    second: {fileID: 2800000, guid: b26a7fd1567baf349bb636722a7e9a68, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart61Surface Color
+    second: {fileID: 2800000, guid: fb8edb20fa53fb741996d209790c3807, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart62Surface Color
+    second: {fileID: 2800000, guid: 38e3f230f21e91e4c8a8248bfa4c8838, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart63Surface Color
+    second: {fileID: 2800000, guid: 25450b16df97584499c96888e597ccdf, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart64Surface Color
+    second: {fileID: 2800000, guid: c33aa842240e7c44aa1bc51649ae2c5c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart65Surface Color
+    second: {fileID: 2800000, guid: 61197a60bf762e4418510420225fe334, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart66Surface Color
+    second: {fileID: 2800000, guid: ee04dbb1c905af14bbe6ba0ef6d0267a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart67Surface Color
+    second: {fileID: 2800000, guid: 162bd63346f4da548a1b3d5f928920db, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart68Surface Color
+    second: {fileID: 2800000, guid: 9de90168a8f71324896191988974c5c1, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart69Surface Color
+    second: {fileID: 2800000, guid: 49503dbbdc9fcc842aa4a5761adf31ea, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart6Surface_Color
+    second: {fileID: 2800000, guid: 5780648ccb8992e45b431f6ba7c257d0, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart71Surface Color
+    second: {fileID: 2800000, guid: 97dec618a46869c4fa2ba8628de63d13, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart72Surface Color
+    second: {fileID: 2800000, guid: 2a08b8e4d850d88418238709c38deda3, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart73Surface Color
+    second: {fileID: 2800000, guid: 807e59c20b9bf074aa6ddb97262221f9, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart74Surface Color
+    second: {fileID: 2800000, guid: 7d74ecf42766e9e45948194da4a790de, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart7Surface_Color
+    second: {fileID: 2800000, guid: d88f1775a52537149bef7b8ce8189c21, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart81Surface Color
+    second: {fileID: 2800000, guid: 46309c70b2217354490177df5b7885ca, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart82Surface Color
+    second: {fileID: 2800000, guid: 292a0b4da81bcfe48976160b727b5f8a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart83Surface Color
+    second: {fileID: 2800000, guid: 50bb7aa284e2533439274a6eb20a3e38, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart8Surface_Color
+    second: {fileID: 2800000, guid: 0184d3b49946a4048b87f68745f7e575, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart91Surface Color
+    second: {fileID: 2800000, guid: e8adde22ece42ce42870637ac55d2384, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart92Surface Color
+    second: {fileID: 2800000, guid: 9f29eed3546260f4eb198526daf19703, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart93Surface Color
+    second: {fileID: 2800000, guid: d4313ef37454793418bc7f1042c3fa76, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart94Surface Color
+    second: {fileID: 2800000, guid: 3e85bee6563da6543807c4117a8058bb, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart95Surface Color
+    second: {fileID: 2800000, guid: 7441abfc32b48b74f8ff8b11c8399275, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepart9Surface_Color
+    second: {fileID: 2800000, guid: 646adc342cd24ee40b9b3f26c907b299, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cylinder.1_fracturepartSurface_Color
+    second: {fileID: 2800000, guid: e4903168a1569a341baacefe72289f75, type: 3}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
