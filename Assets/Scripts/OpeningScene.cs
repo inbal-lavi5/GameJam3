@@ -10,8 +10,7 @@ using UnityEngine.UI;
 public class OpeningScene : MonoBehaviour
 {
     [SerializeField] private GameObject loadingScene;
-    [SerializeField] private Slider progressSlider;
-    [SerializeField] private Text progressText;
+    [SerializeField] private Image progressSlider;
     [SerializeField] private GameObject playButton;
     
     [SerializeField] private GameObject instructionsPanel;
@@ -40,18 +39,18 @@ public class OpeningScene : MonoBehaviour
     IEnumerator LoadAsync(int sceneIndex)
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
-
+        
         Time.timeScale = 1f;
         PauseMenu.isPaused = false;
-
+        
         loadingScene.SetActive(true);
 
         while (!operation.isDone)
         {
             float progress = Mathf.Clamp01(operation.progress / 0.9f);
 
-            progressSlider.value = progress;
-            progressText.text = progress * 100f + "%";
+            progressSlider.fillAmount = progress;
+            // progressText.text = progress * 100f + "%";
 
             yield return null;
         }

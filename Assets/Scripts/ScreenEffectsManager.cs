@@ -17,6 +17,7 @@ public class ScreenEffectsManager : MonoBehaviour
     [SerializeField] private GameObject stopScreen;
     [SerializeField] private GameObject speedScreen;
     [SerializeField] private GameObject timeScreen;
+    [SerializeField] private GameObject explosionScreen;
     [SerializeField] private Animator fxAnimator;
 
     private void Start()
@@ -71,14 +72,14 @@ public class ScreenEffectsManager : MonoBehaviour
     IEnumerator timeCoroutine()
     {
         timeScreen.SetActive(true);
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(1f);
         timeScreen.SetActive(false);
     }
 
     IEnumerator bombCoroutine()
     {
-        speedScreen.SetActive(true);
-        yield return new WaitForSeconds(0.2f);
-        speedScreen.SetActive(false);
+        explosionScreen.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        explosionScreen.SetActive(false);
     }
 }

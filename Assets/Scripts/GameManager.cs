@@ -14,9 +14,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ScreenEffectsManager screenManager;
 
     [SerializeField] private GameObject loadingScene;
-    [SerializeField] private Slider progressSlider;
-    [SerializeField] private Text progressText;
+    [SerializeField] private Image progressSlider;
 
+    [SerializeField] private GameObject instructionPanel;
     [SerializeField] private GameObject losePanel;
     [SerializeField] private GameObject losePanelFirstButton;
     [SerializeField] private GameObject winPanel;
@@ -82,6 +82,11 @@ public class GameManager : MonoBehaviour
         StartCoroutine(LoadAsync(SceneManager.GetActiveScene().buildIndex));
     }
 
+    public void instOfOff()
+    {
+        instructionPanel.SetActive(!instructionPanel.activeSelf);
+    }
+
     public void NextLevelScreen()
     {
         int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
@@ -124,8 +129,8 @@ public class GameManager : MonoBehaviour
         {
             float progress = Mathf.Clamp01(operation.progress / 0.9f);
 
-            progressSlider.value = progress;
-            progressText.text = progress * 100f + "%";
+            progressSlider.fillAmount = progress;
+            // progressText.text = progress * 100f + "%";
 
             yield return null;
         }
