@@ -56,6 +56,7 @@ public class ScreenEffectsManager : MonoBehaviour
 
     IEnumerator stopCoroutine(float time)
     {
+    fxAnimator.Play("stop",0,0);
         stopScreen.SetActive(true);
         yield return new WaitForSecondsRealtime(time);
         stopScreen.SetActive(false);
@@ -71,6 +72,7 @@ public class ScreenEffectsManager : MonoBehaviour
 
     IEnumerator timeCoroutine()
     {
+    fxAnimator.Play("time",0,0);
         timeScreen.SetActive(true);
         yield return new WaitForSeconds(1f);
         timeScreen.SetActive(false);
@@ -78,6 +80,7 @@ public class ScreenEffectsManager : MonoBehaviour
 
     IEnumerator bombCoroutine()
     {
+    fxAnimator.Play("blast",0,0);
         explosionScreen.SetActive(true);
         yield return new WaitForSeconds(1f);
         explosionScreen.SetActive(false);
