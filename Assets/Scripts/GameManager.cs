@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+        playBackgroung();
     }
     
    
@@ -46,6 +47,25 @@ public class GameManager : MonoBehaviour
         {
             ResetLevel();
         }
+    }
+
+    private void playBackgroung()
+    {
+        int sceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        switch (sceneIndex)
+        {
+            case 1:
+                PlaySound(SoundManager.Sounds.PAGAN);
+                break;
+            case 2:
+                PlaySound(SoundManager.Sounds.VILLAGE);
+                break;
+            case 3:
+                PlaySound(SoundManager.Sounds.CITY);
+                break;
+        }
+
     }
 
 

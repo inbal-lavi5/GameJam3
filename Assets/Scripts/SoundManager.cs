@@ -80,7 +80,7 @@ public class SoundManager : MonoBehaviour
             
             case Sounds.OBJECT_COLLAPSE:
                 int i = Random.Range(0, OBJECT_COLLAPSE.Length);
-                audioSrc.PlayOneShot(OBJECT_COLLAPSE[i]);
+                audioSrc.PlayOneShot(OBJECT_COLLAPSE[i], 0.1f);
                 break;
             
             case Sounds.GOOD_PICKUP:
@@ -92,7 +92,7 @@ public class SoundManager : MonoBehaviour
                 break;
 
             case Sounds.BOMB_EXP:
-                audioSrc.PlayOneShot(BOMB_EXP);
+                audioSrc.PlayOneShot(BOMB_EXP, 0.5f);
                 break;
         }
     }

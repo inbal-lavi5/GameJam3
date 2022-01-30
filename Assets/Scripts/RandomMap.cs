@@ -7,7 +7,8 @@ using Random = UnityEngine.Random;
 public class RandomMap : MonoBehaviour
 {
     // [SerializeField] private GameObject[] objectsToSpread;
-    private String[] objectsToSpreadString = new []{"Stop", "Stop", "Speed","Time", "Stop", "Stop", "Bomb", "Speed"};
+    private String[] objectsToSpreadString = new []{"Stop", "Stop", "Stop", "Stop", "Stop",  "Stop", "Stop", "Stop", "Stop", "Stop", "Speed","Time", "Bomb"};
+
     void Start()
     {
         int i = Random.Range(0, objectsToSpreadString.Length);

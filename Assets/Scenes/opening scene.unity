@@ -1051,13 +1051,49 @@ PrefabInstance:
       value: SoundManager
       objectReference: {fileID: 0}
     - target: {fileID: 6219553898716129325, guid: b41d15b6756c196499dfe2f4969ba7fd, type: 3}
+      propertyPath: CITY
+      value: 
+      objectReference: {fileID: 8300000, guid: f4623b7ac36ee604f9f44a3e78aad043, type: 3}
+    - target: {fileID: 6219553898716129325, guid: b41d15b6756c196499dfe2f4969ba7fd, type: 3}
       propertyPath: MENU
       value: 
       objectReference: {fileID: 8300000, guid: ed6db1f48f50c5149b3a4916534fbed2, type: 3}
     - target: {fileID: 6219553898716129325, guid: b41d15b6756c196499dfe2f4969ba7fd, type: 3}
+      propertyPath: PAGAN
+      value: 
+      objectReference: {fileID: 8300000, guid: d7e42227b49968042bbb3e7d479a4b1a, type: 3}
+    - target: {fileID: 6219553898716129325, guid: b41d15b6756c196499dfe2f4969ba7fd, type: 3}
+      propertyPath: VILLAGE
+      value: 
+      objectReference: {fileID: 8300000, guid: 841702fae3c3d94469e4699b12b7f87d, type: 3}
+    - target: {fileID: 6219553898716129325, guid: b41d15b6756c196499dfe2f4969ba7fd, type: 3}
+      propertyPath: BAD_PICKUP
+      value: 
+      objectReference: {fileID: 8300000, guid: 2dc2b40d21c39814a95e669ae2669820, type: 3}
+    - target: {fileID: 6219553898716129325, guid: b41d15b6756c196499dfe2f4969ba7fd, type: 3}
       propertyPath: backgroundSound
       value: 
       objectReference: {fileID: 8300000, guid: ad105e7ea680d2d49a9e5c3cd5a27bd7, type: 3}
+    - target: {fileID: 6219553898716129325, guid: b41d15b6756c196499dfe2f4969ba7fd, type: 3}
+      propertyPath: OBJECT_COLLAPSE.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6219553898716129325, guid: b41d15b6756c196499dfe2f4969ba7fd, type: 3}
+      propertyPath: OBJECT_COLLAPSE.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 52925616101454d40a2a55c19ed78578, type: 3}
+    - target: {fileID: 6219553898716129325, guid: b41d15b6756c196499dfe2f4969ba7fd, type: 3}
+      propertyPath: OBJECT_COLLAPSE.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: eaab38ce53cc1ae4c85cc1da20ec2fb5, type: 3}
+    - target: {fileID: 6219553898716129325, guid: b41d15b6756c196499dfe2f4969ba7fd, type: 3}
+      propertyPath: OBJECT_COLLAPSE.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 0e7ff561e46bd2342b26a08eee4b2bf8, type: 3}
+    - target: {fileID: 6219553898716129325, guid: b41d15b6756c196499dfe2f4969ba7fd, type: 3}
+      propertyPath: OBJECT_COLLAPSE.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: 7dd48bd4be1b5bd4981a3ca24cc5407f, type: 3}
     - target: {fileID: 6219553898716129325, guid: b41d15b6756c196499dfe2f4969ba7fd, type: 3}
       propertyPath: backgroundSound.Array.data[0]
       value: 
