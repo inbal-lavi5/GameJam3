@@ -36,33 +36,10 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        /*// power ups
-        spreadItems("Time", boundaryXmin, boundaryXmax, boundaryZmin, boundaryZmax, 10);
-        spreadItems("Speed", boundaryXmin, boundaryXmax, boundaryZmin, boundaryZmax, 10);
-        spreadItems("Bomb", boundaryXmin, boundaryXmax, boundaryZmin, boundaryZmax, 5);
-
-        // power down
-        spreadItems("Stop", boundaryXmin, boundaryXmax, boundaryZmin, boundaryZmax, 20);*/
+        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
-
-    /*public void spreadItems(String item, float xMin, float xMax, float zMin, float zMax, int amount)
-    {
-        GameObject itemToSpreadLoad = (GameObject) Resources.Load(item, typeof(GameObject));
-
-        for (int i = 0; i < amount; i++)
-        {
-            GameObject itemToSpreadInstance = Instantiate(itemToSpreadLoad);
-            itemToSpreadInstance.transform.position = generateLocation(xMin, xMax, zMin, zMax);
-        }
-    }*/
-
-    /*private Vector3 generateLocation(float xMin, float xMax, float zMin, float zMax)
-    {
-        float posx = Random.Range(xMin, xMax);
-        float posz = Random.Range(zMin, zMax);
-        return new Vector3(posx, 4f, posz);
-    }*/
-
+    
+   
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.R))
@@ -178,6 +155,7 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
 
     public void PlaySound(SoundManager.Sounds sfx)
     {

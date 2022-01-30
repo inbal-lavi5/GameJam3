@@ -145,6 +145,7 @@ MonoBehaviour:
   GOOD_PICKUP: {fileID: 8300000, guid: 7a08dbb7a073f704a943dbd8bcd377cc, type: 3}
   BAD_PICKUP: {fileID: 8300000, guid: b2b31e2ed9198b84083f8c42d8b3d75f, type: 3}
   BIG_EXP: {fileID: 8300000, guid: 85aa59a68ee17db4789e94365af38d53, type: 3}
-  backgroundSound: {fileID: 0}
+  backgroundSound:
+  - {fileID: 8300000, guid: ad105e7ea680d2d49a9e5c3cd5a27bd7, type: 3}
   OnButton: {fileID: 0}
   OffButton: {fileID: 0}

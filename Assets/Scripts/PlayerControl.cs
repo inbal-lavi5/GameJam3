@@ -18,10 +18,12 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] public Timer playerTimer;
 
     [SerializeField] private float playerHeight = 3.5f;
-    [SerializeField] public float rotationSpeed = 100;
+    [SerializeField] public float rotationSpeed = 150;
 
-    [SerializeField] public float moveSpeed = 40;
-    [SerializeField] private int speedToAdd;
+    [SerializeField] public float moveSpeed = 50;
+    [SerializeField] private int speedToAdd = 60;
+    
+    [SerializeField] private int bombAdd = 5;
 
 
     private Rigidbody rb;
@@ -30,7 +32,7 @@ public class PlayerControl : MonoBehaviour
     private float curSpeed;
     private bool topView = false;
     private bool pauseInProcces = false;
-
+    private bool spacePreased;
 
     private void Start()
     {
@@ -50,8 +52,8 @@ public class PlayerControl : MonoBehaviour
             handlePause();
             return;
         }
-        
-        if (Input.GetKey(KeyCode.Space))
+
+        if (Input.GetKey(KeyCode.Space) && !spacePreased)
         {
             activateTopView();
         }
@@ -60,7 +62,14 @@ public class PlayerControl : MonoBehaviour
         {
             activateNormalView();
         }
+        
+        
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            StartCoroutine(enableSpace());
+        } 
 
+        
         if (playerExpBar.isFinished())
         {
             ZoomOut();
@@ -109,12 +118,12 @@ public class PlayerControl : MonoBehaviour
         Time.timeScale = 0;
         pauseInProcces = false;
     }
-
+    
 
     private void activateNormalView()
     {
         Time.timeScale = 1;
-        playerTimer.scaleTimeNormal();
+        // playerTimer.scaleTimeNormal();
         moveSpeed = curSpeed;
         topView = false;
         mainCamera.orthographic = false;
@@ -125,13 +134,28 @@ public class PlayerControl : MonoBehaviour
 
     private void activateTopView()
     {
-        Time.timeScale = 0.1f;
-        playerTimer.scaleTimeUp();
+        // Time.timeScale = 0f;
+        // playerTimer.scaleTimeUp();
         moveSpeed = 0;
         topView = true;
         mainCamera.orthographic = true;
         cameraBottom.Priority = 0;
         cameraTop.Priority = 10;
+        StartCoroutine(moveFromBottomToTop());
+    }
+    
+    IEnumerator moveFromBottomToTop()
+    { 
+        yield return new WaitForSeconds(0.5f); 
+        Time.timeScale = 0f;
+    }
+    
+    
+    IEnumerator enableSpace()
+    {
+        spacePreased = true;
+        yield return new WaitForSecondsRealtime(5f);
+        spacePreased = false;
     }
 
 
@@ -230,7 +254,7 @@ public class PlayerControl : MonoBehaviour
 
     private void bombHandler(GameObject other)
     {
-        playerExpBar.addExp(10);
+        playerExpBar.addExp(bombAdd);
         other.GetComponent<Particle>().Detonate();
         gameManager.PlaySound(SoundManager.Sounds.BOMB_EXP);
     }
@@ -255,14 +279,8 @@ public class PlayerControl : MonoBehaviour
     {
         gameManager.ManageScreen(ScreenEffectsManager.Effects.STOP);
         breaking = false;
-        rb.constraints &= ~RigidbodyConstraints.FreezePositionY;
-
-        yield return new WaitForSeconds(gameManager.powerUpsTime);
-
+        yield return new WaitForSecondsRealtime(gameManager.powerUpsTime);
         breaking = true;
-        rb.constraints |= RigidbodyConstraints.FreezePositionY;
-        Vector3 pos = transform.position;
-        transform.position = new Vector3(pos.x, playerHeight, pos.z);
     }
 
 
@@ -271,7 +289,7 @@ public class PlayerControl : MonoBehaviour
         gameManager.ManageScreen(ScreenEffectsManager.Effects.SPEED);
         moveSpeed += speedToAdd;
 
-        yield return new WaitForSeconds(gameManager.powerUpsTime);
+        yield return new WaitForSecondsRealtime(gameManager.powerUpsTime);
 
         moveSpeed -= speedToAdd;
     }
@@ -280,12 +298,12 @@ public class PlayerControl : MonoBehaviour
     /* shakes the player a bit on object hit #1# */
     private void ShakePlayer()
     {
-        Vector3 localEulerAngles = transform.localEulerAngles;
+        /*Vector3 localEulerAngles = transform.localEulerAngles;
         Sequence mySequence = DOTween.Sequence();
         mySequence
             .Append(transform.DOShakeRotation(0.2f, 10f, 10, 10))
             .Insert(0, transform.DOShakePosition(0.1f))
-            .Append(transform.DORotate(new Vector3(0, localEulerAngles.y, 0), 0f));
+            .Append(transform.DORotate(new Vector3(0, localEulerAngles.y, 0), 0f));*/
     }
 
 

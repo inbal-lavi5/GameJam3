@@ -9,7 +9,7 @@ public class Timer : MonoBehaviour
 
     private float currentTime = 0f;
     private float startingTime = 60f;
-    private float timeToAdd = 5;
+    private float timeToAdd = 20;
     private float scaleTimeFactor = 1;
     private int ogFontSize;
 

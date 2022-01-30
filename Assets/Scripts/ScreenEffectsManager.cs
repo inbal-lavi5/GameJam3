@@ -57,7 +57,7 @@ public class ScreenEffectsManager : MonoBehaviour
     IEnumerator stopCoroutine(float time)
     {
         stopScreen.SetActive(true);
-        yield return new WaitForSeconds(time);
+        yield return new WaitForSecondsRealtime(time);
         stopScreen.SetActive(false);
     }
 
@@ -65,7 +65,7 @@ public class ScreenEffectsManager : MonoBehaviour
     {
         fxAnimator.Play("speed",0,0);
         speedScreen.SetActive(true);
-        yield return new WaitForSeconds(time);
+        yield return new WaitForSecondsRealtime(time);
         speedScreen.SetActive(false);
     }
 

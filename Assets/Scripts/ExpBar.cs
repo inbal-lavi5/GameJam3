@@ -40,7 +40,7 @@ public class ExpBar : MonoBehaviour
 
     private void updateUI()
     {
-        precentage.text = curAmount + "%";
+        precentage.text = Math.Floor(curAmount) + "%";
         bar.fillAmount = normalizedMana();
         float clamp = RemapClamped(normalizedMana(), 0, 1, -420, 420);
         precentage.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, clamp);
