@@ -24,6 +24,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject nextPanel;
     [SerializeField] private GameObject nextPanelFirstButton;
 
+    [SerializeField] private GameObject ONbotton;
+    [SerializeField] private GameObject OFFbotton;
+    
     private int timeToRemovePart = 15;
     [SerializeField] public int powerUpsTime;
 
@@ -49,6 +52,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    
     private void playBackgroung()
     {
         int sceneIndex = SceneManager.GetActiveScene().buildIndex;
@@ -58,14 +62,15 @@ public class GameManager : MonoBehaviour
             case 1:
                 PlaySound(SoundManager.Sounds.PAGAN);
                 break;
+            
             case 2:
                 PlaySound(SoundManager.Sounds.VILLAGE);
                 break;
+            
             case 3:
                 PlaySound(SoundManager.Sounds.CITY);
                 break;
         }
-
     }
 
 
@@ -79,6 +84,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(LoadAsync(SceneManager.GetActiveScene().buildIndex));
     }
 
+    
     public void instOnOff()
     {
         if (instructionPanel.activeSelf)
@@ -92,6 +98,7 @@ public class GameManager : MonoBehaviour
         }
     }
     
+    
     IEnumerator instOff()
     {
         instructionPanel.GetComponent<Animator>().Play("out");
@@ -99,6 +106,7 @@ public class GameManager : MonoBehaviour
         instructionPanel.SetActive(false);
     }
 
+    
     public void NextLevelScreen()
     {
         int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
@@ -108,21 +116,26 @@ public class GameManager : MonoBehaviour
             EventSystem.current.GetComponent<EventSystem>()
                 .SetSelectedGameObject(winPanelFirstButton);
         }
+        
         else
         {
+            PlaySound(SoundManager.Sounds.WINNING);
             nextPanel.SetActive(true);
             EventSystem.current.GetComponent<EventSystem>()
                 .SetSelectedGameObject(nextPanelFirstButton);
         }
     }
 
+    
     public void LoseScreen()
     {
+        PlaySound(SoundManager.Sounds.LOSING);
         losePanel.SetActive(true);
         EventSystem.current.GetComponent<EventSystem>()
             .SetSelectedGameObject(losePanelFirstButton);
     }
 
+    
     public void NextLevel()
     {
         StartCoroutine(LoadAsync(SceneManager.GetActiveScene().buildIndex + 1));
@@ -155,6 +168,7 @@ public class GameManager : MonoBehaviour
             Random.Range(0f, 0.5f), Random.Range(0f, 0.5f));
     }
 
+    
     public void AddRigidChildren(Transform parent)
     {
         parent.tag = "Collapsed";
@@ -182,6 +196,11 @@ public class GameManager : MonoBehaviour
         soundManager.PlaySound(sfx);
     }
 
+    public void soundOnOff()
+    {
+        soundManager.OnOffAudio(OFFbotton, ONbotton);
+    }
+    
     public void ManageScreen(ScreenEffectsManager.Effects fx)
     {
         screenManager.ScreenEffect(fx, powerUpsTime);

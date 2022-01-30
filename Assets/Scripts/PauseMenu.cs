@@ -5,14 +5,17 @@ using UnityEngine.EventSystems;
 
 public class PauseMenu : MonoBehaviour
 {
-
+    private GameManager gameManager;
     public static bool isPaused;
+    
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject pauseMenuFirstButton;
     
     // Start is called before the first frame update
     void Start()
     {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
         pauseMenu.SetActive(false);
     }
 
@@ -38,12 +41,13 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(true);
         Time.timeScale = 0f;
         isPaused = true;
-        
+        gameManager.PlaySound(SoundManager.Sounds.PAUSE);
         EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(pauseMenuFirstButton);
     }
 
     public void Resume()
     {
+        gameManager.PlaySound(SoundManager.Sounds.PLAY);
         pauseMenu.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;

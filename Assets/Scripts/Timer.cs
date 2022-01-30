@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Timer : MonoBehaviour
 {
     [SerializeField] public Text timerText;
+    private GameManager gameManager;
 
     private float currentTime = 0f;
     private float startingTime = 60f;
@@ -14,9 +15,11 @@ public class Timer : MonoBehaviour
     private int ogFontSize;
 
     private bool stop;
+    private bool startCountDown = false;
 
     void Start()
     {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         currentTime = startingTime;
         ogFontSize = timerText.fontSize;
     }
@@ -27,11 +30,18 @@ public class Timer : MonoBehaviour
         currentTime -= 1 * Time.deltaTime * scaleTimeFactor;
         timerText.text = currentTime.ToString("0");
 
-        if (currentTime <= 10)
+        if (currentTime <= 5)
         {
             timerText.color = Color.red;
             timerText.fontSize = ogFontSize + 40;
+
+            if (!startCountDown)
+            {
+                startCountDown = true;
+                gameManager.PlaySound(SoundManager.Sounds.TIMER);
+            }
         }
+        
         else
         {
             timerText.color = Color.white;

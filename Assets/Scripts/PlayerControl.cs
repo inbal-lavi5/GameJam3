@@ -33,6 +33,7 @@ public class PlayerControl : MonoBehaviour
     private bool topView = false;
     private bool pauseInProcces = false;
     private bool spacePreased;
+    private bool finish = false;
 
     private void Start()
     {
@@ -53,6 +54,7 @@ public class PlayerControl : MonoBehaviour
             return;
         }
 
+
         if (Input.GetKey(KeyCode.Space) && !spacePreased)
         {
             activateTopView();
@@ -67,21 +69,26 @@ public class PlayerControl : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Space))
         {
             StartCoroutine(enableSpace());
-        } 
-
-        
-        if (playerExpBar.isFinished())
-        {
-            ZoomOut();
-            playerTimer.stopTimer();
-            gameManager.NextLevelScreen();
         }
 
-        if (playerTimer.isFinished())
+        if (!finish)
         {
-            ZoomOut();
-            gameManager.LoseScreen();
+            if (playerExpBar.isFinished())
+            {
+                finish = true;
+                ZoomOut();
+                playerTimer.stopTimer();
+                gameManager.NextLevelScreen();
+            }
+
+            if (playerTimer.isFinished())
+            {
+                finish = true;
+                ZoomOut();
+                gameManager.LoseScreen();
+            }
         }
+       
 
         //todo remove at end - hack for fast explosion and move to next level
         if (Input.GetKeyDown(KeyCode.E))
@@ -144,6 +151,7 @@ public class PlayerControl : MonoBehaviour
         StartCoroutine(moveFromBottomToTop());
     }
     
+    
     IEnumerator moveFromBottomToTop()
     { 
         yield return new WaitForSeconds(0.5f); 
@@ -154,7 +162,7 @@ public class PlayerControl : MonoBehaviour
     IEnumerator enableSpace()
     {
         spacePreased = true;
-        yield return new WaitForSecondsRealtime(5f);
+        yield return new WaitForSecondsRealtime(3f);
         spacePreased = false;
     }
 
@@ -252,6 +260,7 @@ public class PlayerControl : MonoBehaviour
         gameManager.ManageScreen(ScreenEffectsManager.Effects.TIME);
     }
 
+    
     private void bombHandler(GameObject other)
     {
         playerExpBar.addExp(bombAdd);
@@ -259,6 +268,7 @@ public class PlayerControl : MonoBehaviour
         gameManager.PlaySound(SoundManager.Sounds.BOMB_EXP);
     }
 
+    
     private void speedHandler(GameObject other)
     {
         other.GetComponent<Particle>().Detonate();
