@@ -13,7 +13,7 @@ EditorBuildSettings:
     guid: c2a426964aa7e364698d9f3212bfe6a2
   - enabled: 1
     path: Assets/Scenes/village.unity
-    guid: cab8a666a78eb1345be448171d9f2bf9
+    guid: f67ea35ac8728d64cb9d1d9f6b6e19fd
   - enabled: 1
     path: Assets/Scenes/city.unity
     guid: d1f4de11c24b36944a317b122fe8db9b
