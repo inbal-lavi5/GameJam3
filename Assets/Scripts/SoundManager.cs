@@ -43,16 +43,29 @@ public class SoundManager : MonoBehaviour
     static bool on = true;
     private int last = 0;
     
+    
+    private static SoundManager soundManagerInstance;
+    void Awake(){
+        DontDestroyOnLoad (this);
+         
+        if (soundManagerInstance == null) {
+            soundManagerInstance = this;
+        } else {
+            DestroyObject(gameObject);
+        }
+    }
+    
+    
     // Start is called before the first frame update
     void Start()
     {
         mainAudioSrc = GetComponent<AudioSource>();
         pauseAudioSrc = transform.GetChild(0).GetComponent<AudioSource>();
         loseAudioSrc = transform.GetChild(1).GetComponent<AudioSource>();
-        winAudioSrc = transform.GetChild(2).GetComponent<AudioSource>();
-
+        winAudioSrc = transform.GetChild(2).GetComponent<AudioSource>(); 
+        stopAll();
         mainAudioSrc.PlayOneShot(MENU);
-        DontDestroyOnLoad(gameObject);
+        // DontDestroyOnLoad(gameObject);
     }
 
     public void PlaySound(Sounds sfx)
@@ -61,6 +74,7 @@ public class SoundManager : MonoBehaviour
         switch (sfx)
         {
             case Sounds.MENU:
+                stopAll();
                 mainAudioSrc.PlayOneShot(MENU);
                 break;
             
@@ -84,19 +98,19 @@ public class SoundManager : MonoBehaviour
             case Sounds.CITY:
                 last = 1;
                 stopAll();
-                mainAudioSrc.PlayOneShot(CITY);
+                mainAudioSrc.PlayOneShot(CITY, 0.3f);
                 break;     
 
             case Sounds.WINNING:
                 last = 2;
                 mainAudioSrc.Stop();
-                winAudioSrc.PlayOneShot(WINNING);
+                winAudioSrc.PlayOneShot(WINNING, 0.5f);
                 break;  
             
             case Sounds.LOSING:
                 last = 3;
                 mainAudioSrc.Stop();
-                loseAudioSrc.PlayOneShot(LOSING);
+                loseAudioSrc.PlayOneShot(LOSING, 0.5f);
                 break;
             
             case Sounds.OBJECT_COLLAPSE:
@@ -130,6 +144,7 @@ public class SoundManager : MonoBehaviour
 
     private static void stopAll()
     {
+        pauseAudioSrc.Stop();
         mainAudioSrc.Stop();
         winAudioSrc.Stop();
         loseAudioSrc.Stop();
@@ -166,7 +181,7 @@ public class SoundManager : MonoBehaviour
         if (on)
         {
             on = false;
-            mainAudioSrc.volume = 0;
+            muteAll();
             offBottom.SetActive(true);
             onBottom.SetActive(false);
         }
@@ -174,9 +189,25 @@ public class SoundManager : MonoBehaviour
         else
         {
             on = true;
-            mainAudioSrc.volume = 0.2f;
+            UnmuteAll();
             offBottom.SetActive(false);
             onBottom.SetActive(true);
         }
+    }
+
+    private static void UnmuteAll()
+    {
+        mainAudioSrc.volume = 0.2f;
+        pauseAudioSrc.volume = 0.5f;
+        loseAudioSrc.volume = 0.5f;
+        winAudioSrc.volume = 0.5f;
+    }
+
+    private static void muteAll()
+    {
+        mainAudioSrc.volume = 0;
+        pauseAudioSrc.volume = 0;
+        loseAudioSrc.volume = 0;
+        winAudioSrc.volume = 0;
     }
 }

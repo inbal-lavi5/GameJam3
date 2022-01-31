@@ -10,14 +10,8 @@ using Random = UnityEngine.Random;
 public class PlayerControl : MonoBehaviour
 {
     [SerializeField] public GameManager gameManager;
-    [SerializeField] private Camera mainCamera;
-    [SerializeField] private CinemachineVirtualCamera cameraTop;
-    [SerializeField] private CinemachineVirtualCamera cameraBottom;
     [SerializeField] public ExpBar playerExpBar;
-
     [SerializeField] public Timer playerTimer;
-
-    [SerializeField] private float playerHeight = 3.5f;
     [SerializeField] public float rotationSpeed = 150;
 
     [SerializeField] public float moveSpeed = 50;
@@ -25,6 +19,9 @@ public class PlayerControl : MonoBehaviour
     
     [SerializeField] private int bombAdd = 5;
 
+    private CinemachineVirtualCamera cameraTop;
+    private CinemachineVirtualCamera cameraBottom;
+    private Camera mainCamera;
 
     private Rigidbody rb;
     private Vector3 moveDir;
@@ -37,6 +34,10 @@ public class PlayerControl : MonoBehaviour
 
     private void Start()
     {
+        cameraTop = GameObject.Find("topCamera").GetComponent<CinemachineVirtualCamera>();
+        cameraBottom = GameObject.Find("bottomCamera").GetComponent<CinemachineVirtualCamera>();
+        mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
+        
         curSpeed = moveSpeed;
         rb = GetComponent<Rigidbody>();
         moveDir = new Vector3(0, 0f, 1f).normalized;

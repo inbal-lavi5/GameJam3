@@ -60,11 +60,11 @@ public class GameManager : MonoBehaviour
         switch (sceneIndex)
         {
             case 1:
-                PlaySound(SoundManager.Sounds.PAGAN);
+                PlaySound(SoundManager.Sounds.VILLAGE);
                 break;
             
             case 2:
-                PlaySound(SoundManager.Sounds.VILLAGE);
+                PlaySound(SoundManager.Sounds.PAGAN);
                 break;
             
             case 3:
@@ -76,6 +76,7 @@ public class GameManager : MonoBehaviour
 
     public void ResetGame()
     {
+        PlaySound(SoundManager.Sounds.MENU);
         StartCoroutine(LoadAsync(0));
     }
 
@@ -112,6 +113,7 @@ public class GameManager : MonoBehaviour
         int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
         if (nextSceneIndex >= numOfLevels)
         {
+            PlaySound(SoundManager.Sounds.WINNING);
             winPanel.SetActive(true);
             EventSystem.current.GetComponent<EventSystem>()
                 .SetSelectedGameObject(winPanelFirstButton);
