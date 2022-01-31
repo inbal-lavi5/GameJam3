@@ -20,7 +20,9 @@ public class SoundManager : MonoBehaviour
         BAD_PICKUP,
         BOMB_EXP,
         PLAY,
-        TIMER
+        TIMER,
+        SLOW,
+        NORMAL
     }
     
     [SerializeField] private AudioClip MENU;
@@ -139,8 +141,35 @@ public class SoundManager : MonoBehaviour
                 mainAudioSrc.PlayOneShot(TIMER, 0.5f);
                 break;
             
+            case Sounds.SLOW:
+                StartCoroutine(slowDown());
+                break;
+            
+            case Sounds.NORMAL:
+                StartCoroutine(scaleUpSound());
+                break;
+            
         }
     }
+    
+    IEnumerator slowDown()
+    {
+        while (mainAudioSrc.pitch > 0.5f)
+        {
+            mainAudioSrc.pitch -= 0.1f;
+        }
+        yield return null;
+    }
+    
+    IEnumerator scaleUpSound()
+    {
+        while (mainAudioSrc.pitch < 1f)
+        {
+            mainAudioSrc.pitch += 0.1f;
+        }
+        yield return null;
+    }
+    
 
     private static void stopAll()
     {

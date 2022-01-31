@@ -38,6 +38,7 @@ public class PlayerControl : MonoBehaviour
         cameraBottom = GameObject.Find("bottomCamera").GetComponent<CinemachineVirtualCamera>();
         mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
         
+        
         curSpeed = moveSpeed;
         rb = GetComponent<Rigidbody>();
         moveDir = new Vector3(0, 0f, 1f).normalized;
@@ -137,6 +138,8 @@ public class PlayerControl : MonoBehaviour
         mainCamera.orthographic = false;
         cameraBottom.Priority = 10;
         cameraTop.Priority = 0;
+        gameManager.PlaySound(SoundManager.Sounds.NORMAL);
+
     }
 
 
@@ -150,6 +153,7 @@ public class PlayerControl : MonoBehaviour
         cameraBottom.Priority = 0;
         cameraTop.Priority = 10;
         StartCoroutine(moveFromBottomToTop());
+        gameManager.PlaySound(SoundManager.Sounds.SLOW);
     }
     
     
