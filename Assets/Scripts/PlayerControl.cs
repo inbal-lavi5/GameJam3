@@ -16,7 +16,7 @@ public class PlayerControl : MonoBehaviour
 
     [SerializeField] public float moveSpeed = 50;
     [SerializeField] private int speedToAdd = 60;
-    
+
     [SerializeField] private int bombAdd = 5;
 
     private CinemachineVirtualCamera cameraTop;
@@ -30,15 +30,15 @@ public class PlayerControl : MonoBehaviour
     private bool topView = false;
     private bool pauseInProcces = false;
     private bool spacePreased;
-    private bool finish = false;
+    public bool finish = false;
 
     private void Start()
     {
         cameraTop = GameObject.Find("topCamera").GetComponent<CinemachineVirtualCamera>();
         cameraBottom = GameObject.Find("bottomCamera").GetComponent<CinemachineVirtualCamera>();
         mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
-        
-        
+
+
         curSpeed = moveSpeed;
         rb = GetComponent<Rigidbody>();
         moveDir = new Vector3(0, 0f, 1f).normalized;
@@ -49,7 +49,7 @@ public class PlayerControl : MonoBehaviour
     void Update()
     {
         curSpeed = (moveSpeed != 0) ? moveSpeed : curSpeed;
-        
+
         if (PauseMenu.isPaused)
         {
             handlePause();
@@ -61,13 +61,13 @@ public class PlayerControl : MonoBehaviour
         {
             activateTopView();
         }
-        
+
         else
         {
             activateNormalView();
         }
-        
-        
+
+
         if (Input.GetKeyUp(KeyCode.Space))
         {
             StartCoroutine(enableSpace());
@@ -90,18 +90,23 @@ public class PlayerControl : MonoBehaviour
                 gameManager.LoseScreen();
             }
         }
-       
+        else
+        {
+            moveSpeed = 0;
+        }
+
 
         //todo remove at end - hack for fast explosion and move to next level
         if (Input.GetKeyDown(KeyCode.E))
         {
+            finish = true;
             ZoomOut();
             playerTimer.stopTimer();
             gameManager.NextLevelScreen();
         }
     }
-    
-    
+
+
     private void handlePause()
     {
         if (!pauseInProcces)
@@ -117,7 +122,7 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
-    
+
     IEnumerator moveFromTopToBottom()
     {
         pauseInProcces = true;
@@ -127,7 +132,7 @@ public class PlayerControl : MonoBehaviour
         Time.timeScale = 0;
         pauseInProcces = false;
     }
-    
+
 
     private void activateNormalView()
     {
@@ -139,7 +144,6 @@ public class PlayerControl : MonoBehaviour
         cameraBottom.Priority = 10;
         cameraTop.Priority = 0;
         gameManager.PlaySound(SoundManager.Sounds.NORMAL);
-
     }
 
 
@@ -155,15 +159,15 @@ public class PlayerControl : MonoBehaviour
         StartCoroutine(moveFromBottomToTop());
         gameManager.PlaySound(SoundManager.Sounds.SLOW);
     }
-    
-    
+
+
     IEnumerator moveFromBottomToTop()
-    { 
-        yield return new WaitForSeconds(0.5f); 
+    {
+        yield return new WaitForSeconds(0.5f);
         Time.timeScale = 0f;
     }
-    
-    
+
+
     IEnumerator enableSpace()
     {
         spacePreased = true;
@@ -253,6 +257,7 @@ public class PlayerControl : MonoBehaviour
         {
             gameManager.AddRigidChildren(otherTransform.parent);
         }
+
         gameManager.PlaySound(SoundManager.Sounds.OBJECT_COLLAPSE);
     }
 
@@ -265,7 +270,7 @@ public class PlayerControl : MonoBehaviour
         gameManager.ManageScreen(ScreenEffectsManager.Effects.TIME);
     }
 
-    
+
     private void bombHandler(GameObject other)
     {
         playerExpBar.addExp(bombAdd);
@@ -273,7 +278,7 @@ public class PlayerControl : MonoBehaviour
         gameManager.PlaySound(SoundManager.Sounds.BOMB_EXP);
     }
 
-    
+
     private void speedHandler(GameObject other)
     {
         other.GetComponent<Particle>().Detonate();
@@ -333,22 +338,8 @@ public class PlayerControl : MonoBehaviour
         // explode
         Sequence mySequence = DOTween.Sequence();
         mySequence
-            .Append(transform.DOScale(new Vector3(50, 20, 15), 1.5f))
-            .Insert(0, transform.DOMove(new Vector3(5f, 3.5f, 120f), 3f))
-            .Insert(0, transform.DORotate(new Vector3(15, 360, 10), 50).SetLoops(-1, LoopType.Incremental)
+            // .Append(transform.DOScale(new Vector3(50, 20, 15), 1.5f))
+            .Append(transform.DORotate(new Vector3(15, 360, 10), 50).SetLoops(-1, LoopType.Incremental)
                 .SetEase(Ease.Linear).SetRelative());
-
-        // gameManager.PlaySound(SoundManager.Sounds.BIG_EXP);
-        // StartCoroutine(MoveScene());
     }
-
-
-    /*
-     * moves to next scene after 10 secs - so we'll see the explosion
-     #1#
-    IEnumerator MoveScene()
-    {
-        yield return new WaitForSeconds(10);
-        gameManager.NextLevel();
-    }*/
 }
