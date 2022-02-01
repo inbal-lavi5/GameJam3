@@ -13,6 +13,7 @@ public class ExpBar : MonoBehaviour
     private float curAmount;
     private Image bar;
     [SerializeField] private Text precentage;
+    private Animator anim;
 
 
     private void Start()
@@ -21,6 +22,7 @@ public class ExpBar : MonoBehaviour
         // precentage = transform.GetChild(0).GetComponent<Text>();
         curAmount = EXP_MIN;
         updateUI();
+        anim = transform.GetChild(0).GetComponent<Animator>();
     }
 
 
@@ -28,6 +30,7 @@ public class ExpBar : MonoBehaviour
     {
         // curAmount += EXP_ADD;
         curAmount += size;
+        anim.Play("percentPulse", 0, 0);
 
         if (curAmount >= EXP_MAX)
         {
@@ -57,7 +60,7 @@ public class ExpBar : MonoBehaviour
         float t = (aValue - aIn1) / (aIn2 - aIn1);
         if (t > 1f)
             return aOut2;
-        if(t < 0f)
+        if (t < 0f)
             return aOut1;
         return aOut1 + (aOut2 - aOut1) * t;
     }

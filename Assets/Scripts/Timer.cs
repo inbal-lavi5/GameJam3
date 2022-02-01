@@ -17,11 +17,13 @@ public class Timer : MonoBehaviour
     private bool stop;
     private bool startCountDown = false;
 
+    private Animator anim;
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         currentTime = startingTime;
         ogFontSize = timerText.fontSize;
+        anim = GetComponent<Animator>();
     }
 
     void Update()
@@ -30,10 +32,9 @@ public class Timer : MonoBehaviour
         currentTime -= 1 * Time.deltaTime * scaleTimeFactor;
         timerText.text = currentTime.ToString("0");
 
-        if (currentTime <= 5)
+        if (currentTime <= 10)
         {
-            timerText.color = Color.red;
-            timerText.fontSize = ogFontSize + 40;
+            anim.Play("timePulse");
 
             if (!startCountDown)
             {
@@ -44,8 +45,7 @@ public class Timer : MonoBehaviour
         
         else
         {
-            timerText.color = Color.white;
-            timerText.fontSize = ogFontSize;
+            anim.Play("timeIdle");
         }
 
         if (currentTime <= 0)
