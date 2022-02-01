@@ -3198,7 +3198,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -402.2}
-  m_SizeDelta: {x: 338, y: 63}
+  m_SizeDelta: {x: 409.9, y: 63}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &6464239284853298851
 CanvasRenderer:
@@ -3228,7 +3228,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a2c4beff7dab0904eb757fd71d0a05a4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3bf11e912deed8d46b1bfffd3879c1d8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3554,7 +3554,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -402.2}
-  m_SizeDelta: {x: 338, y: 63}
+  m_SizeDelta: {x: 409.9, y: 63}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &2805298147715798597
 CanvasRenderer:
@@ -3584,7 +3584,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fc45ef0aed40f48429a92ade880a6343, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 006a429cf1ab4ce4db2785d980ccc830, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3972,7 +3972,7 @@ GameObject:
   - component: {fileID: 1590640959464687905}
   - component: {fileID: 4926353089895051931}
   - component: {fileID: 5185370572848310158}
-  - component: {fileID: 2663236819184913065}
+  - component: {fileID: 5305110490956431995}
   m_Layer: 5
   m_Name: WinPanel
   m_TagString: Untagged
@@ -4040,7 +4040,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!95 &2663236819184913065
+--- !u!95 &5305110490956431995
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
@@ -4050,7 +4050,7 @@ Animator:
   m_GameObject: {fileID: 8726550718880258505}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f338bd59d8f78434db8bb96c17aacc72, type: 2}
+  m_Controller: {fileID: 9100000, guid: d7651210369e3624c95e263676eabece, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

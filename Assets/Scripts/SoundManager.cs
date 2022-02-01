@@ -117,7 +117,7 @@ public class SoundManager : MonoBehaviour
             
             case Sounds.OBJECT_COLLAPSE:
                 int i = Random.Range(0, OBJECT_COLLAPSE.Length);
-                mainAudioSrc.PlayOneShot(OBJECT_COLLAPSE[i], 0.1f);
+                mainAudioSrc.PlayOneShot(OBJECT_COLLAPSE[i], 0.05f);
                 break;
             
             case Sounds.GOOD_PICKUP:
