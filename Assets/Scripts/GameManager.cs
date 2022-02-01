@@ -49,14 +49,14 @@ public class GameManager : MonoBehaviour
     {
         if (soundManager.isOn())
         {
-            offBotton.SetActive(true);
-            onBotton.SetActive(false);
+            offBotton.SetActive(false);
+            onBotton.SetActive(true);
         }
 
         else
         {
-            offBotton.SetActive(false);
-            onBotton.SetActive(true);
+            offBotton.SetActive(true);
+            onBotton.SetActive(false);
         }
     }
 
@@ -77,15 +77,15 @@ public class GameManager : MonoBehaviour
         switch (sceneIndex)
         {
             case 1:
-                PlaySound(SoundManager.Sounds.VILLAGE);
+                PlaySound(SoundManager.Sounds.CITY);
                 break;
             
             case 2:
-                PlaySound(SoundManager.Sounds.PAGAN);
+                PlaySound(SoundManager.Sounds.VILLAGE);
                 break;
             
             case 3:
-                PlaySound(SoundManager.Sounds.CITY);
+                PlaySound(SoundManager.Sounds.PAGAN);
                 break;
         }
     }

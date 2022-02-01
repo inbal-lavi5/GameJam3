@@ -272,7 +272,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MENU: {fileID: 8300000, guid: ed6db1f48f50c5149b3a4916534fbed2, type: 3}
   PAGAN: {fileID: 8300000, guid: d7e42227b49968042bbb3e7d479a4b1a, type: 3}
-  VILLAGE: {fileID: 8300000, guid: 841702fae3c3d94469e4699b12b7f87d, type: 3}
+  VILLAGE: {fileID: 8300000, guid: 880c22cb65f967641b355e7ad0fc68e7, type: 3}
   CITY: {fileID: 8300000, guid: f4623b7ac36ee604f9f44a3e78aad043, type: 3}
   WINNING: {fileID: 8300000, guid: 517afcb04d342c04f9f207afae818cfa, type: 3}
   LOSING: {fileID: 8300000, guid: 9cb6dbd61ae123845a8c87bfc55bd9c6, type: 3}

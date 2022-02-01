@@ -88,19 +88,19 @@ public class SoundManager : MonoBehaviour
             case Sounds.PAGAN:
                 last = 1;
                 stopAll();
-                mainAudioSrc.PlayOneShot(PAGAN);
+                mainAudioSrc.PlayOneShot(PAGAN, 0.7f);
                 break;
           
             case Sounds.VILLAGE:
                 last = 1;
                 stopAll();
-                mainAudioSrc.PlayOneShot(VILLAGE);
+                mainAudioSrc.PlayOneShot(VILLAGE, 0.5f);
                 break;
             
             case Sounds.CITY:
                 last = 1;
                 stopAll();
-                mainAudioSrc.PlayOneShot(CITY, 0.3f);
+                mainAudioSrc.PlayOneShot(CITY, 0.5f);
                 break;     
 
             case Sounds.WINNING:
@@ -223,7 +223,7 @@ public class SoundManager : MonoBehaviour
     private static void UnmuteAll()
     {
         mainAudioSrc.volume = 0.2f;
-        pauseAudioSrc.volume = 0.5f;
+        pauseAudioSrc.volume = 0.2f;
         loseAudioSrc.volume = 0.5f;
         winAudioSrc.volume = 0.5f;
     }

@@ -95661,6 +95661,10 @@ PrefabInstance:
       value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 5313135991083120069, guid: 037676b0d5d17794aac08e3ce5fda5dd, type: 3}
+      propertyPath: speedToAdd
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 5313135991083120069, guid: 037676b0d5d17794aac08e3ce5fda5dd, type: 3}
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 110122178}
@@ -95672,6 +95676,10 @@ PrefabInstance:
       propertyPath: playerExpBar
       value: 
       objectReference: {fileID: 888433842}
+    - target: {fileID: 5313135991083120069, guid: 037676b0d5d17794aac08e3ce5fda5dd, type: 3}
+      propertyPath: rotationSpeed
+      value: 125
+      objectReference: {fileID: 0}
     - target: {fileID: 5313135991083120070, guid: 037676b0d5d17794aac08e3ce5fda5dd, type: 3}
       propertyPath: m_Name
       value: Player
