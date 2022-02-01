@@ -205,22 +205,18 @@ public class SoundManager : MonoBehaviour
     }
     
     
-    public void OnOffAudio(GameObject offBottom, GameObject onBottom)
+    public void OnOffAudio()
     {
         if (on)
         {
             on = false;
             muteAll();
-            offBottom.SetActive(true);
-            onBottom.SetActive(false);
         }
         
         else
         {
             on = true;
             UnmuteAll();
-            offBottom.SetActive(false);
-            onBottom.SetActive(true);
         }
     }
 
@@ -238,5 +234,11 @@ public class SoundManager : MonoBehaviour
         pauseAudioSrc.volume = 0;
         loseAudioSrc.volume = 0;
         winAudioSrc.volume = 0;
+    }
+
+
+    public bool isOn()
+    {
+        return @on;
     }
 }

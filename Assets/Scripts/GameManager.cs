@@ -24,8 +24,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject nextPanel;
     [SerializeField] private GameObject nextPanelFirstButton;
 
-    [SerializeField] private GameObject ONbotton;
-    [SerializeField] private GameObject OFFbotton;
+    [SerializeField] private GameObject onBotton;
+    [SerializeField] private GameObject offBotton;
     
     private int timeToRemovePart = 15;
     [SerializeField] public int powerUpsTime;
@@ -41,9 +41,26 @@ public class GameManager : MonoBehaviour
     {
         soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         playBackgroung();
+        updateSoundBottons();
     }
+
     
-   
+    private void updateSoundBottons()
+    {
+        if (soundManager.isOn())
+        {
+            offBotton.SetActive(true);
+            onBotton.SetActive(false);
+        }
+
+        else
+        {
+            offBotton.SetActive(false);
+            onBotton.SetActive(true);
+        }
+    }
+
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.R))
@@ -200,7 +217,8 @@ public class GameManager : MonoBehaviour
 
     public void soundOnOff()
     {
-        soundManager.OnOffAudio(OFFbotton, ONbotton);
+        soundManager.OnOffAudio();
+        updateSoundBottons();
     }
     
     public void ManageScreen(ScreenEffectsManager.Effects fx)
