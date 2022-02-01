@@ -130,7 +130,7 @@ public class GameManager : MonoBehaviour
         int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
         if (nextSceneIndex >= numOfLevels)
         {
-            PlaySound(SoundManager.Sounds.WINNING);
+            PlaySound(SoundManager.Sounds.FINAL);
             winPanel.SetActive(true);
             EventSystem.current.GetComponent<EventSystem>()
                 .SetSelectedGameObject(winPanelFirstButton);

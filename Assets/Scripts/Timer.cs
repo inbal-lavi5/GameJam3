@@ -32,7 +32,7 @@ public class Timer : MonoBehaviour
         currentTime -= 1 * Time.deltaTime * scaleTimeFactor;
         timerText.text = currentTime.ToString("0");
 
-        if (currentTime <= 10)
+        if (currentTime <= 5)
         {
             anim.Play("timePulse");
 

@@ -285,6 +285,7 @@ MonoBehaviour:
   BAD_PICKUP: {fileID: 8300000, guid: 2dc2b40d21c39814a95e669ae2669820, type: 3}
   BOMB_EXP: {fileID: 8300000, guid: 85aa59a68ee17db4789e94365af38d53, type: 3}
   TIMER: {fileID: 8300000, guid: 07a948955f78c7c478dbc20ea88e3012, type: 3}
+  FINAL: {fileID: 8300000, guid: 0f07126961dfe1340990d7fecebd00e7, type: 3}
 --- !u!1 &7066893674584299497
 GameObject:
   m_ObjectHideFlags: 0

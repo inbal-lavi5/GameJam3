@@ -22,7 +22,8 @@ public class SoundManager : MonoBehaviour
         PLAY,
         TIMER,
         SLOW,
-        NORMAL
+        NORMAL,
+        FINAL
     }
     
     [SerializeField] private AudioClip MENU;
@@ -36,6 +37,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip BAD_PICKUP;
     [SerializeField] private AudioClip BOMB_EXP;
     [SerializeField] private AudioClip TIMER;
+    [SerializeField] private AudioClip FINAL;
 
     static AudioSource mainAudioSrc;
     static AudioSource pauseAudioSrc;
@@ -107,6 +109,13 @@ public class SoundManager : MonoBehaviour
                 last = 2;
                 mainAudioSrc.Stop();
                 winAudioSrc.PlayOneShot(WINNING, 0.5f);
+                break;
+            
+            case Sounds.FINAL:
+                last = 2;
+                mainAudioSrc.Stop();
+                winAudioSrc.clip = FINAL;
+                winAudioSrc.PlayOneShot(FINAL, 0.5f);
                 break;  
             
             case Sounds.LOSING:
