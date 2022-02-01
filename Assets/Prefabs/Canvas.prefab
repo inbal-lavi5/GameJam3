@@ -1187,7 +1187,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerText: {fileID: 764805076375020094}
-  anim: {fileID: 0}
 --- !u!95 &3922760475735354763
 Animator:
   serializedVersion: 3

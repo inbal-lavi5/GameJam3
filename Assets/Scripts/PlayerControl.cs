@@ -276,6 +276,7 @@ public class PlayerControl : MonoBehaviour
         playerExpBar.addExp(bombAdd);
         other.GetComponent<Particle>().Detonate();
         gameManager.PlaySound(SoundManager.Sounds.BOMB_EXP);
+        gameManager.ManageScreen(ScreenEffectsManager.Effects.BOMB);
     }
 
 
@@ -299,7 +300,7 @@ public class PlayerControl : MonoBehaviour
     {
         gameManager.ManageScreen(ScreenEffectsManager.Effects.STOP);
         breaking = false;
-        yield return new WaitForSecondsRealtime(gameManager.powerUpsTime);
+        yield return new WaitForSeconds(gameManager.powerUpsTime);
         breaking = true;
     }
 
@@ -309,7 +310,7 @@ public class PlayerControl : MonoBehaviour
         gameManager.ManageScreen(ScreenEffectsManager.Effects.SPEED);
         moveSpeed += speedToAdd;
 
-        yield return new WaitForSecondsRealtime(gameManager.powerUpsTime);
+        yield return new WaitForSeconds(gameManager.powerUpsTime);
 
         moveSpeed -= speedToAdd;
     }
