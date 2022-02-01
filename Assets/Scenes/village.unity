@@ -6648,9 +6648,17 @@ PrefabInstance:
       value: GameManager
       objectReference: {fileID: 0}
     - target: {fileID: 509228394447556519, guid: 3bf77e399229f654991e7d15f71beec7, type: 3}
+      propertyPath: ONbotton
+      value: 
+      objectReference: {fileID: 888433846}
+    - target: {fileID: 509228394447556519, guid: 3bf77e399229f654991e7d15f71beec7, type: 3}
       propertyPath: winPanel
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 509228394447556519, guid: 3bf77e399229f654991e7d15f71beec7, type: 3}
+      propertyPath: OFFbotton
+      value: 
+      objectReference: {fileID: 888433847}
     - target: {fileID: 509228394447556519, guid: 3bf77e399229f654991e7d15f71beec7, type: 3}
       propertyPath: losePanel
       value: 
@@ -49561,10 +49569,6 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 764805077089305654, guid: 9e6c251387d78424fbe7ec94a51acc6a, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 764805077421070415, guid: 9e6c251387d78424fbe7ec94a51acc6a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -49688,14 +49692,14 @@ PrefabInstance:
     - target: {fileID: 1328087222349960586, guid: 9e6c251387d78424fbe7ec94a51acc6a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 110122178}
     - target: {fileID: 1328087222349960586, guid: 9e6c251387d78424fbe7ec94a51acc6a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnOffAudio
+      value: soundOnOff
       objectReference: {fileID: 0}
     - target: {fileID: 1328087222349960586, guid: 9e6c251387d78424fbe7ec94a51acc6a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: SoundManager, Assembly-CSharp
+      value: GameManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4582268261648334545, guid: 9e6c251387d78424fbe7ec94a51acc6a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -49748,14 +49752,14 @@ PrefabInstance:
     - target: {fileID: 8787294205670510312, guid: 9e6c251387d78424fbe7ec94a51acc6a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 110122178}
     - target: {fileID: 8787294205670510312, guid: 9e6c251387d78424fbe7ec94a51acc6a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnOffAudio
+      value: soundOnOff
       objectReference: {fileID: 0}
     - target: {fileID: 8787294205670510312, guid: 9e6c251387d78424fbe7ec94a51acc6a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: SoundManager, Assembly-CSharp
+      value: GameManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8889595904615635260, guid: 9e6c251387d78424fbe7ec94a51acc6a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -49813,6 +49817,16 @@ GameObject:
 --- !u!1 &888433845 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2134888755030959448, guid: 9e6c251387d78424fbe7ec94a51acc6a, type: 3}
+  m_PrefabInstance: {fileID: 888433841}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &888433846 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4334538491001482573, guid: 9e6c251387d78424fbe7ec94a51acc6a, type: 3}
+  m_PrefabInstance: {fileID: 888433841}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &888433847 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5077911671424743110, guid: 9e6c251387d78424fbe7ec94a51acc6a, type: 3}
   m_PrefabInstance: {fileID: 888433841}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &888433848 stripped
